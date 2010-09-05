@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Language" content="cs">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Admin sekce</title>
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  
+  <script type="text/javascript" src="fckeditor/fckeditor.js"></script>
+  
+  <script type="text/javascript" src="../javascripty.js/GlassScripts/GlassScripts.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="../javascripty.js/GlassScripts/css_default/glass_scripts.css" />
+  
+  <style>
+    a{  color: black;}
+  </style>
+  <meta http-equiv='X-UA-Compatible' content='IE=7'>  
+</head>
+<body bgcolor="#FFCD82" background="{php: Echo getPozadi();}" style="background-attachment: fixed;">
+  <div align="center">  
+    <table border="0" width="685" cellpadding="0" cellspacing="0" background="images/tapeta-tabulky.png">    
+      <tr>      
+        <td width="398" height="140" style="padding-left: 12px; padding-top: 7px;">      
+          <a href="http://www.grafartstudio.cz">      
+            <img border="0" src="images/hlavicka.png"></a></td>      
+        <td width="9">      &nbsp;</td>      
+        <td width="278">      
+          <table border="0" width="278" style="margin-top: 15px; text-align: left;">
+            <tr>
+              <td width="141" height="1" align="right" valign="bottom">
+    
+              <font face="Arial" style="font-size: 8pt">Stav:</font></td>
+              <td width="127" colspan="2" height="1" valign="top">
+    
+    
+              <font face="Arial" style="font-size: 8pt; font-weight: 700" color="#009933">
+    
+    
+              OK.</font><tr>
+              <td width="141" align="right" valign="bottom">
+              <font face="Arial" style="font-size: 8pt">Dnes je:</font></td>
+    
+              <td width="127" colspan="2" valign="top">
+    
+    
+              <font face="Arial" style="font-size: 8pt" color="#808080">
+              {php: Echo dnesniDen().date(" j.n. Y");}
+              </font></tr>
+    
+            <tr>
+              <td width="141" height="21" align="right">
+              <font face="Arial" style="font-size: 8pt">Využíváte
+              prohlížeč:</font></td>
+    
+              <td width="127" colspan="2" height="21">
+              <font face="Arial" style="font-size: 8pt; " color="#808080">
+              {php: Echo getProhlizec();}
+              </font></td>
+            </tr>
+            <tr>
+              <td width="141" align="right">
+              <font face="Arial" style="font-size: 8pt">Vaše IP adresa:</font></td>
+              <td width="127" colspan="2">
+    
+              <font face="Arial" style="font-size: 8pt; " color="#808080">
+              {php: Echo $_SERVER["REMOTE_ADDR"];}
+              </font></td>
+            </tr>
+            <tr>
+              <td width="268" align="right" colspan="3">
+              <span style="font-size: 1pt">&nbsp;</span><span style="font-size: 2pt">
+              </span></td>
+              </tr>
+    
+            <tr>
+              <td width="141" height="21">
+              <p style="text-align: right;">
+              <font face="Arial" style="font-size: 9pt; font-weight: 700">
+              Vyberte si své schéma:&nbsp;</font></td>
+              <td width="105" height="21">
+              <form name="formSkin" method="post" action="" style="margin: 0px 0px 0px 0px;">
+                <input type="hidden" name="zmena_skinu" value="ano">
+    
+                <select name="skin" onChange="document.forms.formSkin.submit()" class="select">
+                  <option value="">vyberte pozadí</option>
+                  <option value="Afrika" {php: Echo ($_POST["skin"]=='Afrika' OR $_COOKIE["skin"]=='Afrika')? 'selected': '';}>Afrika</option>
+                  <option value="Grafart" {php: Echo ($_POST["skin"]=='Grafart' OR $_COOKIE["skin"]=='Grafart')? 'selected': '';}>Grafart</option>
+                  <option value="List" {php: Echo ($_POST["skin"]=='List' OR $_COOKIE["skin"]=='List')? 'selected': '';}>List</option>
+                  <option value="Obloha" {php: Echo ($_POST["skin"]=='Obloha' OR $_COOKIE["skin"]=='Obloha')? 'selected': '';}>Obloha</option>
+                  <option value="Vánoce" {php: Echo ($_POST["skin"]=='Vánoce' OR $_COOKIE["skin"]=='Vánoce')? 'selected': '';}>Vánoce</option>
+                </select>
+              </form>
+              </td>
+              <td width="18" height="21">&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="141" height="21">
+    
+              <p style="text-align: right;">
+              <font face="Arial" style="font-size: 9pt; font-weight: 700">
+              Zobrazit:&nbsp;</font></td>
+              <td width="105" height="21">
+              <form name="formZobr" method="post" action="" style="margin: 0px 0px 0px 0px;">
+                <select name="zobrazFunkce" onChange="document.forms.formZobr.submit()" class="select">
+                  <option value="vse">Všechny funkce</option>
+                  <option value="aktivni" {php: Echo '{zobrazFunkce}'=='aktivni'? 'selected': '';}>Pouze aktivní</option>
+                </select>
+              </form>
+              </td>
+              <td width="18" height="21">&nbsp;</td>
+            </tr>
+          </table>                        
+        </td>    
+      </tr>    
+      <tr>      
+        <td width="685" colspan="3" valign="top">       
+          <div id="boxy">
+
+
+            <table width="634" align="center">
+              <tr>
+                <td width="20">
+                  <hr size="1" width="50" align="left"></td>
+                <td width="40" align="center">
+                  <span class="seda" style="text-align: center; font-size: 8pt;">Hlavní
+                  </span></td>
+                <td width="544" align="left">
+                  <hr size="1"></td>
+              </tr>
+            </table> 
+                   
+            <div class="box_big">          
+              {php: Echo file_get_contents('http://www.grafartstudio.cz/gtp/globals.php?clanek=1');}
+            </div>
+            
+                    
+            <div class="box" style="width: px;">
+              <a href="?m=pridat_zbozi">
+                <img src="images/pridat.png"></a>
+              <a href="?m=pridat_zbozi" class="">Přidat produkt</a>
+              <p class="">Slouží k přidávání nové nemovitosti.
+              </p>
+            </div>
+            <div class="box" style="width: px;">
+              <a href="?m=editace_zbozi">
+                <img src="images/editovat.png"></a>
+              <a href="?m=editace_zbozi" class="">Editace produktů</a>
+              <p class="">Slouží k úpravě údajů o položkách, přidávání nebo mazání jednotlivých údajů.
+              </p>
+            </div>
+            <div class="box" style="width: px;">
+              <a href="?m=kategorie">
+                <img src="images/kategorie.png"></a>
+              <a href="?m=kategorie" class="">Kategorie</a>
+              <p class="">Úpravy, přejmenování a mazání kategorií a podkategorií.
+              </p>
+            </div>
+            <div class="box" style="width: px;">
+              <a href="?m=dopravne">
+                <img src="images/dopravne.png"></a>
+              <a href="?m=dopravne" class="">Nastavení dopravy a plateb</a>
+              <p class="">Zde můžete změnit ceny za dopravu, způsoby doručení zboží a plateb.
+              </p>
+            </div>
+            {velkoobchod/}
+            <div class="box" style="width: px;">
+              <a href="?m=velkoobchod">
+                <img src="images/velkoobchod.png"></a>
+              <a href="?m=velkoobchod" class="">Velkoobchod</a>
+              <p class="">Organizace zákazníků do skupin velkoobchodů, nastavování slev.
+              </p>
+            </div>            
+            {/velkoobchod}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{velkoobchodGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Velkoobchod">
+                <img src="images/velkoobchod-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Velkoobchod" class="seda">Velkoobchod</a>
+              <p class="seda">Organizace zákazníků do skupin velkoobchodů, nastavování slev.
+              </p>
+            </div>            
+            {/velkoobchodGrey}{php: } ;}
+            {hromadneCeny/}
+            <div class="box" style="width: px;">
+              <a href="?m=ceny">
+                <img src="images/penize.png"></a>
+              <a href="?m=ceny" class="">Hromadná změna cen</a>
+              <p class="">Dovoluje změnit cenu o určitý počet procent u více zboží najednou.
+              </p>
+            </div>
+            {/hromadneCeny}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{hromadneCenyGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Hromadná změna cen">
+                <img src="images/penize-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Hromadná změna cen" class="seda">Hromadná změna cen</a>
+              <p class="seda">Dovoluje změnit cenu o určitý počet procent u více zboží najednou.
+              </p>
+            </div>
+            {/hromadneCenyGrey}{php: } ;} 
+                        
+            <div class="box" style="width: px;">
+              <a href="?m=clanky">
+                <img src="images/clanky.png"></a>
+              <a href="?m=clanky" class="">Textové stránky</a>
+              <p class="">Editace či přidávání textových stránek pro Váš web.
+              </p>
+            </div>
+            
+            {fotogalerie/}
+            <div class="box" style="width: px;">
+              <a href="?m=fotogalerie">
+                <img src="images/fotogalerie.png"></a>
+              <a href="?m=fotogalerie">Fotogalerie</a>
+              <p>Editace či přidávání fotografií do galerií na Vašem webu. 
+              </p>
+            </div>
+            {/fotogalerie}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{fotogalerieGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Fotogalerie">
+                <img src="images/fotogalerie-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Fotogalerie" class="seda">Fotogalerie</a>
+              <p class="seda">Editace či přidávání fotografií do galerií na Vašem webu. 
+              </p>
+            </div>
+            {/fotogalerieGrey}{php: } ;} 
+            
+            {ankety/}
+            <div class="box" style="width: px;">
+              <a href="?m=ankety">
+                <img src="images/ankety.png"></a>
+              <a href="?m=ankety">Ankety</a>
+              <p class="">Tato umožní vložit do stránek anketu, abyste měli lepší zpětnou vazbu s Vašimi potencionálními klienty. 
+              </p>
+            </div>
+            {/ankety}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{anketyGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Ankety">
+                <img src="images/ankety-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Ankety" class="seda">Ankety</a>
+              <p class="seda">Tato umožní vložit do stránek anketu, abyste měli lepší zpětnou vazbu s Vašimi potencionálními klienty. 
+              </p>
+            </div>
+            {/anketyGrey}{php: } ;}            
+            
+            {fora/}
+            <div class="box" style="width: px;">
+              <a href="?m=forum">
+                <img src="images/fora.png"></a>
+              <a href="?m=forum">Diskusní fórum</a>
+              <p>Zde můžete založit diskusní fórum, aby Vaši klienti mohli přímo na stránkách diskutovat a vy s nimi. 
+              </p>
+            </div>
+            {/fora}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{foraGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Diskusní fórum">
+                <img src="images/fora-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Diskusní fórum" class="seda">Diskusní fórum</a>
+              <p class="seda">Zde můžete založit diskusní fórum, aby Vaši klienti mohli přímo na stránkách diskutovat a vy s nimi. 
+              </p>
+            </div>
+            {/foraGrey}{php: } ;}
+            
+            {facebook/}
+            <div class="box" style="width: px;">
+              <a href="?m=facebook">
+                <img src="images/facebook.png"></a>
+              <a href="?m=facebook">Facebook</a>
+              <p>Modul umožňující sdílení a publikování jednotlivých stránek Vašeho webu vč. náhledového obrázku na síti FACEBOOK. 
+              </p>
+            </div>                
+            {/facebook}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{facebookGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Facebook">
+                <img src="images/facebook-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Facebook" class="seda">Facebook</a>
+              <p class="seda">Modul umožňující sdílení a publikování jednotlivých stránek Vašeho webu vč. náhledového obrázku na síti FACEBOOK. 
+              </p>
+            </div>
+            {/facebookGrey}{php: } ;}
+                        
+            {kalendar/}
+            <div class="box" style="width: px;">
+              <a href="?m=kalendar">
+                <img src="images/kalendar.png"></a>
+              <a href="?m=kalendar">Kalendář akcí</a>
+              <p>Modul, ve kterém můžete informovat své návštěvníky o Vašich akcích, jejich termínech a dalších detailech v přehledném kalendáři. 
+              </p>
+            </div>
+            {/kalendar}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{kalendarGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Kalendář akcí">
+                <img src="images/kalendar-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Kalendář akcí" class="seda">Kalendář akcí</a>
+              <p class="seda">Modul, ve kterém můžete informovat své návštěvníky o Vašich akcích, jejich termínech a dalších detailech v přehledném kalendáři. 
+              </p>
+            </div>
+            {/kalendarGrey}{php: } ;}
+
+            {soubory/}            
+            <div class="box" style="width: px;">
+              <a href="?m=soubory">
+                <img src="images/soubory.png"></a>
+              <a href="?m=soubory">Správce souborů</a>
+              <p>Tato funkce Vám umožní ukládání či mazání dat na Váš server. 
+              </p>
+            </div>
+            {/soubory}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{souboryGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Správce souborů">
+                <img src="images/soubory-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Správce souborů" class="seda">Správce souborů</a>
+              <p class="seda">Tato funkce Vám umožní ukládání či mazání dat na Váš server. 
+              </p>
+            </div>
+            {/souboryGrey}{php: } ;}
+            
+                      
+            <table border="0" width="635" cellspacing="0" cellpadding="0" style="margin-top: 10px;">            
+              <tr>              
+                <td width="55">
+                  <hr size="1" width="50" align="left">              </td>              <td>              
+                  <font face="Arial" class="seda" style="font-size: 8pt;">Usnadnění               práce
+                  </font></td>              
+                <td width="477">
+                  <hr size="1"></td>            
+              </tr>          
+            </table>          
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci">
+                <img src="images/pridat_funkci.png"></a>
+              <a href="?m=pridat-funkci" class="">Přidat funkci</a>
+              <p class="">Práce naší společnosti je vždy klientům na míru a tak si zde můžete zadat požadavek na funkci, kterou zde postrádáte.
+              </p>
+            </div>
+            <div class="box" style="width: px;">
+              <a href="?m=software">
+                <img src="images/software_ke_stazeni.png"></a>
+              <a href="?m=software" class="">Software ke stažení</a>
+              <p class="">Zde naleznete software, který vám usnadní a urychlí práci při administraci vašich stránek.
+              </p>
+            </div>
+            
+            {kalkulacka/}
+            <div class="box" style="width: px;">
+              <a href="?m=#">
+                <img src="images/kalkulacka.png" style="cursor: pointer;" onClick="window.open('kalkulacka.html', 'Kalkulačka', 'toolbar=no, menubar=no, location=no, width=260, height=290, top=200, left=100');"></a>
+              <a href="?m=#" class="" style="cursor: pointer;" onClick="window.open('kalkulacka.html', 'Kalkulačka', 'toolbar=no, menubar=no, location=no, width=260, height=290, top=200, left=100');">Kalkulačka</a>
+              <p class="">Tradiční kalkulačka, navíc s funkcemi pro práci s cenami a DPH.
+              </p>
+            </div>
+            {/kalkulacka}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{kalkulackaGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Kalkulačka">
+                <img src="images/kalkulacka-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Kalkulačka" class="seda">Kalkulačka</a>
+              <p class="seda">Tradiční kalkulačka, navíc s funkcemi pro práci s cenami a DPH.
+              </p>
+            </div>
+            {/kalkulackaGrey}{php: } ;}            
+            
+                      
+            <table border="0" width="635" cellspacing="0" cellpadding="0" style="margin-top: 10px;">            
+              <tr>              
+                <td width="55">
+                  <hr size="1" width="50" align="left">              </td>              <td>              
+                  <font face="Arial" class="seda" style="font-size: 8pt;">Přehledy
+                  </font></td>              
+                <td width="525">
+                  <hr size="1"></td>            
+              </tr>          
+            </table>          
+            <div class="box" style="width: px;">
+              <a href="?m=objednavky">
+                <img src="images/objednavky.png"></a>
+              <a href="?m=objednavky" class="">Vyplněné objednávky</a>
+              <p class="">Zde naleznete přehled odeslaných objednávek od vašich zákazníků.
+              </p>
+            </div>
+            
+            {faktury/}
+            <div class="box" style="width: px;">
+              <a href="?m=faktury">
+                <img src="images/faktury.png"></a>
+              <a href="?m=faktury" class="">Vystavené faktury</a>
+              <p class="">Zde naleznete všechny vystavené faktury z objednávek Vašeho portálu.
+              </p>
+            </div>
+            {/faktury}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{fakturyGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Vystavené faktury">
+                <img src="images/faktury-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Vystavené faktury" class="seda">Vystavené faktury</a>
+              <p class="seda">Zde naleznete všechny vystavené faktury z objednávek Vašeho portálu.
+              </p>
+            </div>
+            {/fakturyGrey}{php: } ;}
+            
+            {zakaznici/}            
+            <div class="box" style="width: px;">
+              <a href="?m=zakaznici">
+                <img src="images/zakaznici.png"></a>
+              <a href="?m=zakaznici" class="">Informace o návštěvnících vašeho portálu</a>
+              <p class="">Přehled registrovaných zákazníků a také návštěvníků, kteří mají zájem o zasílání novinek na e-mail. 
+              </p>
+            </div>
+            {/zakaznici}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{zakazniciGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Informace o návštěvnících vašeho portálu">
+                <img src="images/zakaznici-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Informace o návštěvnících vašeho portálu" class="seda">Informace o návštěvnících vašeho portálu</a>
+              <p class="seda">Přehled registrovaných zákazníků a také návštěvníků, kteří mají zájem o zasílání novinek na e-mail.
+              </p>
+            </div>
+            {/zakazniciGrey}{php: } ;}
+            
+            
+            <div class="box" style="width: px;">
+              <a href="{php: Echo $GLOBALS["config"]["pocitadloUrl"];}">
+                <img src="images/statistika.png"></a>
+              <a href="{php: Echo $GLOBALS["config"]["pocitadloUrl"];}" class="">Statistiky návštěvnosti</a>
+              <p class="">Kompletní statistiky návštěvnosti Vašeho portálu včetně detailních informací o klíčových slovech, odkud přišli, atd...
+              </p>
+            </div> 
+            
+                     
+            <table border="0" width="634" cellspacing="0" cellpadding="0" style="margin-top: 10px;">            
+              <tr>              
+                <td width="55">
+                  <hr size="1" width="50" align="left">              </td>              <td>
+                  <span class="seda" style="font-size: 8pt;">&nbsp;Komunikujte s námi
+                  </span></td>              
+                <td width="465">
+                  <hr size="1"></td>            
+              </tr>          
+            </table> 
+            
+            <div class="box" style="width: px;">
+              <a href="?m=kontakt">
+                <img src="images/komunikujte_s_nami.png"></a>
+              <a href="?m=kontakt" class="">Rychlý kontakt na techniky</a>
+              <p class="">V případě jakýchkoliv technických otázek či problémů s čímkoliv nás kontaktujte zde. 
+              </p>
+            </div>
+            
+                      
+            <table border="0" width="634" cellspacing="0" cellpadding="0" style="margin-top: 10px;">            
+              <tr>              
+                <td width="55">
+                  <hr size="1" width="50" align="left">              </td>              <td>
+                  <span class="seda" style="font-size: 8pt;">Ukončení práce
+                  </span></td>              
+                <td width="490">
+                  <hr size="1"></td>            
+              </tr>          
+            </table> 
+            
+            {exportProduktu/}         
+            <div class="box" style="width: px;">
+              <a href="?m=export_produktu">
+                <img src="images/excel.png"></a>
+              <a href="?m=export_produktu" class="">Export produktů</a>
+              <p class="">Umožňuje exportovat seznam produktů do formátu pro Microsoft Excel.
+              </p>
+            </div>
+            {/exportProduktu}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{exportProduktuGrey/}         
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Export produktů">
+                <img src="images/excel-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Export produktů" class="seda">Export produktů</a>
+              <p class="seda">Umožňuje exportovat seznam produktů do formátu pro Microsoft Excel.
+              </p>
+            </div>
+            {/exportProduktuGrey}{php: } ;}
+
+            <div class="box" style="width: px;">
+              <a href="http://www.grafartstudio.cz/download/manualy/pruvodce_softwarem-internetovy_obchod.pdf">
+                <img src="images/help.png"></a>
+              <a href="http://www.grafartstudio.cz/download/manualy/pruvodce_softwarem-internetovy_obchod.pdf" class="">Průvodce softwarem</a>
+              <p class="">Zde najdete rozsáhlý manuál, která Vám poradí, jak pracovat a editovat tento internetový obchod.
+              </p>
+            </div>           
+            <div class="box" style="width: px;">
+              <a href="?m=export">
+                <img src="images/ulozit.png"></a>
+              <a href="?m=export" class="">Zálohovat</a>
+              <p class="">Slouží pro zálohu dat z databáze. Ta obsahuje registrované zákazníky a data o zboží v obchodě.
+              </p>
+            </div>
+            <div class="box" style="width: px;">
+              <a href="?m=odhlasit_se">
+                <img src="images/odhlasit.png"></a>
+              <a href="?m=odhlasit_se" class="">Odhlásit se</a>
+              <p class="">Z bezpečnostních důvodů doporučujeme se po skončení práce odhlásit.
+              </p>
+            </div>       
+          </div> 
+          
+               
+          <table border="0" width="634" cellspacing="8" align="center" style="clear: both;">        
+            <tr>
+              <hr style="clear: both; width: 634px; position: relative; position: relative; right: 4px;" size="1" />          
+              <td width="634" align="center" colspan="4" height="15">          
+                <font face="Tahoma" style="font-size: 8pt" color="#808080">          Vyrobilo: 
+                </font>      
+                <span class="style2">      
+                  <font face="Tahoma" color="#808080" style="font-size: 8pt">&copy; 2004 - {php: Echo date("Y");}
+                </span>      
+                <font color="#808080">      
+                  <span lang="en">
+                    <font style="font-size: 8pt" face="Tahoma">&nbsp;
+                      <a target="_blank" href="http://www.grafartstudio.cz" style="text-decoration: none;">
+                        <font color="#808080">GRAFART STUDIO<sup>®</sup>
+                        </font></a>
+                    </font>
+                  </span>
+                </font></td>        
+            </tr>      
+          </table>      </td>    
+      </tr>  
+    </table>
+  </div>
+</body>
+</html>

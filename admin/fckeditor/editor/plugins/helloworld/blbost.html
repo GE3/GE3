@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <title>Přidat galerii</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script language="javascript">
+  var oEditor	= window.parent.InnerDialogLoaded();
+  var FCK = oEditor.FCK;
+  
+  var addGalery = function(cislo){
+                          absDir = '<?php $absDir = "http://".$_SERVER["HTTP_HOST"].ereg_replace("/[^/]*$","/",$_SERVER["SCRIPT_NAME"]); Echo $absDir ?>';
+                          FCK.InsertHtml('<img src="'+absDir+'galery.png" title="galery '+cislo+'" alt="galery '+cislo+'" width="196" height="196">');
+                          window.parent.Cancel();
+  }
+  
+  function zvyrazniGalerii(cislo){
+          eDivGalerieNazev = document.getElementById('divGalerie'+cislo+'Nazev');
+          eDivGalerieNazev.style.backgroundColor = '#FFFFDD';
+  }
+  function odvyrazniGalerii(cislo){
+          eDivGalerieNazev = document.getElementById('divGalerie'+cislo+'Nazev');
+          eDivGalerieNazev.style.backgroundColor = '#DDDDDD';
+  }  
+  </script>
+</head>
+<body scroll="no" style="overflow-x: hidden; overflow: auto;">
+
+<div style="clear: both;"></div>
+
+
+
+<div style="float: left; padding: 0px 6px 12px 0px;">
+  <div style="text-align: center; border: 1px solid #999999; cursor: pointer; font-weight: bold;" onClick="addGalery(159);" onMouseOver="zvyrazniGalerii(1);" onMouseOut="odvyrazniGalerii(1);">
+    <img src="<?php Echo $absDir; ?>galery.png" height="128" style="margin: 2px 0px 2px 0px;"> <br>
+    <div id="divGalerie1Nazev" style="background-color: #DDDDDD; white-space: nowrap; overflow: hidden;">
+      Moje první galerie
+    </div>
+  </div>
+</div>
+
+<div style="float: left; padding: 0px 6px 12px 0px;">
+  <div style="text-align: center; border: 1px solid #999999; cursor: pointer; font-weight: bold;" onClick="addGalery(159);" onMouseOver="zvyrazniGalerii(2);" onMouseOut="odvyrazniGalerii(2);">
+    <img src="<?php Echo $absDir; ?>galery.png" height="128" style="margin: 2px 0px 2px 0px;"> <br>
+    <div id="divGalerie2Nazev" style="background-color: #DDDDDD; white-space: nowrap; overflow: hidden;">
+      Fotky z dovolené
+    </div>
+  </div>
+</div>
+
+<div style="float: left; padding: 0px 6px 12px 0px;">
+  <div style="text-align: center; border: 1px solid #999999; cursor: pointer; font-weight: bold;" onClick="addGalery(159);" onMouseOver="zvyrazniGalerii(3);" onMouseOut="odvyrazniGalerii(3);">
+    <img src="<?php Echo $absDir; ?>galery.png" height="128" style="margin: 2px 0px 2px 0px;"> <br>
+    <div id="divGalerie3Nazev" style="background-color: #DDDDDD; white-space: nowrap; overflow: hidden;">
+      Galerie 159
+    </div>
+  </div>
+</div> 
+
+
+
+
+
+
+<div style="clear: both;"></div>
+
+</body>
+</html>

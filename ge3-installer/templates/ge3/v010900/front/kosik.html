@@ -1,0 +1,133 @@
+{kosikMini/}
+                <table>
+                    <tr>
+                        <td style="text-align: left;"><nobr>Počet položek:</nobr></td><td style="text-align: right;">{pocetPolozek} ks</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Celková cena:</td><td style="text-align: right;"><span><nobr>{php: Echo _hezkaCena('{celkemSDph}');} Kč</nobr></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold;"><a href="{_absDir}index.php?a=kosik">Dokončit objednávku</a></td>
+                    </tr>
+                </table>
+{/kosikMini}
+
+
+{editacePolozky/}
+<table border="0" width="80%">
+  <tr>
+    <td colspan="2"><b>Editace zboží v košíku</b></td>
+  </tr>
+  <tr>
+    <td rowspan="2" width="1">&nbsp;</td>
+    <td>{nazev}</td>
+  </tr>
+  <tr>
+    <td>
+      <form action="?a=kosik" method="post">
+      <input type="hidden" name="b" value="editace">
+      <input type="hidden" name="produkt" value="{id}">
+      <TABLE BORDER="0">
+        {php: if('{pocetVariant}'!='0'){ ;}
+        <TR>
+          <TD>
+            Varianta:
+          </TD>
+          <TD>
+            <select name="varianta">
+              {variantaSelect/}<option value="{id}" {php: ($_GET['produkt']=='{id}')?'selected':'' ;}>{nazev}</option>{/variantaSelect}
+            </select>
+          </TD>
+        </TR>
+        {php: } ;}
+        <TR>
+          <TD>
+            Počet:
+          </TD>
+          <TD>
+            <input type="text" name="mnozstvi" value="{mnozstvi}" size="4">
+          </TD>
+        </TR>
+        <TR>
+          <TD></TD>
+          <TD>
+            <input type="submit" name="submit" value="Změnit">
+          <TD>
+        </TR>
+      </TABLE>
+      </form>
+    </td>
+  </tr>
+</table>
+{/editacePolozky}
+
+
+
+{kosikFull/}
+<script type="text/javascript">
+function prepocitej(){
+        celkemSDph = document.getElementById('spanCelkemBezDopravnehoSDph').innerHTML * 1;
+        celkemBezDph = document.getElementById('spanCelkemBezDopravnehoBezDph').innerHTML * 1;
+        dph = celkemSDph*100/celkemBezDph-100;
+
+        dopravaFirma = document.getElementById('selectDopravaFirma').value;
+        zpusobPlatby = document.getElementById('selectZpusobPlatby').value;
+
+        easyAjax('spanDopravne', 'ajax.php/kosik.pricti_dopravne.ajax.php', 'prefix={php: $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti=0');
+        easyAjax2('spanCelkemSDph', 'ajax.php/kosik.pricti_dopravne.ajax.php', 'prefix={php: $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti='+celkemSDph);
+        easyAjax3('spanCelkemBezDph', 'ajax.php/kosik.pricti_dopravne.ajax.php', 'prefix={php: $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti='+celkemBezDph);
+}
+</script>
+
+{zprava/}<div style="font-weight: bold; margin-bottom: 12px;">{text}</div>{/zprava}
+{vypis/}
+<form action="{_absDir}?a=objednavka" method="post" id="formKosikFull">
+<table border="0" width="100%">
+  <tr>
+    <td colspan="7"><h2>Váš košík</h2></td>
+  </tr>
+  <tr>
+    <td class="kosik_nadpis">&nbsp;</td>
+    <td class="kosik_nadpis"><font style="color: #000099;">Název položky</font></td>
+    <td class="kosik_nadpis" style="text-align: right;"><font style="color: #000099;">Množství</font></td>
+    <td class="kosik_nadpis" style="text-align: right;"><font style="color: #000099;">Cena za kus</font></td>
+    <td class="kosik_nadpis" style="text-align: right;"><font style="color: #000099;">Celkem Kč</font></td>
+    <td class="kosik_nadpis" style="text-align: right;"><font style="color: #000099;">Změnit</font></td>
+    <td class="kosik_nadpis" style="text-align: right;"><font style="color: #000099;">Odebrat</font></td>
+  </tr>
+  {produkt/}
+  <tr>
+    <td></td>
+    <td>{nazev} {php: Echo '{varianta}'?'- {varianta}':'' ;}</td>
+    <td style="text-align: right;">{mnozstvi}</td>
+    <td style="text-align: right;">{php: echo _hezkaCena('{cenaSDph}');}</td>
+    <td style="text-align: right;">{php: echo _hezkaCena('{celkemSDph}');}</td>
+    <td style="text-align: right;">
+      <a href="?a=kosik&b=editace&produkt={id}">Změnit</a>&nbsp;
+    </td>
+    <td style="text-align: right;">
+      &nbsp;<a href="?a=kosik&b=smazat&produkt={id}">Smazat</a>&nbsp;
+    </td>
+  </tr>
+  {/produkt}
+</table>
+
+
+<div style="margin-top: 12px;">
+  <div id="divCelkovaCenaBezDph" style="display: none;">
+    Celkem bez DPH: <span id="spanCelkemBezDph">{php: Echo _hezkaCena('{celkemBezDph}');}</span> Kč
+  </div>
+  <div id="divCelkovaCena">
+    <b>Celkem: <span id="spanCelkemSDph">{php: Echo _hezkaCena('{celkemSDph}');}</span> Kč</b>
+  </div>
+
+</div>
+
+
+<table width="90%"><tr><td align="right">
+<input type="submit" name="submit" value="K pokladně">
+</td></tr></table>
+
+</form>
+{/vypis}
+{/kosikFull}

@@ -1,0 +1,371 @@
+{uzivatelMini/}
+{prihlasen/}
+<form id="formOdhlaseni" method="post" action="{_absDir}index.php">
+<fieldset id="login">
+						<div style="position: absolute; top: 100px; color: white;">Uživatel: {jmeno} {prijmeni}</div>
+						<div style="position: absolute; top: 120px;"><input type="hidden" name="odhlasit" value="odhlásit"><a href="#" onClick="$('formOdhlaseni').submit();">odhlásit</a></div>
+</fieldset>
+</form>
+{/prihlasen}
+
+{neprihlasen/}
+<form method="post" action="{_absDir}index.php">
+					<fieldset id="login">
+						<legend>Uživatel</legend>
+						<label for="name" class="blind">E-mail:</label>
+						<div class="name"><input type="text" name="email" id="name" value="" /></div>
+						<label for="pswd" class="blind">Heslo:</label>
+						<div class="pswd"><input type="password" name="heslo" id="pswd" /></div>
+						<button type="submit" name="odeslat"><span>Přihlásit</span></button>
+						<p class="actions"><a href="{_absDir}zapomenute-heslo.html">zapomenuté heslo</a> | <a href="{_absDir}registrace.html"><strong>registrace</strong></a></p>
+					</fieldset>
+				</form>
+{/neprihlasen}
+{/uzivatelMini}
+
+
+
+{uzivatelVypis/}
+<h2>Informace o zákazníkovi:</h2>
+<table border="0">
+  <tr>
+    <td>Jméno: </td>
+    <td>{jmeno} {prijmeni}</td>
+  </tr>
+  <tr>
+    <td>Město: </td>
+    <td>{mesto}</td>
+  </tr>
+  <tr>
+    <td>Ulice: </td>
+    <td>{ulice}</td>
+  </tr>
+  <tr>
+    <td>PSČ: </td>
+    <td>{psc}</td>
+  </tr>
+  <tr>
+    <td>Telefon: </td>
+    <td>{telefon}</td>
+  </tr>
+  <tr>
+    <td>E-mail: </td>
+    <td>{email}</td>
+  </tr>
+  <tr>
+    <td>Firma: </td>
+    <td>{firma}</td>
+  </tr>
+  <tr>
+    <td>IČO: </td>
+    <td>{ico}</td>
+  </tr>
+  <tr>
+    <td>DIČ: </td>
+    <td>{dic}</td>
+  </tr>      
+</table>
+<b>Dodací adresa:</b> <br>
+<table border="0" style="float: left;">
+  <tr>
+    <td>Jméno: </td>
+    <td>{jmeno_2} {prijmeni_2}</td>
+  </tr>
+  <tr>
+    <td>Město: </td>
+    <td>{mesto_2}</td>
+  </tr>
+  <tr>
+    <td>Ulice: </td>
+    <td>{ulice_2}</td>
+  </tr>
+  <tr>
+    <td>PSČ: </td>
+    <td>{psc_2}</td>
+  </tr>
+  <tr>
+    <td>Firma: </td>
+    <td>{firma_2}</td>
+  </tr>
+  <tr>
+    <td>IČO: </td>
+    <td>{ico_2}</td>
+  </tr>
+  <tr>
+    <td>DIČ: </td>
+    <td>{dic_2}</td>
+  </tr> 
+</table>
+<div syle="clear: both;"></div>
+{/uzivatelVypis}
+
+
+
+{uzivatelVypisMini/}
+{jmeno} {prijmeni} <br>
+{mesto} <br>
+{ulice} <br>
+{psc} <br>
+<div style="padding-top: 6px;">
+Tel.: {telefon} <br>
+<a href="mailto:{email}">{email}</a>
+</div>
+{/uzivatelVypisMini}
+
+
+
+{registrace/}
+<div id="text">
+
+{zpravaOk/}
+<div class="divOk" style="padding: 12px;">
+  {text}
+</div>
+{/zpravaOk}
+{zpravaError/}
+<div class="divError" style="padding: 12px;">
+  {text}
+</div>
+{/zpravaError}
+
+<form method="post" action="">
+<input type="hidden" name="registracePovinne" value="email;telefon;heslo;jmeno;prijmeni;ulice;mesto;psc;registracePodminky">
+<table border="0" align="center">
+  <tr>
+    <td colspan="2"><h2>Registrace</h2></td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Všeobecné údaje:</b></td>
+  </tr>
+  <tr>
+    <td align="right">*E-mail: </td>
+    <td><input type="text" name="email"  style="width: 149px;" value="{php: Echo $_POST['email'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Heslo: </td>
+    <td><input type="password" name="heslo" style="width: 149px;" value="{php: Echo $_POST['heslo'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Telefon: </td>
+    <td><input type="text" name="telefon" style="width: 149px;" value="{php: Echo $_POST['telefon'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Adresa:</b></td>
+  </tr>
+  <tr>
+    <td align="right">*Jméno: </td>
+    <td><input type="text" name="jmeno" value="{php: Echo $_POST['jmeno'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Příjmení: </td>
+    <td><input type="text" name="prijmeni" value="{php: Echo $_POST['prijmeni'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Firma: </td>
+    <td><input type="text" name="firma" value="{php: Echo $_POST['firma'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Ulice: </td>
+    <td><input type="text" name="ulice" value="{php: Echo $_POST['ulice'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Město: </td>
+    <td><input type="text" name="mesto" value="{php: Echo $_POST['mesto'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*PSČ: </td>
+    <td><input type="text" name="psc" value="{php: Echo $_POST['psc'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">IČO: </td>
+    <td><input type="text" name="ico" value="{php: Echo $_POST['ico'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">DIČ: </td>
+    <td><input type="text" name="dic" value="{php: Echo $_POST['dic'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Dodací adresa (pokud je jiná než fakturační):</b></td>
+  </tr>
+  <tr>
+    <td align="right">Jméno: </td>
+    <td><input type="text" name="jmeno_2" value="{php: Echo $_POST['jmeno_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Příjmení: </td>
+    <td><input type="text" name="prijmeni_2" value="{php: Echo $_POST['prijmeni_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Firma: </td>
+    <td><input type="text" name="firma_2" value="{php: Echo $_POST['firma_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Ulice: </td>
+    <td><input type="text" name="ulice_2" value="{php: Echo $_POST['ulice_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Město: </td>
+    <td><input type="text" name="mesto_2" value="{php: Echo $_POST['mesto_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">PSČ: </td>
+    <td><input type="text" name="psc_2" value="{php: Echo $_POST['psc_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">IČO: </td>
+    <td><input type="text" name="ico_2" value="{php: Echo $_POST['ico_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">DIČ: </td>
+    <td><input type="text" name="dic_2" value="{php: Echo $_POST['dic_2'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><a name="obchodni-podminky"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="checkbox" name="registracePodminky" value="1" {php: Echo $_POST['registracePodminky']?'checked':'';} > Souhlasím s <a href="clanek.popup.php?a=clanky&clanek=9-obchodni-podminky" onClick="return !window.open(this.href,'Obchodní podmínky','width=500, height=550, top=150, left=100, scrollbars=yes');" target="_blank" style="color: #0B5AB1;">obchodními podmínkami</a></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="submit" name="submit" value="Registrovat se"></td>
+  </tr>
+</table>
+</form>
+</div>
+{/registrace}
+
+
+
+{registrace2/}
+
+{zpravaOk/}
+<div class="divOk">
+  {text}
+</div>
+{/zpravaOk}
+{zpravaError/}
+<div class="divError">
+  {text}
+</div>
+{/zpravaError}
+
+<form method="post" action="">
+<input type="hidden" name="registracePovinne" value="email;telefon;heslo;jmeno;prijmeni;ulice;mesto;psc;registracePodminky">
+<table border="0" align="center">
+  <tr>
+    <td colspan="2"><h2>Registrace</h2></td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Všeobecné údaje:</b></td>
+  </tr>
+  <tr>
+    <td align="right">*E-mail: </td>
+    <td><input type="text" name="email" style="width: 149px;" value="{php: Echo $_POST['email'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Telefon: </td>
+    <td><input type="text" name="telefon" style="width: 149px;" value="{php: Echo $_POST['telefon'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Heslo: </td>
+    <td><input type="password" name="heslo" style="width: 149px;" value="{php: Echo $_POST['heslo'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Adresa:</b></td>
+  </tr>
+  <tr>
+    <td align="right">*Jméno: </td>
+    <td><input type="text" name="jmeno" value="{php: Echo $_POST['jmeno'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Příjmení: </td>
+    <td><input type="text" name="prijmeni" value="{php: Echo $_POST['prijmeni'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Firma: </td>
+    <td><input type="text" name="firma" value="{php: Echo $_POST['firma'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Ulice: </td>
+    <td><input type="text" name="ulice" value="{php: Echo $_POST['ulice'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*Město: </td>
+    <td><input type="text" name="mesto" value="{php: Echo $_POST['mesto'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">*PSČ: </td>
+    <td><input type="text" name="psc" value="{php: Echo $_POST['psc'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">IČO: </td>
+    <td><input type="text" name="ico" value="{php: Echo $_POST['ico'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">DIČ: </td>
+    <td><input type="text" name="dic" value="{php: Echo $_POST['dic'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Dodací adresa (pokud je jiná než fakturační):</b></td>
+  </tr>
+  <tr>
+    <td align="right">Jméno: </td>
+    <td><input type="text" name="jmeno_2" value="{php: Echo $_POST['jmeno_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Příjmení: </td>
+    <td><input type="text" name="prijmeni_2" value="{php: Echo $_POST['prijmeni_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Firma: </td>
+    <td><input type="text" name="firma_2" value="{php: Echo $_POST['firma_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Ulice: </td>
+    <td><input type="text" name="ulice_2" value="{php: Echo $_POST['ulice_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">Město: </td>
+    <td><input type="text" name="mesto_2" value="{php: Echo $_POST['mesto_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">PSČ: </td>
+    <td><input type="text" name="psc_2" value="{php: Echo $_POST['psc_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">IČO: </td>
+    <td><input type="text" name="ico_2" value="{php: Echo $_POST['ico_2'];}"></td>
+  </tr>
+  <tr>
+    <td align="right">DIČ: </td>
+    <td><input type="text" name="dic_2" value="{php: Echo $_POST['dic_2'];}"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><a name="obchodni-podminky"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="checkbox" name="registracePodminky" value="1" {php: Echo $_POST['registracePodminky']?'checked':'';} > Souhlasím s <a href="clanek.popup.php?a=clanky&clanek=9-obchodni-podminky" onClick="return !window.open(this.href,'Obchodní podmínky','width=500, height=550, top=150, left=100');" target="_blank" style="color: #0B5AB1;">obchodními podmínkami</a></td>
+  </tr>
+  <tr>
+    <td colspan="2"> </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="submit" name="submit" value="Registrovat se"></td>
+  </tr>
+</table>
+</form>
+{/registrace2}

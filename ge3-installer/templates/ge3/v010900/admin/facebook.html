@@ -1,0 +1,79 @@
+<form action="" method="post">
+
+<h2>Druh obsahu</h2>
+<table border="0">
+  <tr>
+    <td width="256" height="22">
+      <input type="checkbox" name="facebook_clanky" id="inputFacebookClanky" onClick="facebookClankyCheck();" {php: echo ('{facebook_clanky}')? 'checked': '';}> Sdílet články
+    </td>
+    <td><div id="divFacebookClankyTypy" style="display: {php: echo ('{facebook_clanky}')? 'block': 'none';};">
+      Typ tlačítka: 
+
+      <input type="radio" id="inputFacebookClankyTyp1" name="facebook_clanky_hodnota" onClick="facebookClankyCheck();" {php: echo (ereg('button_count','{facebook_clanky}') or !('{facebook_clanky}'))? 'checked': '';}>
+      <div style="display: inline;"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <textarea id="textareaFacebookClanky1" style="display: none;"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php" style="position: relative; top: -3px;">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></textarea>
+
+      <input type="radio" id="inputFacebookClankyTyp2" name="facebook_clanky_hodnota" onClick="facebookClankyCheck();" {php: echo (ereg('icon_link','{facebook_clanky}'))? 'checked': '';}>
+      <div style="display: inline;"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <textarea id="textareaFacebookClanky2" style="display: none;"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></textarea>
+      
+      <script type="text/javascript">
+      function facebookClankyCheck(){
+              iFacebookClanky = document.getElementById('inputFacebookClanky');
+              iFacebookClankyTyp1 = document.getElementById('inputFacebookClankyTyp1');
+              iFacebookClankyTyp2 = document.getElementById('inputFacebookClankyTyp2');
+              
+              if( iFacebookClanky.checked ){
+                  document.getElementById('divFacebookClankyTypy').style.display = 'block';
+                  if(iFacebookClankyTyp1.checked) iFacebookClanky.value=document.getElementById('textareaFacebookClanky1').value;
+                  if(iFacebookClankyTyp2.checked) iFacebookClanky.value=document.getElementById('textareaFacebookClanky2').value;
+              }else{
+                  document.getElementById('divFacebookClankyTypy').style.display = 'none';
+              }
+      }
+      facebookClankyCheck();
+      </script>
+    </div></td>
+  </tr>
+  <tr>
+    <td height="22">
+      <input type="checkbox" name="facebook_produkty" id="inputFacebookProdukty" onClick="facebookProduktyCheck();" {php: echo ('{facebook_produkty}')? 'checked': '';}> Sdílet produkty
+    </td>
+    <td><div id="divFacebookProduktyTypy" style="display: {php: echo ('{facebook_produkty}')? 'block': 'none';};">
+      Typ tlačítka: 
+      
+      <input type="radio" id="inputFacebookProduktyTyp1" name="facebook_produkty_hodnota" onClick="facebookProduktyCheck();"{php: echo (ereg('button_count','{facebook_produkty}') or !('{facebook_produkty}'))? 'checked': '';}>
+      <div style="display: inline;"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <textarea id="textareaFacebookProdukty1" style="display: none;"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php" style="position: relative; top: -3px;">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></textarea>      
+
+      <input type="radio" id="inputFacebookProduktyTyp2" name="facebook_produkty_hodnota" onClick="facebookProduktyCheck();" {php: echo (ereg('icon_link','{facebook_produkty}'))? 'checked': '';}>
+      <div style="display: inline;"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <textarea id="textareaFacebookProdukty2" style="display: none;"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></textarea>      
+      
+      <script type="text/javascript">
+      function facebookProduktyCheck(){
+              iFacebookProdukty = document.getElementById('inputFacebookProdukty');
+              iFacebookProduktyTyp1 = document.getElementById('inputFacebookProduktyTyp1');
+              iFacebookProduktyTyp2 = document.getElementById('inputFacebookProduktyTyp2');
+              
+              if( iFacebookProdukty.checked ){
+                  document.getElementById('divFacebookProduktyTypy').style.display = 'block';
+                  if(iFacebookProduktyTyp1.checked) iFacebookProdukty.value=document.getElementById('textareaFacebookProdukty1').value;
+                  if(iFacebookProduktyTyp2.checked) iFacebookProdukty.value=document.getElementById('textareaFacebookProdukty2').value;
+              }else{
+                  document.getElementById('divFacebookProduktyTypy').style.display = 'none';
+              }
+      }
+      facebookProduktyCheck();
+      </script>
+    </div></td>
+  </tr>
+</table>
+
+<p>&nbsp;
+<div style="text-align: right;">
+  <input type="hidden" name="action" value="edit">
+  <input type="submit" name="odeslat" value="Uložit změny">
+</div>
+
+</form>

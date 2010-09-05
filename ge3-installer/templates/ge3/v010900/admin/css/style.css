@@ -1,0 +1,141 @@
+body,td{
+  font-family: Arial;
+  font-size: 12px;
+  margin: 10px auto;
+}
+
+table td{
+	margin: 0px;
+	padding: 0px;
+}
+
+a{
+  color: black;
+}
+
+.clanky{
+width: 100%; background-color: #DEFFDE; border: 1py solid green; text-align: center; margin-bottom: 10px; padding: 5px;
+}
+
+#boxy{
+	 padding: 10px 15px 5px 5px;
+	 margin-left: 8px;
+	 margin-right: 7px;
+   /*margin-left: 15px;*/
+}
+
+.box{
+	border-bottom: 0px solid silver;
+	border-top: 0px solid silver;
+	margin: 15px 5px 15px 0px;
+	padding: 10px 0px 0px 5px;
+	margin-bottom: 30px;
+	text-align: left;
+	border: 0px solid red;
+	width: auto;
+	clear: left;
+}
+
+.box_big{
+	width: 245px;
+	height: 223px;
+	background-image: url(../images/vzkazy.png);
+	background-repeat: no-repeat;
+	float: right;
+	margin: 1px -12px 2px 7px;
+	padding: 0px 5px 0px 5px;
+	margin-top: 0px;
+	position: relative;
+}
+
+.box a img{
+	border: none;
+	float: left;
+	vertical-align: middle;
+	width: 48px;
+	margin-right: 10px;
+	margin-top: -6px;
+}
+
+.box a{
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+.box p{
+	font-family: Arial;
+	font-size: 8pt;
+	margin: 2px auto;
+}
+
+.box_vzkaz table{
+	margin: 0px;
+}
+
+a img.plus{
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top: 40px;
+	left: 40px;
+}
+
+.seda{
+	color: #808080;
+	text-decoration: none;
+}
+
+div.cara{
+	width: 634px;
+	clear: both;
+}
+
+div.cara hr{
+	
+}
+
+.kat{
+	float: left;
+	display: block;
+	width: auto;
+	padding: 0px 5px;
+	color: #
+}
+
+/* forum */
+a img.galerie{
+	padding: 1px;
+	border: 1px solid #5A3D1C;
+}
+
+.mensi{
+	font-size: 80%;
+	color: grey;
+}
+
+table.diskuse{
+	 width: 490px;
+	 font-size: 12px;
+}
+
+table.diskuse textarea{
+	width: 420px;
+	height: 100px;
+}
+
+p{
+	margin: 0px;
+	text-indent: 0px;
+	text-align: left;
+}
+
+table td{
+	padding-left: 2px;
+}
+
+select.select{
+	font-family: Tahoma;
+	font-size: 10px;
+	width: 100px;
+	margin: 0px;
+}

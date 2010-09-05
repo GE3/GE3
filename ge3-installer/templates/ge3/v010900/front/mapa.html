@@ -1,0 +1,31 @@
+{mapa/}
+<strong>Články</strong>
+<div style="padding-left: 12px;">
+  {clanek/}
+  <a href="{url}">-{nazev}</a> <br>
+  {/clanek}
+</div>
+
+
+
+&nbsp;<br>
+<strong>Zboží</strong>
+<div style="padding-left: 12px;">
+  {kategorie/}
+  <div><a href="{url}">»{nazev}</a></div>
+    {podkat1/}
+    <div style="margin-left: 12px;"><a href="{url}">»{nazev}</a></div>  
+      {podkat2/}
+      <div style="margin-left: 24px;"><a href="{url}">»{nazev}</a></div>
+        {podkat3/}
+        <div style="margin-left: 36px;"><a href="{url}">»{nazev}</a></div>
+        {produkt/}<a href="{url}">-{nazev}</a><br>{/produkt}          
+        {/podkat3}
+      {produkt/}<a href="{url}" style="margin-left: 36px;">-{nazev}</a><br>{/produkt}              
+      {/podkat2}
+    {produkt/}<a href="{url}" style="margin-left: 24px;">-{nazev}</a><br>{/produkt}      
+    {/podkat1}
+  {produkt/}<a href="{url}" style="margin-left: 12px;">-{nazev}</a><br>{/produkt}
+  {/kategorie}
+</div>
+{/mapa}

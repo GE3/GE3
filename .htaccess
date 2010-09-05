@@ -1,0 +1,22 @@
+RewriteEngine On
+
+#(následující øádek zakomentovat, pokud je obchod v podadresáøi)
+#RewriteBase /
+
+# Detail produktu
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*).html$ index.php?a=produkty&kategorie=$1&podkat1=$2&podkat2=$3&podkat3=$4&produkt=$5 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*).html$ index.php?a=produkty&kategorie=$1&podkat1=$2&podkat2=$3&produkt=$4 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*).html$ index.php?a=produkty&kategorie=$1&podkat1=$2&produkt=$3 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*).html$ index.php?a=produkty&kategorie=$1&produkt=$2 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*).html$ index.php?a=produkty&produkt=$1 [L,QSA]
+RewriteRule ^produkty/$ index.php?a=produkty [L,QSA]
+
+# Procházení kategoriema
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/$ index.php?a=produkty&kategorie=$1&podkat1=$2&podkat2=$3&podkat3=$4 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/$ index.php?a=produkty&kategorie=$1&podkat1=$2&podkat2=$3 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/([a-zA-Z_\-.0-9]*)/$ index.php?a=produkty&kategorie=$1&podkat1=$2 [L,QSA]
+RewriteRule ^produkty/([a-zA-Z_\-.0-9]*)/$ index.php?a=produkty&kategorie=$1 [L,QSA]
+
+# Èlánky a moduly
+RewriteRule ^clanky/([a-zA-Z_\-.0-9]*)\.html$ index.php?a=clanky&clanek=$1 [L,QSA]
+RewriteRule ^([0-9a-zA-Z_\-]*)\.html$ index.php?a=$1 [L,QSA]

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title>GRAFART KALKULAČKA</title>
+  <style type="text/css">
+  body{
+    background: rgb(255,205,130) url(pozadi/grafart_mini2.jpg) 0 0 no-repeat;  
+  }
+  input{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 14pt;
+  }
+  .input-text{
+    text-align: right;
+  }
+  .dph{
+    color: #666666;
+    font-size: 10pt;
+    font-weight: bold;
+    margin-top: 12px;    
+  }
+  .numeric{
+    color: #800000;
+    width: 48px;
+  }
+  .funkcni{
+    width: 36px;
+  }  
+  </style>
+</head>
+<body onKeyUp="keyPress(event.keyCode);">
+
+<table border="0">
+  <tr>
+    <td colspan="5"><input type="text" id="inputDisplay" value="0" class="input-text" readonly></td>
+  </tr>
+  <tr>
+    <td><input class="numeric" onClick="pridejZnak('7');" type="button" id="input7" value="7"></td>
+    <td><input class="numeric" onClick="pridejZnak('8');" type="button" id="input8" value="8"></td>
+    <td><input class="numeric" onClick="pridejZnak('9');" type="button" id="input9" value="9"></td>
+    <td><input class="funkcni" onClick="pridejZnak('*');" type="button" id="inputKrat" value="*"></td>
+    <td><input class="funkcni" onClick="pridejZnak('/');" type="button" id="inputDeleno" value="/"></td>                        
+  </tr>
+  <tr>
+    <td><input class="numeric" onClick="pridejZnak('4');" type="button" id="input4" value="4"></td>
+    <td><input class="numeric" onClick="pridejZnak('5');" type="button" id="input5" value="5"></td>
+    <td><input class="numeric" onClick="pridejZnak('6');" type="button" id="input6" value="6"></td>
+    <td><input class="funkcni" onClick="pridejZnak('+');" type="button" id="inputPlus" value="+"></td>
+    <td><input class="funkcni" onClick="pridejZnak('-');" type="button" id="inputMinus" value="-"></td>                        
+  </tr>
+  <tr>
+    <td><input class="numeric" onClick="pridejZnak('1');" type="button" id="input1" value="1"></td>
+    <td><input class="numeric" onClick="pridejZnak('2');" type="button" id="input2" value="2"></td>
+    <td><input class="numeric" onClick="pridejZnak('3');" type="button" id="input3" value="3"></td>
+    <td><input class="funkcni" onClick="pridejZnak('.');" type="button" id="inputTecka" value="."></td>
+    <td><input class="funkcni" onClick="vypocitej();" type="button" id="inputRovnase" value="="></td>                        
+  </tr>
+  <tr>
+    <td colspan="2"><input class="numeric" onClick="pridejZnak('0');" type="button" id="input0" value="0" style="width: 100%;"></td>
+    <td colspan="3"><input onClick="reset();" type="button" id="inputCancel" value="Cancel"></td>
+  </tr>
+  <tr>
+    <td colspan="5">
+      <input class="dph" onClick="plusDph();" type="button" id="inputPlusDph" value="+20%" style="width: 49%; float: left;">
+      <input class="dph" onClick="minusDph();" type="button" id="inputMinusDph" value="-20%" style="width: 50%; _width: 100%;">
+    </td>
+  </tr> 
+  <tr>
+    <td colspan="5">
+      <input class="dph" onClick="plusDph2();" type="button" id="inputPlusDph" value="+10%" style="width: 49%; float: left; margin-top: 0px;">
+      <input class="dph" onClick="minusDph2();" type="button" id="inputMinusDph" value="-10%" style="width: 50%; _width: 100%; margin-top: 0px;">
+    </td>
+  </tr>                       
+</table>
+
+
+<script type="text/javascript">
+/**********/
+/* CONFIG */
+/**********/
+// Základní nastavení
+var presnost = 10000;   //přesnost kalkulačky
+// Kódy stisknutých kláves
+codeNula = 96;        
+codeJedna = 97;
+codeDva = 98;
+codeTri = 99;
+codeCtyri = 100;
+codePet = 101;
+codeSest = 102;
+codeSedm = 103;
+codeOsm = 104;
+codeDevet = 105;
+codeKrat = 106;
+codePlus = 107;
+codeMinus = 109;
+codeTecka = 110;
+codeDeleno = 111;
+codeCancel = 8;
+codeEnter = 13;
+
+
+/**************/
+/* KALKULAČKA */
+/**************/
+/**
+ * dodělat: 
+ *  - kontrolu ++, .., +., +-/ apod.
+ */  
+var posledniZnak = '';
+
+function pridejZnak(znak){
+        display = document.getElementById('inputDisplay');
+        
+        if(display.value=='0') display.value=''; 
+        display.value = display.value + '' + znak;
+        
+        posledniZnak = znak; 
+}
+
+function plusDph(){
+        display = document.getElementById('inputDisplay');
+        display.value = Math.round(display.value*1.2*presnost)/presnost;
+}
+function minusDph(){
+        display = document.getElementById('inputDisplay');
+        display.value = Math.round(display.value/1.2*presnost)/presnost;
+}
+function plusDph2(){
+        display = document.getElementById('inputDisplay');
+        display.value = Math.round(display.value*1.1*presnost)/presnost;
+}
+function minusDph2(){
+        display = document.getElementById('inputDisplay');
+        display.value = Math.round(display.value/1.1*presnost)/presnost;
+}
+
+function vypocitej(){
+        display = document.getElementById('inputDisplay');
+        display.value = Math.round( eval(display.value)*presnost )/presnost;
+}
+
+function reset(){
+        document.getElementById('inputDisplay').value = '0'; 
+}
+
+function keyPress(klavesa){
+        switch(klavesa){
+              case codeNula: 
+                  pridejZnak('0'); break;
+              case codeJedna: 
+                  pridejZnak('1'); break;
+              case codeDva: 
+                  pridejZnak('2'); break;
+              case codeTri: 
+                  pridejZnak('3'); break; 
+              case codeCtyri: 
+                  pridejZnak('4'); break;    
+              case codePet: 
+                  pridejZnak('5'); break;  
+              case codeSest: 
+                  pridejZnak('6'); break;   
+              case codeSedm: 
+                  pridejZnak('7'); break;   
+              case codeOsm: 
+                  pridejZnak('8'); break;  
+              case codeDevet: 
+                  pridejZnak('9'); break;
+              case codeCancel: 
+                  reset(); break;
+              case codeTecka: 
+                  pridejZnak('.'); break;
+              case codeEnter: 
+                  vypocitej(); break;
+              case codePlus: 
+                  pridejZnak('+'); break;
+              case codeMinus: 
+                  pridejZnak('-'); break;
+              case codeKrat: 
+                  pridejZnak('*'); break;
+              case codeDeleno: 
+                  pridejZnak('/'); break;                                                                                                                                                                                                                                                                                 
+        }
+}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<form action="" method="post">
+
+<h2>Facebook</h2>
+<table border="0">
+  <tr>
+    <td><input type="check" name="facebook_clanky" id="inputFacebookClanky" onChange="facebookClankyCheck();"> Sdílet články</td>
+    <td><div id="divFacebookClankyTypy">
+      Typ tlačítka: 
+      <input type="radio" name="facebook_clanky_hodnota" onChange="facebookClankyCheck();">
+      <div id="divFacebookClanky1"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <input type="radio" name="facebook_clanky_hodnota" onChange="facebookClankyCheck();">
+      <div id="divFacebookClanky1"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      
+      <script type="text/javascript">
+      function facebookClankyCheck(){
+              iFacebookClanky = document.getElementById('inputFacebookClanky');
+              iFacebookClankyTyp1 = document.getElementById('inputFacebookClankyTyp1');
+              iFacebookClankyTyp2 = document.getElementById('inputFacebookClankyTyp2');
+              
+              if( iFacebookClanky.checked ){
+                  document.getElementById('divFacebookClankyTypy').style.display = 'block';
+                  if(iFacebookClankyTyp1.checked) iFacebookClanky.value=document.getElementById('divFacebookClanky1').innerHTML;
+                  if(iFacebookClankyTyp2.checked) iFacebookClanky.value=document.getElementById('divFacebookClanky2').innerHTML;
+              }else{
+                  document.getElementById('divFacebookClankyTypy').style.display = 'none';
+              }
+      }
+      </script>
+    </div></td>
+  </tr>
+  <tr>
+    <td><input type="check" name="facebook_produkty" id="inputFacebookProdukty" onChange="facebookProduktyCheck();"> Sdílet produkty</td>
+    <td><div id="divFacebookProduktyTypy">
+      Typ tlačítka: 
+      <input type="radio" name="facebook_produkty_hodnota" onChange="facebookProduktyCheck();">
+      <div id="divFacebookProdukty1"><a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      <input type="radio" name="facebook_produkty_hodnota" onChange="facebookProduktyCheck();">
+      <div id="divFacebookProdukty1"><a name="fb_share" type="icon_link" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></div>
+      
+      <script type="text/javascript">
+      function facebookProduktyCheck(){
+              iFacebookProdukty = document.getElementById('inputFacebookProdukty');
+              iFacebookProduktyTyp1 = document.getElementById('inputFacebookProduktyTyp1');
+              iFacebookProduktyTyp2 = document.getElementById('inputFacebookProduktyTyp2');
+              
+              if( iFacebookProdukty.checked ){
+                  document.getElementById('divFacebookProduktyTypy').style.display = 'block';
+                  if(iFacebookProduktyTyp1.checked) iFacebookProdukty.value=document.getElementById('divFacebookProdukty1').innerHTML;
+                  if(iFacebookProduktyTyp2.checked) iFacebookClanky.value=document.getElementById('divFacebookProdukty2').innerHTML;
+              }else{
+                  document.getElementById('divFacebookProduktyTypy').style.display = 'none';
+              }
+      }
+      </script>
+    </div></td>
+  </tr>
+</table>
+
+</form>

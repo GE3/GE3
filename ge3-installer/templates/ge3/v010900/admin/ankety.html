@@ -1,0 +1,61 @@
+{php: If('{hlaska}'){ ;}
+  <div style="color: #000080; font-weight: bold; border: 1px solid #000080; text-align: center; padding: 2px 4px 2px 4px;">{hlaska}</div>
+{php: } ;}
+
+<div style="border-bottom: 1px solid #666666; padding: 0px 0px 2px 6px;">
+  <h2>Nová anketa</h2>
+  <form action="" method="post">
+    <input type="hidden" name="akce" value="nova">    
+    <table border="0">
+      <tr><td><b>Otázka:</b> </td><td><input type="text" name="otazka" size="30"></td></tr>
+      <tr><td valign="top" style="padding-top: 4px;"><b>Odpovědi:</b> </td><td>
+        <div id="divOdpoved1"><input type="text" name="odpovedi[1]" onChange="if(this.value!='') $('divOdpoved3').style.display='block';"></div>
+        <div id="divOdpoved2"><input type="text" name="odpovedi[2]" onChange="if(this.value!='') $('divOdpoved4').style.display='block';"></div>
+        <div id="divOdpoved3" style="display: none;" onChange="if(this.value!='') $('divOdpoved5').style.display='block';"><input type="text" name="odpovedi[3]"></div>
+        <div id="divOdpoved4" style="display: none;" onChange="if(this.value!='') $('divOdpoved6').style.display='block';"><input type="text" name="odpovedi[4]"></div>
+        <div id="divOdpoved5" style="display: none;" onChange="if(this.value!='') $('divOdpoved7').style.display='block';"><input type="text" name="odpovedi[5]"></div>
+        <div id="divOdpoved6" style="display: none;" onChange="if(this.value!='') $('divOdpoved8').style.display='block';"><input type="text" name="odpovedi[6]"></div>
+        <div id="divOdpoved7" style="display: none;"><input type="text" name="odpovedi[7]"></div>
+        <div id="divOdpoved8" style="display: none;"><input type="text" name="odpovedi[8]"></div>        
+      </td></tr>
+      <tr><td colspan="2"><input type="checkbox" name="aktivni" value="1" checked>Aktivní (anketa se zobrazí na stránkách)</td></tr>
+      <tr><td colspan="2" align="right"><input type="submit" name="submit" value="Vytvořit"></td></tr>
+    </table>
+  </form>
+</div>
+
+
+
+<h2>Výpis anket</h2>                     
+{anketa/}
+<div style=" width: 610px; padding: 2px 4px 2px 4px; border-top: 1px solid #0C58B7; border-bottom: 1px solid #0C58B7; background-color: #ECF3FA; margin-bottom: 12px;">
+  <form id="formAnketa{id}" method="post" action="">
+    <input type="hidden" name="akce" value="edit">
+    <input type="hidden" name="anketaId" value="{id}">
+    <input type="hidden" name="otazka" value="{otazka}">
+    
+    <div style="float: left; border-right: 1px solid #0C58B7; width: 512px; padding-right: 4px;"> 
+      <b>{otazka}</b>
+    
+      {odpoved/}
+      <input type="hidden" name="odpovedi[{id}]" value="{text}">
+      <div>
+        <div style="float: right;">{pocetHlasu}</div>
+        <div>{text}</div>
+        <div style="clear: both;"></div>
+      </div>
+      {/odpoved}
+    </div>
+    
+    <div style="padding-left: 520px;">
+        <div style="padding: 4px 0px 0px 4px; line-height: 16px;">
+          <a href="#" onClick="if(confirm('Opravdu chcete tuto anketu vynulovat?')) location.href='index.php?m=ankety&akce=vynulovat&anketaId={id}';" style="text-decoration: none;"><img src="images_dante/delete.png" width="12" border="0"> Vynulovat </a><br>
+          <a href="#" onClick="if(confirm('Opravdu chcete tuto anketu smazat?')) location.href='index.php?m=ankety&akce=smazat&anketaId={id}';" style="text-decoration: none;"><img src="images_dante/delete.png" width="12" border="0"> Smazat </a><br>
+        </div>
+        <input type="checkbox" name="aktivni" id="checkboxAktivni{id}" value="1" onChange="$('formAnketa{id}').submit();" {php: Echo '{aktivni}'==1? 'checked': '';}><span style="cursor: pointer;" onClick="if($('checkboxAktivni{id}').checked) $('checkboxAktivni{id}').checked=false; else $('checkboxAktivni{id}').checked=true; $('formAnketa{id}').submit();">Aktivní</span> <br>
+    </div>
+    <div style="clear: both;"></div>
+        
+  </form>
+</div>
+{/anketa}

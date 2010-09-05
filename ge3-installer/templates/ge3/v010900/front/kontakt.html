@@ -1,0 +1,46 @@
+{php: echo zjisti_z($GLOBALS["config"]["sqlPrefix"]."clanky", "obsah", "id=4");}
+<hr>
+&nbsp;
+<br>
+<h2>Rychlý kontakt</h2>
+&nbsp;
+{zpravaOk/}<p>{obsah}</p>{/zpravaOk}
+{zpravaError/}<p>{obsah}</p>{/zpravaError}
+<form method="post" action="">
+<input type="hidden" value="E-Shop, Konakt" name="mailPredmet" />
+<input type="hidden" value="Dobrý den, <br> ve vašem e-shopu byl vyplněn kontaktní formulář. " name="mailTextZac" />
+<input type="hidden" value="" name="mailTextKon" />
+<input type="hidden" value="Jméno;Telefon;Email;Chci se zeptat na" name="mailPovinne" />      
+<table border="0">
+       <tr>
+           <td align="right">*<b>Jméno</b>: </td>
+           <td><input type="text" name="Jméno" value=""></td>
+       </tr>
+       <tr>
+           <td align="right"><b>Adresa</b>: </td>
+           <td><input type="text" name="Adresa" value=""></td>
+       </tr>
+       <tr>
+           <td align="right">*<b>Tel.</b>: </td>
+           <td><input type="text" name="Telefon" value=""></td>
+       </tr>
+       <tr>
+           <td align="right">*<b>E-mail</b>: </td>
+           <td><input type="text" name="Email" value=""></td>
+       </tr>
+       <tr>
+           <td colspan="2">&nbsp;</td>
+       </tr>
+       <tr>
+           <td colspan="2">*<b>Chci se zeptat na</b>: </td>
+       </tr>
+       <tr>
+           <td colspan="2"><textarea rows="6" cols="60" name="Chci se zeptat na"></textarea></td>
+       </tr>
+       <tr>
+           <td colspan="2" align="right"><input type="submit" name="submit" value="Odeslat"></td>
+
+       </tr>
+</table>
+* tyto položky jsou povinné
+</form>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <script type="text/javascript" src="GlassScripts.js"></script>
+  <link rel="stylesheet" href="css_medium/glass_scripts.css" type="text/css"/>
+  <title></title>
+</head>
+<body bgcolor="#FFCD82">
+
+<div style="border: 1px solid blue;">
+<div style="border-bottom: 1px solid blue; font-weight: bold;">popupTooltip</div>
+  <table border="0" cellpadding="0" cellspacing="0" id="tablePopupTooltip" class="popupTooltipTable" style="display: none;">
+    <tr>
+      <td class="popupTooltipTL">&nbsp;</td>
+      <td class="popupTooltipT">&nbsp;</td>
+      <td class="popupTooltipTR">&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="popupTooltipL"></td>
+      <td class="popupTooltipObsah"><div id="divPopupTooltip">obsah</div></td>
+      <td class="popupTooltipR"></td>
+    </tr>    
+    <tr>
+      <td class="popupTooltipBL">&nbsp;</td>
+      <td class="popupTooltipB">&nbsp;</td>
+      <td class="popupTooltipBR">&nbsp;</td>
+    </tr>    
+  </table>
+  
+  <textarea id="textareaPopupTooltip" style="width: 256px; height: 96px;">Toto je pokusný text pro java-script 'popupTooltip'.</textarea><br>
+  Šířka tooltipu: <input type="text" id="inputWidthPopupTooltip"> px<br>
+  Čas po kterém se tooltip schová: <input type="text" id="inputTimePopupTooltip"> s<br>
+  <a href="#" onClick="popupTooltip($('textareaPopupTooltip').value, $('inputWidthPopupTooltip').value, $('inputTimePopupTooltip').value);">Ukaž tooltip s tímto textem</a> <br>
+
+  <p>&nbsp;
+</div>
+  
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Language" content="cs">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Admin sekce</title>
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  
+  <script type="text/javascript" src="{_absDir}fckeditor/fckeditor.js"></script>
+  <script type="text/javascript" src="{_absDir}../javascripty.js/GlassScripts/GlassScripts.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="{_absDir}../javascripty.js/GlassScripts/css_medium/glass_scripts.css" />
+  <style>
+  body,td{
+    font-family: Arial;
+    font-size: 9pt;
+    text-align: left;
+  }
+  a{
+    color: black;
+    text-decoration: none;
+  }
+  h2{
+    font-size: 11pt;
+    font-weight: bold;
+    color: #333333;
+    margin-top: 12px;
+    margin-bottom: 0px;
+  }
+  .stromKategorii{
+    position: absolute; 
+    top: 196px; 
+    left: 6px; 
+  }
+  .stromKategorii a{
+    text-decoration: none;
+  }
+  </style>
+  <meta http-equiv='X-UA-Compatible' content='IE=7'>
+</head>
+
+<body bgcolor="#FFCD82" background="{php: Echo getPozadi();}" style="background-attachment: fixed;">
+
+<div align="center">
+  <table border="0" width="691" cellpadding="0" cellspacing="0" background="images/tapeta-tabulky.png">
+    {hlavicka/}
+    <tr>
+      <td width="398" height="140" style="padding-left: 12px; padding-top: 7px;">
+      <a href="http://www.grafartstudio.cz">
+      <img border="0" src="images/hlavicka.png"></a><br>
+      </td>
+      <td width="9">
+      &nbsp;</td>
+      <td width="278" rowspan="2">
+      <div align="center">
+        <table border="0" width="57%">
+          <tr>
+            <td>
+
+            <p align="center">
+            <a href="index.php">
+            <img border="0" src="images/Home-128x128.png" width="128" height="128"></a></td>
+          </tr>
+          <tr>
+            <td>
+            <p align="center">
+            <font face="Arial"><a href="index.php">
+            <span style="text-decoration: none; font-weight: 700">
+
+            <font color="#808080" style="font-size: 9pt">&lt;&lt;&lt; Zpět do menu</font></span></a></font>
+            </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+      </td>
+
+    </tr>
+    <tr>
+      <td width="407" colspan="2" height="88">
+          <table border="0" width="404" cellspacing="15">
+            <tr>
+              <td width="7" align="center">&nbsp;</td>
+              <td width="49" valign="top">
+              <img border="0" src="{ikona}"></td>
+              <td width="591" align="center" colspan="2">
+              <p align="left"><font face="Arial" size="2">
+              <span style="font-weight: 700">{nadpis}</span></font><font face="Arial" style="font-size: 8pt"><br>
+              {popis}</font></td>
+            </tr>
+          </table>
+      </td>
+    </tr>
+    {/hlavicka}
+    <tr>
+      <td width="685" colspan="3">
+
+      <hr size="1" width="95%">
+      <p>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="685" colspan="3" height="223" valign="top">
+      <div align="center">
+        <table border="0" width="90%" height="294">
+          <tr>
+            <td valign="top">
+
+            {obsah}
+
+            </td>
+          </tr>
+        </table>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td width="685" colspan="3">
+      <hr size="1" width="650" align="center">
+      </td>
+    </tr>
+    <tr>
+      <td width="685" colspan="3" height="26" align="center" style="text-align: center;">
+      
+      <p align="center" style="text-align: center; font-size: 8pt; font-face: Arial; color: #808080;">        
+        &nbsp; Vyrobilo: 
+        <span class="style2">        
+          © 2004 - {php: echo date("Y");}    
+        </span>          
+        &nbsp;
+        <a target="_blank" href="http://www.grafartstudio.cz" style="color: #808080;">GRAFART STUDIO<sup>®</sup></a>
+      </p>
+      
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>

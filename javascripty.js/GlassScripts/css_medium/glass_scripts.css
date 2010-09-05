@@ -1,0 +1,158 @@
+/************/
+/* popupDiv */
+/************/
+#divPopupClona{
+  background-image: url(clonaBlack40.png);
+  text-align: center;
+}
+
+#divPopupRamecek{
+  width: 464px;  /* na facebooku: šíøka 465px */
+  margin: auto;
+  position: relative;
+  padding: 0px 0px 0px 0px;
+}
+#divPopupRamecekTop{
+  background-image: url(ramecekTop464.png);
+  height: 10px;
+  font-size: 1pt;
+}
+#divPopupRamecekStred{
+  background-image: url(ramecekStred.png);
+}
+#divPopupRamecekBottom{
+  background-image: url(ramecekBottom464.png);
+  height: 10px; 
+  font-size: 1pt; 
+}
+
+#divPopupVnitrni{
+  background-color: #FFFFFF;
+  border: 1px solid #3B5998;
+  margin: 0px 10px 0px 10px;
+}
+
+#divPopupTitle{
+  font-size: 10pt;
+  color: #FFFFFF; 
+  font-weight: bold; 
+  text-align: left;
+  padding: 0px 4px 0px 4px;
+  background-color: #6D84B4;
+  border-bottom: 1px solid #3B5998;
+  cursor: pointer;
+}
+
+#divPopupClose{
+  font-size: 10pt;
+  color: #FFFFFF; 
+  font-weight: bold;
+  border-left: 1px solid #3B5998;
+  padding-left: 4px;
+  padding-right: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+#divPopupObsah{
+  text-align: left;
+  padding: 4px 4px 4px 4px;
+}
+
+.clear{
+  clear: both;
+}
+
+
+
+/*************/
+/* Cotojatko */
+/*************/
+#divCotojatkoObsah{
+  width: 256px; 
+  text-align: left;
+  background-color: #FFFFFF;
+  border: 2px solid rgb(127,112,128);
+  font-size: 89%; 
+}
+
+
+
+/*************/
+/* popupMenu */
+/*************/
+#divPopupMenu{
+  text-align: left;
+}
+
+#divPopupMenu a{
+  text-align: left;
+  margin: 0px 0px 1px 0px;
+  padding: 2px 4px 2px 21px;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  background: #FFFFFF url(odkazBg.png) 2px 1px no-repeat;
+}
+#divPopupMenu a:hover{
+  background: rgb(127,224,240) url(odkazBgActive.png) 2px 1px no-repeat ;  
+}
+
+
+
+/****************/
+/* popupTooltip */
+/****************/
+.popupTooltipTable{
+  width: 256px;
+}
+.popupTooltipObsah{
+  border: 1px solid #999999;
+  background-color: #FFFFFF;
+  padding: 0px 2px 1px 2px;
+  cursor: default;
+}
+.popupTooltipTL{
+  width: 10px;
+  height: 10px;
+  background-image: url(ramecekTLBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipT{
+  height: 10px;
+  background-image: url(ramecekTBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipTR{
+  width: 10px;
+  height: 10px;
+  background-image: url(ramecekTRBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipL{
+  width: 10px;
+  background-image: url(ramecekLBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipR{
+  width: 10px;
+  background-image: url(ramecekRBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipBL{
+  width: 10px;
+  height: 10px;
+  background-image: url(ramecekBLBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipB{
+  height: 10px;
+  background-image: url(ramecekBBlue.png);
+  font-size: 1pt;
+}
+.popupTooltipBR{
+  width: 10px;
+  height: 10px;
+  background-image: url(ramecekBRBlue.png);
+  font-size: 1pt;
+}
