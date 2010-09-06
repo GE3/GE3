@@ -226,7 +226,7 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
     // Spuštění dotazu
     $podminka.= "AND produkt IS NOT NULL ";
     $podminka = eregi_replace("^AND ", "", $podminka);
-    $dotaz = "SELECT *, MIN(cenaSDph), MIN(cenaBezDph) FROM $CONF[sqlPrefix]zbozi WHERE $podminka GROUP BY produkt ORDER BY $seradit_podle LIMIT $limit";
+    $dotaz = "SELECT *,MIN(id) FROM $CONF[sqlPrefix]zbozi WHERE $podminka GROUP BY kategorie,produkt ORDER BY $seradit_podle LIMIT $limit";
     $dotaz = Mysql_query($dotaz);
 
 
@@ -237,6 +237,7 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
           $tmplProdukty->newBlok("produkt");
 
           $tmplProdukty->prirad("produkt.i", $i);
+          $tmplProdukty->prirad("produkt.id", $radek["id"]);
           // Název produktu
           $tmplProdukty->prirad("produkt.nazev", $radek["produkt"]);
           // Číslo produktu
@@ -248,8 +249,8 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
           $tmplProdukty->prirad("produkt.popisUvod", ereg_replace( " [^ ]*$", "", substr(strip_tags($radek["popis"]),0,180)) );
           // Ceny
           //dopočítání nezadaných cen
-          $cenaSDph = $radek["MIN(cenaSDph)"]?$radek["MIN(cenaSDph)"]:($radek["MIN(cenaBezDph)"]*(1+$radek["dph"]/100));
-          $cenaBezDph = $radek["MIN(cenaBezDph)"]?$radek["MIN(cenaBezDph)"]:($radek["MIN(cenaSDph)"]/(1+$radek["dph"]/100));
+          $cenaSDph = $radek["cenaSDph"]?$radek["cenaSDph)"]:($radek["cenaBezDph"]*(1+$radek["dph"]/100));
+          $cenaBezDph = $radek["cenaBezDph"]?$radek["cenaBezDph"]:($radek["cenaSDph"]/(1+$radek["dph"]/100));
           @$dph = $radek["dph"]?$radek["dph"]:($radek["cenaSDph"]/$radek["cenaBezDph"]*100-100);
           //zobrazení
           $tmplProdukty->prirad("produkt.cenaSDph", $cenaSDph);
