@@ -205,7 +205,13 @@ echo '<table><tr><td bgcolor="#FFDEDE">';
    $dotaz=mysql_query($dotaz);
    if($dotaz){
       echo '
-         Editace základních údajů proběhla úspěšně.
+         Editace základních údajů proběhla úspěšně. 
+         <script type="text/javascript">
+           function presmeruj(){
+             location.href=\'index.php?m=editace_zbozi&kategorie='.$_GET["kategorie"].'\';
+           }
+           setTimeout("presmeruj()", 2000);
+         </script>
          ';
       }else{
       echo '
