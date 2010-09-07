@@ -683,6 +683,14 @@ If( !$n AND !$produkt ){
         }
         Else Echo '<p>Žádné zboží v této kategorii.';
     }
+    
+    
+    /* Info */
+echo '<div style="font-size: 10pt; font-weight: bold; margin: 20px 0px 0px 0px; position: relative; top: -16px;">
+        <span style="font-weight: bold; color: #2B5202;">Produktů v e-shopu: </span> 
+        '.zjisti_z("$CONF[sqlPrefix]zbozi", "COUNT(DISTINCT produkt)", "1=1").'
+      </div>
+     ';    
 }
 ?>
 
