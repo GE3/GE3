@@ -112,6 +112,21 @@ function zobraz_mezeru(){
 ?>
 
 
+
+<?php /* Navigace */
+echo '<div style="font-size: 10pt; font-weight: bold; margin: 0px 0px 20px 0px; position: relative; top: -16px;">
+        <span style="font-weight: bold; color: #2B5202;">Nacházíte se v: </span>
+        <a href="?m=editace_zbozi">Editace produktů</a> 
+        '.( ($_GET["kategorie"] or $_GET["produkt"])? '»': '' ).' 
+        '.cestaKategorie($_GET["kategorie"], $_GET["podkat1"], $_GET["podkat2"], $_GET["podkat3"]).'
+      ';
+if($_GET["produkt"]) echo '» <a href="?m=editace_zbozi&n=zmena_zakladnich_udaju&kategorie='.$_GET["kategorie"].'&podkat1='.$_GET["podkat1"].'&podkat2='.$_GET["podkat2"].'&produkt='.$_GET["produkt"].'">'.zjisti_z("$CONF[sqlPrefix]zbozi","produkt","id=$_GET[produkt]").'</a> ';
+echo '  </span>
+      </div>';
+?>
+
+
+
 <?php /* Smazání variant */
 if($id_varianta_smaz AND !$nove_varianty AND !$zmena_zakladnich_udaju_odeslana AND zjisti_z("$CONF[sqlPrefix]zbozi", "id", "id=$id_varianta_smaz")){
    $dotaz="DELETE FROM $CONF[sqlPrefix]zbozi WHERE id='$id_varianta_smaz'";
@@ -591,7 +606,7 @@ If( !$n AND !$produkt ){
              
       
         /* -- Zobrazení seznamu produktů po řádcích -- */
-        Echo '<span style="font-size: 10pt; font-weight: bold;"><a href="?m=editace_zbozi" style="font-weight: bold; color: #2B5202;">Přehled kategorií</a><span style="font-weight: bold; color: #008000;">:</span> '.cestaKategorie($_GET["kategorie"], $_GET["podkat1"], $_GET["podkat2"], $_GET["podkat3"]).'</span>';
+        //Echo '<span style="font-size: 10pt; font-weight: bold;"><a href="?m=editace_zbozi" style="font-weight: bold; color: #2B5202;">Přehled kategorií</a><span style="font-weight: bold; color: #008000;">:</span> '.cestaKategorie($_GET["kategorie"], $_GET["podkat1"], $_GET["podkat2"], $_GET["podkat3"]).'</span>';
         If( mysql_num_rows($dotaz)>0 ){
             $i = 1;
             $id_min = $_GET["id_min"]?$_GET["id_min"]:1;
@@ -627,7 +642,7 @@ If( !$n AND !$produkt ){
                           <td bgcolor="'.$bgcolor.'" onClick="popupMenu(\'<a href=?m=editace_zbozi&n=zmena_zakladnich_udaju&produkt='.$radek["id"].'>Upravit</a><a href=../index.php?a=produkty&produkt='.$radek["id"].' target=blank>Náhled v e-shopu</a><a href=´´javascript:smazProdukt('.$radek["id"].',\\\''.$radek["produkt"].'\\\');´´>Smazat</a>\');" style="cursor: pointer;">'.$radek["produkt"].'</td>
                           <td bgcolor="'.$bgcolor.'" align="right">'.($radek["cenaSDph"]? hezkaCena($radek["cenaSDph"]).' <span style="font-size: 7pt; color: #333333;">s DPH</span>': hezkaCena($radek["cenaBezDph"]).' <span style="font-size: 7pt; color: #333333;">s DPH</span>' ).'</td>
                           <td bgcolor="'.$bgcolor.'" align="right" style="padding-right: 2px">
-                            <a href="?m=editace_zbozi&n=zmena_zakladnich_udaju&produkt='.$radek["id"].'"><img src="images/edit16.png" border="0"></a>
+                            <a href="?m=editace_zbozi&n=zmena_zakladnich_udaju&kategorie='.$_GET["kategorie"].'&podkat1='.$_GET["podkat1"].'&podkat2='.$_GET["podkat2"].'&produkt='.$radek["id"].'"><img src="images/edit16.png" border="0"></a>
                             <a href="../index.php?a=produkty&produkt='.$radek["id"].'" target="blank"><img src="images/preview.png" width="16" height="16" border="0"></a>
                             <img src="images/delete.png" border="0" style="cursor: pointer;" onClick="if(confirm(\''.$radek["produkt"].'\\n\\nOpravdu chcete tento produkt smazat?\')){location.href=\'?m=editace_zbozi&zbozi_smaz='.$radek["id"].'\';}">
                           </td>
