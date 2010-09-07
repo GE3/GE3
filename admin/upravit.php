@@ -555,10 +555,16 @@ If( !$n AND !$produkt ){
 If( !$n AND !$produkt ){
   
     If( !$_GET["produkt"] ){
-        echo '<center>Vyhledávání: <input type="text" name="vyhledavani" value="'.$_POST["vyhledavani"].'"> 
-              <input type="submit" name="hledej" value="Hledat"> </center>&nbsp;<br>';
+        echo '<form action="" method="post">
+              <center>
+              Vyhledávání: <input type="text" name="vyhledavani" value="'.$_POST["vyhledavani"].'"> 
+              <input type="submit" name="hledej" value="Hledat">
+              </center>
+              </form> 
+              &nbsp;<br>';
     }
-    If( !$_GET["kategorie"] ){
+    
+    If( !$_GET["kategorie"] and !$_POST["vyhledavani"] ){
         Echo '<script type="text/javascript">
               function plusMinus(imgId){
                        if( document.getElementById(imgId).src.search(/plus.png/)>1 ){
@@ -596,7 +602,21 @@ If( !$n AND !$produkt ){
         }
         If( $_GET["podkat3"] ){
             $podminky.= "AND podkat3=(SELECT podkat3 FROM $CONF[sqlPrefix]zbozi WHERE id=$_GET[podkat3]) ";
-        } 
+        }
+        if( $_POST["vyhledavani"] ){
+            $podminky.= "AND (LOWER(cislo) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(kategorie) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(popisKategorie) LIKE LOWER('%$_POST[vyhledavani]%') OR
+                              LOWER(podkat1) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(podkat2) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(podkat3) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(produkt) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(varianta) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(vyrobce) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(prilohy) LIKE LOWER('%$_POST[vyhledavani]%') OR 
+                              LOWER(popis) LIKE LOWER('%$_POST[vyhledavani]%') 
+                              ) ";
+        }         
           
         $id_min = $_GET["id_min"]?$_GET["id_min"]:1; $id_min--;
         $dotaz_txt="SELECT * FROM $CONF[sqlPrefix]zbozi WHERE $podminky GROUP BY produkt ORDER BY vahaProduktu DESC";  //LIMIT $id_min,10
