@@ -136,8 +136,7 @@ FCKConfig.ToolbarSets["Grafart_produkty"] = [
   ['OrderedList','UnorderedList','-','Outdent','Indent'],
   ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
   ['Link','Unlink','Anchor'],
-  '/',
-  ['FontFormat','FontSize']  // No comma for the last row.
+  ['FontSize']  // No comma for the last row.
 ] ;
 
 
