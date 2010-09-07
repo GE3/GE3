@@ -1,0 +1,57 @@
+{zprava/}<p>{obsah}</p>{/zprava}
+
+<form action="" method="post">
+  <h2>Nový obchodní zástupce</h2>
+  <table>
+    <tr>
+      <td>Jméno: </td>
+      <td><input type="text" name="jmeno"></td>
+    </tr>
+    <tr>
+      <td>Příjmení: </td>
+      <td><input type="text" name="prijmeni"></td>
+    </tr>
+    <tr>
+      <td>Telefon: </td>
+      <td>
+        <input type="text" name="telefon">
+        <input type="submit" name="odeslat" value="Přidat">
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+<h2>Databáze obchodních zástupců</h2>
+<table border="0" width="100%">
+  <tr>
+    <th style="text-align: left;">č.</th>
+    <th style="text-align: left;">Jméno</th>
+    <th style="text-align: left;">Příjmení</th>
+    <th style="text-align: left;">Telefon</th>
+    <th style="text-align: left;">Možnosti</th>
+  </tr>
+  {makler/}
+  <tr>
+    <td>{id}</td>
+    <td>{jmeno}</td>
+    <td>{prijmeni}</td>
+    <td>{telefon}</td>
+    <td>
+      <img src="images/edit16.png" onClick="if(document.getElementById('trMaklerEdit{id}').style.display=='none') document.getElementById('trMaklerEdit{id}').style.display=''; else document.getElementById('trMaklerEdit{id}').style.display='none';">
+      <img src="images/delete.png" onClick="if(confirm('Opravdu chcete makléře {jmeno} {prijmeni} smazat?')) location.href='?m=makler&smazat={id}';">
+    </td>
+  </tr>
+  <tr id="trMaklerEdit{id}" style="display: none;">
+    <td colspan="5" style="border-bottom: 1px dashed #A2988C;">
+      <form action="" method="post">
+        <input type="hidden" name="id" value="{id}">
+        Jméno: <input type="text" name="jmeno" style="font-size: 9pt; width: 70px;" value="{jmeno}"> &nbsp;
+        Příjmení: <input type="text" name="prijmeni" style="font-size: 9pt; width: 70px;" value="{prijmeni}"> &nbsp;
+        Telefon: <input type="text" name="telefon" style="font-size: 9pt; width: 70px;" value="{telefon}"> 
+        <input type="submit" name="odeslat" value="Upravit">
+      </form>    
+    </td>
+  </tr>
+  {/makler}
+<table>

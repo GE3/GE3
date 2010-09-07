@@ -1,0 +1,622 @@
+{filtrace/}
+<form name="filtrace" method="post" action="?a=produkty{php: Echo $_GET['kategorie']?'&kategorie='.$_GET['kategorie']:'';}{php: Echo $_GET['podkat1']?'&podkat1='.$_GET['podkat1']:'';}{php: Echo $_GET['podkat2']?'&podkat2='.$_GET['podkat2']:'';}{php: Echo $_GET['podkat3']?'&podkat3='.$_GET['podkat3']:'';}">
+       <div class="nadpis"><h2>{nadpis}</h2></div>
+       &nbsp;
+       <table>
+         <tr>
+           <td>Seřadit podle:
+             <select name="seradit_podle" onChange="document.forms.filtrace.submit()">
+               <option value="">vybrat</option>
+               <option value="id DESC" {php: Echo ($_POST['seradit_podle']=='id DESC')?'selected':'';}>data</option>
+               <option value="cenaSDph ASC, cenaBezDph ASC" {php: Echo ($_POST['seradit_podle']=='cenaSDph ASC, cenaBezDph ASC')?'selected':'';}>ceny</option>
+               <option value="produkt ASC" {php: Echo ($_POST['seradit_podle']=='produkt ASC')?'selected':'';}>názvu</option>
+             </select>
+           </td>
+           <td style="padding-left: 6px;">Počet na stránce:
+             <select name="pocet" onChange="document.forms.filtrace.submit()">
+                     <option value="9" {php: Echo ($_POST['pocet']=='9')?'selected':'';}>9</option>
+                     <option value="15" {php: Echo ($_POST['pocet']=='15')?'selected':'';}>15</option>
+                     <option value="30" {php: Echo ($_POST['pocet']=='30')?'selected':'';}>30</option>
+             </select>
+           </td>
+           <td>Podle výrobce:
+           <select name="vyrobce" onChange="document.forms.filtrace.submit()">
+             <option value="">vše</option>
+             {vyrobce/}<option value="{nazev}" {php: Echo ($_POST['vyrobce']=='{nazev}')?'selected':'';}>{nazev}</option>{/vyrobce}
+           </select>
+           </td>
+         </tr>
+       </table> &nbsp;<br />
+</form>
+{/filtrace}
+
+{php: If('{popisKategorie}'){ ;}
+<div style="padding: 0px 12px 4px 12px;">{popisKategorie}</div>
+{php: } ;}
+
+{produkt/}
+            <div class="produkt" {php: echo (('{i}')%3==2)? 'style="margin-left: 17px; margin-right: 17px;"': '';}>
+                <div class="nazev">
+                    <a href="{url}">{nazev}</a>
+                </div>
+                <div class="obrazek"><table><tr><td>
+                    <a href="{url}"><img src="{obrazek}" alt="{nazev}" /></a>
+                </td></tr></table></div>
+                <div class="cena">
+                    <a href="{url}" class="cervena">{php: echo _hezkaCena('{cenaSDph}');} Kč</a>
+                </div>
+                <div class="info">
+                    <a href="{url}"><span class="i"></span></a><a href="{urlDoKosiku}"><span class="kosik"></span></a>
+                </div>
+            </div>
+{/produkt}
+
+{strankovani/}
+            <div style="clear: both;"></div>
+            <div class="poradi">
+                <a href="{urlPrev}"> &lt; Předchozí</a> | 
+                {odkaz/}<a href="{url}" {php: Echo ('{cisloStrany}'==$_GET['strana'] OR (!$_GET['strana'] AND '{cisloStrany}'==1) )?'class="active"': '' ;}>{cisloStrany}</a> | {/odkaz} 
+                <a href="{urlNext}">Další &gt; </a>
+            </div> <!--konec poradi-->
+{/strankovani}
+
+
+
+
+
+
+{detailProduktu/}
+<h2>{nazev}</h2>
+<br />
+<div>
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="1%" valign="top" style="vertical-align: top;">
+        <div class="gallery">          
+          {fotogalerie/}
+          <script type="text/javascript">
+          function fotogalerieClick(i){
+                  {obrOdkaz/}
+                  document.getElementById('obr{i}').style.display = 'none';
+                  {/obrOdkaz}
+                  document.getElementById('obr'+i).style.display = 'inline';
+          }
+          </script>
+          <table border="0" cellpadding="0" cellspacing="0" class="nahled_obrazku_table">
+            <tr>
+              <td>
+                <!--<div id="divObrActive" style="padding: 4px 4px 4px 4px;">
+                  {obrActive/}<a href="{url}" target="_blank" rel="lightbox"><img src="{url}" alt="{url}" border="0" width="256px"></a>{/obrActive}
+                </div>-->
+
+                {obrOdkaz/}
+                <div id="obr{i}" style="display: {php: Echo ('{i}'==1)?'inline':'none' ;};">
+                  <a href="{url}" target="_blank" rel="lightbox"><img src="{url}" alt="{url}" border="0" width="256px" display: {php: Echo ('{i}'==1)?'id="imgDetail"':'';}></a>
+                </div>
+                {/obrOdkaz}
+
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                {obrOdkaz/}{php: if('{i}'>1){ ;}
+                  <a href="{url}" target="_blank" rel="lightbox[produkt]">
+                    <img src="{url}" align="left" alt="{url}" border="0" height="64px" style="margin: 2px 2px 2px 2px;"> <!-- style="cursor: pointer;" onClick="fotogalerieClick('{i}');" -->
+                  </a>
+                {php: } ;}{/obrOdkaz}
+              </td>
+            </tr>
+          </table>
+          {/fotogalerie}
+        </div>
+      </td>
+      <td valign="top" style="padding-left: 10px; padding-top: 4px;">
+        <div style="float: left;">Kategorie: {kategorie}  </div><br>
+
+        <div style="position: relative; top: 0px; clear: both;">Výrobce: {vyrobce} </div>
+        <div style="margin-top: 6px;">
+        <p style="text-align: left;">
+          {popis}
+          
+          &nbsp;
+          {php: if('{pocetPriloh}'!=0){ ;}
+          <p><div style="border: 1px solid #DCDDDF; padding-left: 2px; padding-bottom: 2px;">
+          Přiložené soubory: <br>
+          {priloha/}
+          <a href="{url}" target="_blank">
+            <img src="{_absUrl}templates/{php: echo $GLOBALS["config"]["vzhled"];}/ikony/{php: Echo _ikonaSouboru('{nazev}');}" border="0" style="position: relative; top: 3px; border: 0px solid white;"></a>&nbsp;<a href="{url}" target="_blank">{nazev}</a>
+          <br>
+          {/priloha}
+          </div></p>
+          {php: } ;}
+        </div>
+      </td>
+    </tr>
+    <tr>
+       <td colspan="2">
+          <br><form action="{_absDir}kosik.html?b=pridat" method="post" name="itemform" id="itemform" style="">
+          <table border="0" width="100%">
+             <tr>
+                <td colspan="2">
+                  <strong><font style="font: 16px/24px Tahoma, sans-serif; color: #000099;">Objednat</font></strong>
+                </td>
+             </tr>
+             <tr>
+                <td width="100%">
+
+                    <script type="text/javascript">
+                         /**
+                          * Zde bude pole, obsahující ceny
+                          * variant a funkce prepocitej().
+                          */
+
+                         /* -- Ceny bez DPH -- */
+                         var cenyBezDph = new Array();
+                         {varianta/}
+                         cenyBezDph[{id}] = {php: Echo _normalniCena('{cenaBezDph}');};
+                         {/varianta}
+
+                         cenyBezDph[{id}] = {php: Echo _normalniCena('{cenaBezDph}');};  //(pokud produkt neobsahuje varianty)
+
+                         /* -- Ceny bez DPH -- */
+                         var cenySDph = new Array();
+                         {varianta/}
+                         cenySDph[{id}] = {php: Echo _normalniCena('{cenaSDph}');};
+                         {/varianta}
+
+                         cenySDph[{id}] = {php: Echo _normalniCena('{cenaSDph}');};  //(pokud produkt neobsahuje varianty)
+
+
+                         /**
+                          * Následuje funkce pro přepočítání cen
+                          */
+                         function prepocitej(){
+                                 //zjištění hodnot
+                                 variantaId = document.getElementById('varianta').value;
+                                 cenaBezDph = cenyBezDph[variantaId] * 1;
+                                 cenaSDph = cenySDph[variantaId] * 1;
+                                 mnozstvi = document.getElementById('mnozstvi').value * 1;
+
+                                 //spočítání celkové ceny
+                                 celkemBezDph = mnozstvi * cenaBezDph;
+                                 celkemSDph = mnozstvi * cenaSDph;
+
+                                 //vložení do obsahu stránky
+                                 document.getElementById('spanCenaBezDphKus').innerHTML = cenaBezDph;
+                                 document.getElementById('spanCelkemBezDph').innerHTML = celkemBezDph;
+                                 document.getElementById('spanCenaSDphKus').innerHTML = cenaSDph;
+                                 document.getElementById('spanCelkemSDph').innerHTML = celkemSDph;
+                         }
+                       </script>
+                      <table width="100%">
+                         {php: If('{pocetVariant}'!=0){ ;}
+                         <tr>
+                           <td>Varianta: </td>
+                           <td>
+                             <select name="produkt" id="varianta" size="1" onChange="prepocitej();">
+                               {varianta/}<option value="{id}">{nazev}</option>{/varianta}
+                             </select>
+                           </td>
+                           <td></td>
+                           <td></td>
+                         </tr>
+                         {php: }Else{ ;}
+                         <tr>
+                           <td colspan="4"><input type="hidden" name="produkt" id="varianta" value="{id}"></td>
+                         </tr>
+                         {php: } ;}
+                         <tr>
+                           <td width="1">
+
+                          <nobr>Objednávané množství:&nbsp;</nobr>
+                         </td>
+                         <td>
+                          <input type="text" name="mnozstvi" id="mnozstvi" value="1" size="3" maxlength="4" onChange="prepocitej();" onKeyUp="prepocitej();"> ks
+                         </td>
+                         <td></td>
+                         <td></td>
+                       </tr>
+                       <tr>
+                         <td>Cena za kus: </td>
+                         <td><span id="spanCenaSDphKus">{cenaSDph}</span><input class="inputToText" type="hidden" id="inputCenaZaKus" value="0" size="8"> Kč</td>
+                         <td></td>
+                         <td></td>
+                       </tr>
+                       <tr>
+                         <td><b>Celkem:</b> </td>
+                         <td>
+                           <input type="hidden" name="dph" id="inputDph" value="{dph}">
+                           <span id="spanCelkemSDph">{cenaSDph}</span> Kč
+                           
+                           <span id="spanCenaBezDphKus" style="display: none;">{cenaBezDph}</span>
+                           <span id="spanCelkemBezDph" style="display: none;">{cenaBezDph}</span>
+                         </td>
+                         <td></td>
+                         <td></td>
+                       </tr>
+                    </table>
+
+                </td>
+                <td>
+                  <font size="1">Skladem: </font><font size="1" {php: Echo ('{dostupnost}' == 'ANO')? 'style="color: green;"': '';} {php: Echo ('{dostupnost}' == 'NE')? 'style="color: red;"': '';}<b><strong>{dostupnost}</strong></b></font><br>
+
+                  {php: if(!$_GET["tisk"]){ ;}
+                  <div style="margin-top: 5px;">
+                    <!--<input type="button" onmousedown="document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatOpen').innerHTML; document.getElementById('maincol2').style.height='';" style="width: 90px;" value="Poptat" name=""/>-->
+                    <input type="submit" name="submit" value="Do košíku" style="width: 90px;"/>
+                  </div>
+                  {php: } ;}
+                </td>
+             </tr>
+          </table>
+          </form>
+          
+          {php: if(!$_GET["tisk"]){ ;}
+          <div style="clear: both;">&nbsp;<p>&nbsp;</div>
+          <div style="text-align: right;">
+            {php: echo zjisti_z($GLOBALS["config"]["sqlPrefix"].'facebook', 'hodnota', "typ='facebook_produkty'");} &nbsp;
+            <a href="?tisk=true" target="_blank" style="text-decoration: none;"><img src="ikony/print.png" style="position: relative; top: 2px;"> Tisk</a> 
+          </div>
+          {php: } ;}          
+       </td>
+    </tr>
+
+    <tr>
+       <td colspan="2">
+
+          {zpravaOk/}
+          <div class="divOk">
+            {text}
+          </div>
+          {/zpravaOk}
+          {zpravaError/}
+          <div class="divError">
+            {text}
+          </div>
+          {/zpravaError}
+
+          <!--<div id="divPoptatOpen" style="display: none;">
+            <div style="padding: 12px 12px 12px 12px;">
+            <form method="post" action="">
+            <table border="0">
+                   <tr>
+                       <td><b>Produkt, který poptávám</b>: </td>
+                       <td>
+                         {nazev}
+                         <input type="hidden" name="Název produktu" value="{nazev}">
+                         <input type="hidden" name="mailPredmet" value="E-Shop, dotaz na produkt">
+                         <input type="hidden" name="mailTextZac" value="Dobrý den, <br> ve vašem e-shopu byl vyplněn dotaz k produktu. ">
+                         <input type="hidden" name="mailTextKon" value="">
+                         <input type="hidden" name="mailPovinne" value="Jméno;Telefon;Email;Chci se zeptat na">
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>*<b>Jméno</b>: </td>
+                       <td><input type="text" name="Jméno" value=""></td>
+                   </tr>
+                   <tr>
+
+                       <td><b>Adresa</b>: </td>
+                       <td><input type="text" name="Adresa" value=""></td>
+                   </tr>
+                   <tr>
+                       <td>*<b>Tel.</b>: </td>
+                       <td><input type="text" name="Telefon" value=""></td>
+                   </tr>
+                   <tr>
+                       <td>*<b>E-mail</b>: </td>
+                       <td><input type="text" name="Email" value=""></td>
+                   </tr>
+                   <tr>
+                       <td colspan="2">*<b>Chci se zeptat na</b>: </td>
+
+                   </tr>
+                   <tr>
+                       <td colspan="2">
+                         <textarea rows="6" cols="34" name="Chci se zeptat na"></textarea>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td colspan="2" align="right">
+                         <input type="submit" name="submit" value="Odeslat">
+                       </td>
+                   </tr>
+            </table>
+
+            * tyto položky jsou povinné
+            </form>
+            <div style="text-decoration: underline; color: #AB2000; cursor: pointer; text-align: right;" onMouseDown="document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatClose').innerHTML; layoutCoordination();">
+                 <input type="button" name="schovat" value="< Schovat">
+            </div>
+            </div>
+          </div>
+
+          <div id="divPoptatClose" style="display: none;">
+             <div style="text-align: left; padding: 1px 12px 1px 12px;">
+             </div>
+          </div>
+
+          <div id="divPoptat">
+             <script type="text/javascript">
+             document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatClose').innerHTML;
+             </script>
+          </div>-->
+
+       </td>
+    </tr>
+  </table>
+</div>
+{/detailProduktu}
+
+
+
+{detailProduktuTisk/}
+<div style="float: right;">
+  <a href="?tisk=">Zrušit tisk</a> &nbsp; 
+  <!--<a name="fb_share" type="button_count" href="http://www.facebook.com/sharer.php">Sdílet</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>-->
+</div>
+<h2>{nazev}</h2>
+<br />
+<div>
+  <table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="1%" valign="top" style="vertical-align: top;">
+          {fotogalerie/}
+          <script type="text/javascript">
+          function fotogalerieClick(i){
+                  {obrOdkaz/}
+                  document.getElementById('obr{i}').style.display = 'none';
+                  {/obrOdkaz}
+                  document.getElementById('obr'+i).style.display = 'inline';
+          }
+          </script>
+          <table border="0" cellpadding="0" cellspacing="0" class="nahled_obrazku_table">
+            <tr>
+              <td>
+                <!--<div id="divObrActive" style="padding: 4px 4px 4px 4px;">
+                  {obrActive/}<a href="{url}" target="_blank" rel="lightbox"><img src="{url}" alt="{url}" border="0" width="256px"></a>{/obrActive}
+                </div>-->
+
+                {obrOdkaz/}
+                <div id="obr{i}" style="display: {php: Echo ('{i}'==1)?'inline':'none' ;};">
+                  <a href="{url}" target="_blank" rel="lightbox"><img src="{url}" alt="{url}" border="0" width="256px" display: {php: Echo ('{i}'==1)?'id="imgDetail"':'';}></a>
+                </div>
+                {/obrOdkaz}
+
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                {obrOdkaz/}{php: if('{i}'>1){ ;}
+                  <a href="{url}" target="_blank" rel="lightbox">
+                    <img src="{url}" align="left" alt="{url}" border="0" height="64px" style="margin: 2px 2px 2px 2px;"> <!-- style="cursor: pointer;" onClick="fotogalerieClick('{i}');" -->
+                  </a>
+                {php: } ;}{/obrOdkaz}
+              </td>
+            </tr>
+          </table>
+          {/fotogalerie}
+      </td>
+      <td valign="top" style="padding-left: 10px; padding-top: 4px;">
+        <div style="float: left;">Kategorie: {kategorie}  </div><br>
+
+        <div style="position: relative; top: 0px; clear: both;">Výrobce: {vyrobce} </div>
+        <div style="margin-top: 6px;">
+        <p style="text-align: left;">
+          {popis}
+
+          {php: if('{pocetPriloh}'!=0){ ;}
+          <p><div style="border: 1px solid #DCDDDF; padding-left: 2px; padding-bottom: 2px;">
+          Přiložené soubory: <br>
+          {priloha/}
+          <a href="{url}" target="_blank">
+            <img src="{_absUrl}templates/velkyhrac/ikony/{php: Echo _ikonaSouboru('{nazev}');}" border="0" style="position: relative; top: 3px; border: 0px solid white;"></a>&nbsp;<a href="{url}" target="_blank">{nazev}</a>
+          <br>
+          {/priloha}
+          </div></p>
+          {php: } ;}
+        </div>
+      </td>
+    </tr>
+    <tr>
+       <td colspan="2">
+          <br><form action="{_absDir}kosik.html?b=pridat" method="post" name="itemform" id="itemform" style="">
+          <table border="0" width="100%">
+             <tr>
+                <td colspan="2">
+                  <strong><font style="font: 16px/24px Tahoma, sans-serif; color: #000099;"><!--Objednat--></font></strong>
+                </td>
+             </tr>
+             <tr>
+                <td width="100%">
+
+                    <script type="text/javascript">
+                         /**
+                          * Zde bude pole, obsahující ceny
+                          * variant a funkce prepocitej().
+                          */
+
+                         /* -- Ceny bez DPH -- */
+                         var cenyBezDph = new Array();
+                         {varianta/}
+                         cenyBezDph[{id}] = {php: Echo _normalniCena('{cenaBezDph}');};
+                         {/varianta}
+
+                         cenyBezDph[{id}] = {php: Echo _normalniCena('{cenaBezDph}');};  //(pokud produkt neobsahuje varianty)
+
+                         /* -- Ceny bez DPH -- */
+                         var cenySDph = new Array();
+                         {varianta/}
+                         cenySDph[{id}] = {php: Echo _normalniCena('{cenaSDph}');};
+                         {/varianta}
+
+                         cenySDph[{id}] = {php: Echo _normalniCena('{cenaSDph}');};  //(pokud produkt neobsahuje varianty)
+
+
+                         /**
+                          * Následuje funkce pro přepočítání cen
+                          */
+                         function prepocitej(){
+                                 //zjištění hodnot
+                                 variantaId = document.getElementById('varianta').value;
+                                 cenaBezDph = cenyBezDph[variantaId] * 1;
+                                 cenaSDph = cenySDph[variantaId] * 1;
+                                 mnozstvi = document.getElementById('mnozstvi').value * 1;
+
+                                 //spočítání celkové ceny
+                                 celkemBezDph = mnozstvi * cenaBezDph;
+                                 celkemSDph = mnozstvi * cenaSDph;
+
+                                 //vložení do obsahu stránky
+                                 document.getElementById('spanCenaBezDphKus').innerHTML = cenaBezDph;
+                                 document.getElementById('spanCelkemBezDph').innerHTML = celkemBezDph;
+                                 document.getElementById('spanCenaSDphKus').innerHTML = cenaSDph;
+                                 document.getElementById('spanCelkemSDph').innerHTML = celkemSDph;
+                         }
+                       </script>
+                      <table width="100%">
+                         {php: If('{pocetVariant}'!=0){ ;}
+                         <tr>
+                           <td>Varianta: </td>
+                           <td>
+                             <select name="produkt" id="varianta" size="1" onChange="prepocitej();">
+                               {varianta/}<option value="{id}">{nazev}</option>{/varianta}
+                             </select>
+                           </td>
+                           <td></td>
+                           <td></td>
+                         </tr>
+                         {php: }Else{ ;}
+                         <tr>
+                           <td colspan="4"><input type="hidden" name="produkt" id="varianta" value="{id}"></td>
+                         </tr>
+                         {php: } ;}
+                         <!--<tr>
+                           <td width="1">
+
+                          <nobr>Objednávané množství:&nbsp;</nobr>
+                         </td>
+                         <td>
+                          <input type="text" name="mnozstvi" id="mnozstvi" value="1" size="3" maxlength="4" onChange="prepocitej();"> ks
+                         </td>
+                         <td></td>
+                         <td></td>
+                       </tr>-->
+                       <tr>
+                         <td width="128">Cena za kus: </td>
+                         <td width="128"><span id="spanCenaKus">{cenaSDph}</span><input class="inputToText" type="hidden" id="inputCenaZaKus" value="0" size="8"> Kč</td>
+                         <td></td>
+                         <td></td>
+                       </tr>
+                       <!--<tr>
+                         <td><b>Celkem:</b> </td>
+                         <td>
+                           <input type="hidden" name="dph" id="inputDph" value="{dph}">
+                           <span id="spanCelkemSDph">{cenaSDph}</span> Kč
+                         </td>
+                         <td></td>
+                         <td></td>
+                       </tr>-->
+                    </table>
+
+                </td>
+                <td>
+                  <font size="1">Skladem: </font><font size="1" {php: Echo ('{dostupnost}' == 'ANO')? 'style="color: green;"': '';} {php: Echo ('{dostupnost}' == 'NE')? 'style="color: red;"': '';}<b><strong>{dostupnost}</strong></b></font><br>
+
+                  <!--<div style="margin-top: 5px;">
+                    <input type="button" onmousedown="document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatOpen').innerHTML; document.getElementById('maincol2').style.height='';" style="width: 90px;" value="Poptat" name=""/>
+                    <input type="submit" name="submit" value="Do košíku" style="width: 90px;"/>
+                  </div>-->
+                </td>
+             </tr>
+          </table>
+          </form>
+       </td>
+    </tr>
+
+    <tr>
+       <td colspan="2">
+
+          {zpravaOk/}
+          <div class="divOk">
+            {text}
+          </div>
+          {/zpravaOk}
+          {zpravaError/}
+          <div class="divError">
+            {text}
+          </div>
+          {/zpravaError}
+
+          <div id="divPoptatOpen" style="display: none;">
+            <div style="padding: 12px 12px 12px 12px;">
+            <form method="post" action="">
+            <table border="0">
+                   <tr>
+                       <td><b>Produkt, který poptávám</b>: </td>
+                       <td>
+                         {nazev}
+                         <input type="hidden" name="Název produktu" value="{nazev}">
+                         <input type="hidden" name="mailPredmet" value="E-Shop, dotaz na produkt">
+                         <input type="hidden" name="mailTextZac" value="Dobrý den, <br> ve vašem e-shopu byl vyplněn dotaz k produktu. ">
+                         <input type="hidden" name="mailTextKon" value="">
+                         <input type="hidden" name="mailPovinne" value="Jméno;Telefon;Email;Chci se zeptat na">
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>*<b>Jméno</b>: </td>
+                       <td><input type="text" name="Jméno" value=""></td>
+                   </tr>
+                   <tr>
+
+                       <td><b>Adresa</b>: </td>
+                       <td><input type="text" name="Adresa" value=""></td>
+                   </tr>
+                   <tr>
+                       <td>*<b>Tel.</b>: </td>
+                       <td><input type="text" name="Telefon" value=""></td>
+                   </tr>
+                   <tr>
+                       <td>*<b>E-mail</b>: </td>
+                       <td><input type="text" name="Email" value=""></td>
+                   </tr>
+                   <tr>
+                       <td colspan="2">*<b>Chci se zeptat na</b>: </td>
+
+                   </tr>
+                   <tr>
+                       <td colspan="2">
+                         <textarea rows="6" cols="34" name="Chci se zeptat na"></textarea>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td colspan="2" align="right">
+                         <input type="submit" name="submit" value="Odeslat">
+                       </td>
+                   </tr>
+            </table>
+
+            * tyto položky jsou povinné
+            </form>
+            <div style="text-decoration: underline; color: #AB2000; cursor: pointer; text-align: right;" onMouseDown="document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatClose').innerHTML; layoutCoordination();">
+                 <input type="button" name="schovat" value="< Schovat">
+            </div>
+            </div>
+          </div>
+
+          <div id="divPoptatClose" style="display: none;">
+             <div style="text-align: left; padding: 1px 12px 1px 12px;">
+             </div>
+          </div>
+
+          <div id="divPoptat">
+             <script type="text/javascript">
+             document.getElementById('divPoptat').innerHTML=document.getElementById('divPoptatClose').innerHTML;
+             </script>
+          </div>
+
+       </td>
+    </tr>
+  </table>
+</div>
+{/detailProduktuTisk}

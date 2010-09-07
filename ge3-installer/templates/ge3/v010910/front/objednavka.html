@@ -1,0 +1,294 @@
+{objednavkaAdmin/}
+<div style="border: 1px solid #000080; background-color: #EEEEFF; margin-bottom: 12px; position: relative;">
+  <table width="100%" border="0">
+    <tr>
+      <td width="100" align="left"><b>{datum}</td>
+      <td width="240" align="left">{jmeno} {prijmeni}; Počet položek: {pocetPolozek} ks</td>
+      <td width="*" align="right">Celková cena: <b>{php: Echo _hezkaCena('{celkemSDph}');} Kč</b></td>
+      <td width="80" align="right">
+        <span onClick="document.getElementById('divPodrobnosti{id}').style.display='none'; easyAjax('ajax.php/ajax.status.php','objednavka={id}','spanStatus{id}');" id="spanStatus{id}" style="cursor: pointer; font-weight: bold;">
+          {stav}
+        </span>
+      </td>
+      <td width="20" align="right">
+        <span style="cursor: pointer;" onClick="easyAjaxPopup('Poznámka k zákazníkovi', 'zakazniciPoznamky.ajax.php', 'email={email}');">
+          <img src="{_absDir}images/{php: Echo _ikonaPoznamky('{poznamkaObsah}','{poznamkaTyp}');}" title="{php: Echo ('{poznamkaObsah}'? '{poznamkaObsah}': 'Žádná poznámka k tomuto zákazníkovi.');}" onMouseMove="cotojatko(this);">
+        </span>
+      </td>      
+    </tr>
+    <tr>
+      <td colspan="5">
+        <div style="position: relative; border-top: 1px solid #A0A0F0;">
+          <div id="divPodrobnosti{id}" style="display: none; padding-top: 6px;">
+            <p><h2>Objednané zboží:</h2>
+            <table border="0">
+              <tr>
+                <td><b>Název zboží</b></td>
+                <td><b>Množství</b></td>
+                <td><b>Cena/ks</b></td>
+                <td><b>Cena celkem</b></td>
+              </tr>
+
+              {produkt/}
+              <tr>
+                <td>{nazev} {php: echo ('{varianta}')? '- {varianta}': '';}</td>
+                <td>{mnozstvi}</td>
+                <td>{php: Echo _hezkaCena('{cenaSDph}');}</td>
+                <td>{php: Echo _hezkaCena('{celkemSDph}');}</td>
+              </tr>
+              {/produkt}
+
+            </table>
+            <br>
+            <!--Celkem bez DPH: {celkemBezDph} Kč<br>-->
+            <b>Celkem: {celkemSDph} Kč</b>
+
+
+            <!--<p><b style="font-size: 120%; color: #333333;">Informace o dopravě:</b> <br>
+            <table border="0">
+              <tr>
+                <td>Způsob dopravy: </td>
+                <td>{dopravaNazev}</td>
+              </tr>
+              <tr>
+                <td>Způsob platby: </td>
+                <td>{dopravaPlatba}</td>
+              </tr>
+            </table>-->
+
+            {uzivatelVypis}
+
+            {php: If($GLOBALS["config"]["adminFaktury"]){ ;}
+            <div style="text-align: right;">
+              {php: Echo ('{fakturaId}'?'<a href="faktury.popup.php?faktura={fakturaId}&heslo='.md5($_COOKIE["heslo"]).'" target="_blank">Vystavená faktura {fakturaCislo}/{fakturaRok}</a>':'<a href="?m=objednavky&vystavitFakturu={id}">Vystavit fakturu</a>') ;}
+            </div>
+            {php: } ;}
+          </div>
+        </div>
+        &nbsp;
+      </td>
+    </tr>
+  </table>
+  <!--<span onClick="alert('Možnost mazání objednávek je dočasně pozastavena.');" style="cursor: pointer; position: absolute; top: 0px; right: -24px;">
+    <img src="adm_images/delete.png" border="0">
+  </span>-->
+  <span onClick="if(confirm('Opravdu chcete tuto objednávku smazat?')){document.location.href='index.php?m=objednavky&smaz_objednavku={id}';}" style="cursor: pointer; position: absolute; top: 0px; right: -24px;">
+    <img src="adm_images/delete.png" border="0">
+  </span>
+  <span onClick="ukazSkryjOne('divPodrobnosti{id}');" style="cursor: pointer; position: absolute; top: 20px; right: -24px;">
+    <img src="adm_images/preview.png" width="16" height="16" border="0" title="Zobrazit podrobnosti">
+  </span>
+</div>       
+{/objednavkaAdmin}
+
+
+
+{objednavkaKrok1/}
+<div style="padding: 12px;">
+<h1>Objednávka, krok 1 (přihlášení, registrace)</h1>
+
+<p><b><u>Pokud jste již registrovaní - přihlašte se: </u></b></p>
+<form method="post" action="">
+  <input type="hidden" name="registracePovinne" value="email;telefon;heslo;jmeno;prijmeni;prijmeni;ulice;mesto;psc">
+  <table>
+  <tr><td>E-mail:&nbsp;</td><td><input type="text" name="email" style="width: 149px;" value="{php: $_POST['email'];}"> </td><td>&nbsp;</td></tr>
+  <tr><td>Heslo:&nbsp;</td><td><input type="password" style="width: 149px;" name="heslo"> </td><td><input type="submit" name="submit" value="Přihlásit"></td></tr>
+  </table>
+</form>
+
+<br>&nbsp;
+<p><b><u>Pokud ne - registrujte se zde: </u></b>
+{registrace}
+
+<p>* položky označené hvězdičkou jsou povinné
+
+</div>
+{/objednavkaKrok1}
+
+
+
+{objednavkaKrok2/}
+<div style="padding: 12px;">
+<script type="text/javascript">
+function prepocitej(){
+        celkemSDph = document.getElementById('inputCelkemBezDopravnehoSDph').value * 1;
+        celkemBezDph = document.getElementById('inputCelkemBezDopravnehoBezDph').value * 1;
+        dph = celkemSDph*100/celkemBezDph-100;
+
+        dopravaFirma = document.getElementById('selectDopravaFirma').value;
+        zpusobPlatby = document.getElementById('selectZpusobPlatby').value;
+
+        easyAjax('ajax.php/objednavka.pricti_dopravne.ajax.php', 'prefix={php: Echo $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti=0', 'spanDopravne');
+        easyAjax2('ajax.php/objednavka.pricti_dopravne.ajax.php', 'prefix={php: Echo $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti='+celkemSDph, 'spanCelkemSDph');
+        easyAjax3('ajax.php/objednavka.pricti_dopravne.ajax.php', 'prefix={php: Echo $GLOBALS['prefix'];}&firma='+dopravaFirma+'&zpusobPlatby='+zpusobPlatby+'&pricti='+celkemBezDph, 'spanCelkemBezDph');
+
+        if(zpusobPlatby.length>0) document.getElementById('divPokracovat').style.display = 'block';
+        else document.getElementById('divPokracovat').style.display = 'none';
+}
+</script>
+
+<form method="post" action="">
+  <h1>Objednávka, krok 2 (výběr dopravy)</h1>
+
+  Vyberte prosím způsob dopravy a způsob platby.
+
+  <br><br>
+  *Způsob dopravy: <select name="dopravaFirma" id="selectDopravaFirma" onChange="easyAjax('ajax.php/objednavka.zpusob_platby.ajax.php','prefix={php: $CONF["sqlPrefix"];}&dopravaFirma='+this.value,'divDopravaPlatba');">
+                    <option value=""> - vyberte - </option>
+                    {dopravaFirma/}<option value="{nazev}">{nazev}</option>{/dopravaFirma}
+                  </select> <br>
+  <div id="divDopravaPlatba"><input type="hidden" name="zpusobPlatby" id="selectZpusobPlatby" value=""></div>
+
+  <input type="hidden" id="inputCelkemBezDopravnehoSDph" name="celkemBezDopravnehoSDph" value="{celkemSDph}">
+  <input type="hidden" id="inputCelkemBezDopravnehoBezDph" name="celkemBezDopravnehoBezDph" value="{celkemBezDph}">
+
+  <br>&nbsp;<br>
+  Dopravné: <span id="spanDopravne">0</span> Kč
+  <br><br>
+  <div style="display: none;">Celkem bez DPH: <span id="spanCelkemBezDph">{celkemBezDph}</span> Kč </div>
+  Celkem: <span id="spanCelkemSDph">{celkemSDph}</span> Kč
+
+  <p>
+  <div id="divPokracovat" style="width: 90%; text-align: right;">
+    <input type="submit" name="submit" value="Pokračovat">
+  </div>
+  <script type="text/javascript">
+  document.getElementById('divPokracovat').style.display = 'none';
+  </script>
+</form>
+</div>
+{/objednavkaKrok2}
+
+
+
+{objednavkaKrok3/}
+<div style="padding: 12px;">
+<form method="post" action="">
+  <h1>Objednávka, krok 3 (rekapitulace)</h1>
+  <input type="hidden" name="dopravaFirma" value="{php: Echo $_POST['dopravaFirma'];}">
+  <input type="hidden" name="zpusobPlatby" value="{php: Echo $_POST['zpusobPlatby'];}">
+
+  <h2>Objednané zboží</h2>
+  <table border="0" width="90%">
+    <tr>
+      <td><b>Název zboží</b></td>
+      <td align="right"><b>Množství</b></td>
+      <td align="right"><b>Cena</b></td>
+      <td align="right"><b>Cena celkem</b></td>
+    </tr>
+    {produkt/}
+    <tr>
+      <td>{nazev} {php: echo ('{varianta}')? '- {varianta}': '';}</td>
+      <td align="right">{mnozstvi}</td>
+      <td align="right">{php: Echo _hezkaCena('{cenaSDph}');}</td>
+      <td align="right">{php: Echo _hezkaCena('{celkemSDph}');}</td>
+    </tr>
+    {/produkt}
+  </table>
+  <div style="margin-top: 12px;">
+    <div id="divCelkovaCena" style="display: none;">
+      Celková cena bez DPH: <span id="spanCelkemBezDph">{php: Echo _hezkaCena('{celkemBezDph}');}</span> Kč
+    </div>
+    <b>Celková cena: <span id="spanCelkemSDph">{php: Echo _hezkaCena('{celkemSDph}');}</span> Kč</b>
+  </div>  
+
+  <p>
+  {uzivatelVypis}
+
+  <div style="clear: both;"></div>
+  <p>
+  <div style="width: 90%; margin-top: 24px;">
+    <input type="submit" name="objednat" style="float: right;" value="Objednat »">
+    <input type="submit" name="zpetDoKosiku" value="« Zpět do košíku">
+  </div>
+  <div style="clear: both;"></div>
+
+</form>
+</div>
+{/objednavkaKrok3}
+
+
+
+{objednavkaKrok4/}
+<div style="padding: 12px;">
+<h1>Odeslání objednávky</h1>
+{hlaska}
+</div>
+{/objednavkaKrok4}
+
+
+
+
+
+
+{email/}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Potvrzení objednávky</title>
+</head>
+<body>
+  <h1>Potvrzení objednávky</h1>
+  Datum objednávky: {php: Echo date("j.n.Y G:i");}
+  
+  <p>
+  <h2>Přehled zboží</h2>
+  <table>
+    <tr>
+      <td>Název položky</td>
+      <td align="right">&nbsp;&nbsp;&nbsp;Množství</td>
+      <td align="right">&nbsp;&nbsp;&nbsp;Cena</td>
+      <td align="right">&nbsp;&nbsp;&nbsp;Celkem Kč</td>
+      <td></td>
+    </tr>
+  
+    {produkt/}
+    <tr>
+      <td>{nazev} {php: echo ('{varianta}')? '- {varianta}': '';}</td>
+      <td align="right">{mnozstvi}</td>
+      <td align="right">&nbsp;&nbsp;&nbsp;{php: Echo _hezkaCena('{cenaSDph}');}</td>
+      <td align="right">{php: Echo _hezkaCena('{celkemSDph}');}</td>
+      <td></td>
+    </tr>
+    {/produkt}
+  </table>
+  
+  <p>
+  <b>Celkem:</b><br>
+  Cena bez DPH: {php: Echo _hezkaCena('{celkemBezDph}');} <br>
+  <b>Cena s DPH: {php: Echo _hezkaCena('{celkemSDph}');}</b> <br>
+  
+  &nbsp;<br><p>
+  {uzivatelVypis}
+  
+  <div style="clear: both;"></div>
+  <p>&nbsp;<hr size="1" color="#666666">
+  <div style="font-size: 8pt; color: #666666; text-align: right;">Automaticky vygenerováno internetovým obchodem vytvořeným firmou <a href="http://www.grafartstudio.cz" target="_blank" style="color: #666666;">GRAFART STUDIO</a><sup>®</sup>.</div>
+{/email}
+
+
+
+
+
+
+<script type="text/javascript">
+ukazSkryj_tmp = null;
+function ukazSkryjOne(element) {
+   var srcElement = document.getElementById(element);
+
+   if(srcElement != null) {
+      if(srcElement.style.display == "block") {
+         srcElement.style.display= 'none';
+      }
+      else {
+             if(ukazSkryj_tmp != null){
+                ukazSkryj_tmp.style.display = 'none';
+             }
+             srcElement.style.display='block';
+             ukazSkryj_tmp = srcElement;
+      }
+      return false;
+   }
+}
+</script>

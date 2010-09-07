@@ -1,0 +1,261 @@
+{fakturaAdminMini/}
+<div style="border: 1px solid #AAAAAA; background-color: #DDDDDD; margin-bottom: 12px; position: relative;">
+ <form id="formFaktura{id}" action="" method="post" style="margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
+ <input type="hidden" name="idFaktury" value="{id}">
+ <table width="100%" border="0">
+   <tr>
+     <td width="100" align="left"><b><a href="faktury.popup.php?faktura={id}&heslo={php: Echo md5($_COOKIE['heslo']);}" target="_blank">{faktCislo}/{rok}</a></b></td>
+     <td width="244" align="left">{jmeno} {prijmeni}; Počet položek: {pocetPolozek} ks</td>
+     <td width="*" align="right">Celková cena: <b>{php: Echo _hezkaCena('{celkemSDph}');} Kč</b></td>
+     <td width="80" align="right" style="font-weight: bold;">
+       <span id="spanStav{id}" onClick="document.getElementById('spanStav{id}').style.display='none'; document.getElementById('selectStav{id}').style.display='inline';" style="font-weight: bold; cursor: pointer;">
+         {stav}
+       </span>
+       <select name="stav" id="selectStav{id}" onChange="document.getElementById('formFaktura{id}').submit();" style="background-color: #DDDDDD; display: none;">
+         <option value="Nevyřízeno">Nevyřízeno</option>
+         <option value="Vyřízeno" {php: Echo ('{stav}'=='Vyřízeno')?'selected':'' ;}>Vyřízeno</option>
+         <option value="Stornováno" {php: Echo ('{stav}'=='Stornováno')?'selected':'' ;}>Stornováno</option>
+       </select>
+     </td>
+     <td width="20" align="rigt">
+        <span style="cursor: pointer;" onClick="easyAjaxPopup('Poznámka k zákazníkovi', 'zakazniciPoznamky.ajax.php', 'email={email}');">
+          <img src="{_absDir}images/{php: Echo _ikonaPoznamky('{poznamkaObsah}','{poznamkaTyp}');}" title="{php: Echo ('{poznamkaObsah}'? '{poznamkaObsah}': 'Žádná poznámka k tomuto zákazníkovi.');}" onMouseMove="cotojatko(this);">
+        </span>     
+     </td>
+   </tr>
+ </table>
+ <!--<span onClick="alert('Možnost mazání faktur je dočasně pozastavena.');" style="cursor: pointer; position: absolute; top: 0px; right: -24px;">
+   <img src="adm_images/delete.png" border="0">
+ </span>-->
+ <span onClick="if(confirm('Opravdu chcete tuto fakturu smazat?')){document.location.href='index.php?m=faktury&smaz_fakturu={id}';}" style="cursor: pointer; position: absolute; top: 0px; right: -24px;">
+   <img src="adm_images/delete.png" border="0">
+ </span>
+ </form>
+</div>
+{/fakturaAdminMini}
+
+
+
+{fakturaAdminFull/}
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>FAKTURA - DAŇOVÝ DOKLAD</title>
+  <style><!--
+  p{
+    margin-right: 0cm;
+    margin-left: 0cm;
+    font-size: 12.0pt;
+    font-family: "Times New Roman","serif";
+  }
+  h1{
+    margin-right: 0cm;
+    margin-left: 0cm;
+    font-size: 24.0pt;
+    font-family: "Times New Roman","serif";
+    font-weight: bold;
+  }
+  p.MsoNormal{
+    mso-style-parent: "";
+    margin-bottom: .0001pt;
+    font-size: 12.0pt;
+    font-family: "Times New Roman","serif";
+    margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;
+  }
+  h2{
+    margin-right: 0cm;
+    margin-left: 0cm;
+    font-size: 18.0pt;
+    font-family: "Times New Roman","serif";
+    font-weight: bold;
+  }
+  table.MsoNormalTable{
+    mso-style-parent: "";
+    font-size: 11.0pt;
+    font-family: "Calibri","sans-serif";
+  }
+  div.MsoNormal{
+    mso-style-parent: "";
+    margin-bottom: .0001pt;
+    font-size: 12.0pt;
+    font-family: "Times New Roman","serif";
+    margin-left: 0cm; margin-right: 0cm; margin-top: 0cm;
+  }
+  --></style>
+</head>
+<body>
+  <script type="text/javascript">
+  function ukazForm(){
+           document.getElementById('inputDodavatel').style.display='block';
+           document.getElementById('spanDodavatel').style.display='none';
+           document.getElementById('inputDate2').style.display='block';
+           document.getElementById('spanDate2').style.display='none';
+           document.getElementById('inputVarSymb').style.display='block';
+           document.getElementById('spanVarSymb').style.display='none';
+           document.getElementById('span2KonstSymb').style.display='inline';
+           document.getElementById('spanKonstSymb').style.display='none';
+  }
+  </script>
+  <form method="post" action="">
+  <table cellspacing="0" width="740" border="0">
+    <tr>
+      <td><b><font size="5" face="Calibri">FAKTURA - DAŇOVÝ DOKLAD</font></b></td>
+      <td><font face="Calibri">
+      <img src="logo_firmy.png" border="0" alt="logo" /></font></td>
+    </tr>
+  </table>
+  <hr />
+  </p><p class="MsoNormal">&nbsp;
+  <table border="0">
+    <tr>
+      <td width="202"><b><font face="Calibri">Dodavatel:</font></b></td>
+      <td width="218"><b><font face="Calibri">Odběratel:</font></b></td>
+      <td><b><font face="Calibri">Číslo faktury: {faktCislo}/{rok}</font></b></td>
+    </tr>
+    <tr>
+      <td width="202" style="color: #008000;">
+      <span id="spanDodavatel" onClick="ukazForm();" style="font-family: Calibri;">
+        {php: Echo str_replace("\n", "<br>", ('{dodavatel}'?'{dodavatel}':' - nezadáno - ')) ;}
+      </span>
+      <textarea name="dodavatel" id="inputDodavatel" rows="6" cols="20" style="display: none;">{dodavatel}</textarea>
+      </td>
+      <td width="218" style="font-family: Calibri;">
+      {uzivatelVypisMini}
+      </td>
+      <td>
+      <table cellpadding="0" border="0" class="MsoNormalTable">
+        <tr>
+          <td width="108" style="padding: .75pt"><font size="2">Datum
+          vystavení: </font></td>
+          <td width="400" style="padding: .75pt"><font size="2">{datum}</font></td>
+        </tr>
+        <tr>
+          <td style="padding: .75pt"><font size="2">Dat. usk.
+          zdan. pln:</font></td>
+          <td style="padding: .75pt">
+            <span id="spanDate2" onClick="ukazForm();">
+              <font color="#008000" size="2">{php: Echo '{datum2}'?'{datum2}':' - nezadáno - ' ;}</font>
+            </span>
+            <input type="text" name="date2" id="inputDate2" value="{datum2}" size="7" style="font-size: 70%; display: none;">
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: .75pt">&nbsp;</td>
+          <td style="padding: .75pt">&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="padding: .75pt"><font size="2">Variabilní
+          symb.:</font></td>
+          <td style="padding: .75pt">
+            <span id="spanVarSymb" onClick="ukazForm();"><font color="#008000" size="2">{php: Echo '{varSymb}'?'{varSymb}':' - nezadáno - ' ;}</font></span>
+            <input type="text" name="varSymb" id="inputVarSymb" value="{varSymb}" size="7" style="font-size: 70%; display: none;">
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: .75pt"><font size="2">Konstatní
+          symb.:</font></td>
+          <td style="padding: .75pt">
+            <span id="spanKonstSymb" onClick="ukazForm();"><font color="#008000" size="2">{php: Echo '{konstSymb}'?'{konstSymb}':' - nezadáno - ' ;}</font></span>
+            <span id="span2KonstSymb" style="display: none;">
+              <input type="text" name="konstSymb" id="inputKonstSymb" value="{konstSymb}" size="7" style="font-size: 70%;">
+              &nbsp;&nbsp;&nbsp;
+              <input type="submit" name="odeslat" value="Odeslat změny">
+            </span>
+          </td>
+        </tr>
+      </table>
+      </td>
+    </tr>
+  </table>
+  <hr />
+
+
+   <script type="text/javascript">
+   function ukazFormMnozstvi(){
+     {produkt/}
+     document.getElementById('spanMnozstvi{i}').style.display = 'none';
+     document.getElementById('inputMnozstvi{i}').style.display = 'inline';
+     {/produkt}
+     document.getElementById('submitMnozstvi').style.display = 'inline';     
+  }
+  </script>
+  <h2><font size="2" face="Calibri"> Přehled o zboží: </font></h2>
+  <table style="width: 740px" cellpadding="0" border="0" class="MsoNormalTable">
+    <tr>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">&nbsp;</font></td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">Název položky</font></td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">Množství</font></td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">Cena/ks</font></td>
+      <td width="212" style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">Celkem Kč</font></td>
+    </tr>
+
+    {produkt/}
+    <tr>
+      <td style="padding: .75pt">&nbsp;</td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">{nazev} {php: echo '{varianta}'? '- {varianta}': '';}</font></td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">
+        <span id="spanMnozstvi{i}" onClick="ukazFormMnozstvi();" style="cursor: pointer; color: #008000;">{mnozstvi} ks</span>
+        <input type="text" name="mnozstvi[{i}]" id="inputMnozstvi{i}" value="{mnozstvi}" size="1" style="font-size: 8pt; display: none;">      
+      </font></td>
+      <td style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">{php: Echo _hezkaCena('{cenaSDph}');}</font></td>
+      <td width="212" style="padding: .75pt">
+      </p><p class="MsoNormal"><font size="2" face="Calibri">{php: Echo _hezkaCena('{celkemSDph}');}</font></td>
+    </tr>
+    {/produkt}
+
+    <tr><td colspan="5" align="right" style="padding-right: 156px;">
+      <input type="hidden" name="zmenit_mnozstvi" value="Změnit množství">
+      <input type="submit" id="submitMnozstvi" name="submit" value="Změnit množství" style="display: none;">
+    </td></tr>
+  </table>
+  <hr />
+  </p><p class="MsoNormal">&nbsp;
+  <table width="740" border="0">
+    <tr>
+      <td valign="top" height="195" width="310">
+      <!--<p><font size="3" face="Calibri">Celkem bez DPH: {celkemBezDph} Kč<br />
+      </font><font size="4" face="Calibri">DPH: {celkemDph} Kč&nbsp;</font> <br>-->
+      </font><font size="4" face="Calibri"><b>Celkem k úhradě: {celkemSDph} Kč</b>&nbsp;</font></td>
+      <td valign="top" width="414" height="195">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="310">&nbsp;</td>
+      <td valign="middle" width="414">
+      <div align="center">
+        <table width="68%" border="0">
+          <tr>
+            <td><hr /></td>
+          </tr>
+          <tr>
+            <td>
+            </p><p align="center"><font size="2" face="Calibri">vystavil -
+            podpis a razítko</font></td>
+          </tr>
+        </table>
+      </div>
+      </td>
+    </tr>
+  </table>
+  <div style="text-align: center" align="center" class="MsoNormal">
+    </p><p class="MsoNormal">&nbsp;
+    <hr /></div>
+  </p><p style="text-align: left" align="right" class="MsoNormal">
+  <font size="2" face="Calibri"><font color="#333333">Automaticky
+  vygenerováno internetovým obchodem vytvořeného firmou </font>
+  <b>
+  <a href="http://www.grafartstudio.cz" target="_blank"><font color="#333333">
+  GRAFART STUDIO</font></a><sup>®</sup></b></font>
+
+  </hr></hr>
+  </form>
+</body>
+</html>
+{/fakturaAdminFull}

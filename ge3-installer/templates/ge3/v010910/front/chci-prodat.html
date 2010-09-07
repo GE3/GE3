@@ -1,0 +1,44 @@
+          <div style="clear: both;"></div>
+          
+          {php: echo zjisti_z($GLOBALS["config"]["sqlPrefix"]."clanky", "obsah", "id=46");}
+          <br>&nbsp;
+          
+          {zprava1/}<p>Zpráva byla úspěšně odeslána</p>{/zprava1}
+          {zprava2/}<p>Nastala chyba při odesílání, zřejmě na straně serveru</p>{/zprava2}
+          {zprava3/}<p>Formulář nemůže být odeslán! <br>Nezadali jste všechny povinné údaje</p><p>
+                         <a href="javascript:self.history.back();">- zpět -</a>
+                         </p>{/zprava3}
+          {formular/}
+          
+          <form method="post" action="" id="formForm" enctype="multipart/form-data" style="text-align: center;">
+            <table align="center" style="color: #474f5b; text-align: left; margin: auto;">
+              <tr><td align="right">* Jméno a příjmení: &nbsp;</td><td align="left">
+                  <input type="text" name="jmeno" value="" style="width: 210px;"></td>
+              </tr>
+              <tr><td align="right">Adresa: &nbsp;</td><td align="left">
+                  <input type="text" name="adresa" value="" style="width: 210px;"></td>
+              </tr>
+              <tr><td align="right">** Telefon: &nbsp;</td><td align="left">
+                  <input type="text" name="telefon" value="" style="width: 210px;"></td>
+              </tr>
+              <tr><td align="right">** E-mail: &nbsp;</td><td align="left">
+                  <input type="text" name="email" value="" style="width: 210px;"></td>
+              </tr>
+              <tr><td colspan="2" style="text-align: center;">
+                  &nbsp;</td>
+              </tr>              
+              <tr><td colspan="2">Vzkaz pro realitního makléře: </td>
+              </tr>
+              <tr><td colspan="2"><textarea rows="8" name="vzkaz" cols="39" onclick="if(this.value=='(zde prosím specifikujte Vaši nemovitost)'){this.value=''}">(zde prosím specifikujte Vaši nemovitost)</textarea></td>
+              </tr>
+              <tr><td colspan="2" style="text-align: center;">
+                  <input type="submit" name="odeslat" value="Odeslat" class="submit"></td>
+              </tr>
+              <tr><td colspan="2" style="padding-top: 6px;">
+                &nbsp; 
+                * povinná položka <br>
+                ** alespoň jedna z položek musí být vyplněna
+              </td></tr>              
+            </table>
+          </form>
+          {/formular}

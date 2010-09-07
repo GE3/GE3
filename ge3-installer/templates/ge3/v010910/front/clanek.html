@@ -1,0 +1,17 @@
+{clanek/}
+<div style="padding: 12px; position: relative;">
+  {obsah}
+  <div style="text-align: right; padding-right: 12px;"> 
+    {php: echo zjisti_z($GLOBALS["config"]["sqlPrefix"].'facebook', 'hodnota', "typ='facebook_clanky'");} &nbsp;
+    <a href="?tisk=true" target="_blank"><img src="ikony/print.png" style="position: relative; top: 2px;"> Tisk</a>   
+  </div>
+</div> 
+{/clanek}
+
+
+{novinka/}
+<div style="padding: 12px; position: relative;">
+  <h2><a style="color: #4D4D4D; text-decoration: none;" href="{url}">{nazev}</a> <span style="color: #232524; font-size: 10pt;">{datum}</span></h2>
+  {uvod}
+</div> 
+{/novinka}

@@ -1,0 +1,73 @@
+{php: If('{hlaska}'){ ;}
+  <div style="color: #000080; font-weight: bold; border: 1px solid #000080; text-align: center; padding: 2px 4px 2px 4px;">{hlaska}</div>
+{php: } ;}
+
+<div style="padding: 0px 0px 2px 6px; float: left; width: 280px;">
+  <h2>Nový velkoobchod</h2>
+  <form action="" method="post">
+    <input type="hidden" name="akce" value="novy">    
+    <table border="0">
+      <tr><td><b>Název:</b> </td><td><input type="text" name="nazev" size="30"></td></tr>
+      <tr><td><b>Sleva:</b> </td><td><input type="text" name="sleva" size="3">%</td></tr>
+      <tr><td colspan="2" align="right"><input type="submit" name="submit" value="Vytvořit"></td></tr>
+    </table>
+  </form>
+</div>
+
+
+
+<div style="margin-left: 280px; padding-left: 18px; border-left: 1px solid #666666;">
+  <h2>Správce velkoobchodů</h2>                     
+  {velkoobchod/}
+  <div style="width: 305px; padding: 2px 4px 2px 4px; border-top: 1px solid #0C58B7; border-bottom: 1px solid #0C58B7; background-color: #ECF3FA; margin-bottom: 12px;">
+    <form id="formVelkoobchod{id}" method="post" action="" style="padding: 0px; margin: 0px;">
+      <input type="hidden" name="akce" value="edit">
+      <input type="hidden" name="velkoobchodId" value="{id}">
+      
+      <div style="padding-bottom: 6px;"> 
+        <div style="float: right;">
+          <a href="#" onClick="ukazSkryj('divVelkoobchodEdit{id}');" style="text-decoration: none;"><img src="images/edit16.png" width="12" border="0"></a>
+          &nbsp;
+          <a href="#" onClick="if(confirm('Opravdu chcete tento velkoobchod smazat?')) location.href='index.php?m=velkoobchod&akce=smazat&velkoobchodId={id}';" style="text-decoration: none;"><img src="images_dante/delete.png" width="12" border="0"></a>
+        </div>
+        <b>{nazev}</b> (sleva {sleva}%) &nbsp;
+        <div style="clear: both"></div>
+      </div>
+      
+      <div id="divVelkoobchodEdit{id}" style="display: none; padding-bottom: 6px;">
+        Název: <input type="text" name="nazev" value="{nazev}"> <br>
+        Sleva: <input type="text" name="sleva" value="{sleva}" size="3"> % &nbsp;
+        <input type="submit" name="submit" value="Změnit">
+      </div>
+          
+    </form>
+  </div>
+  {/velkoobchod}
+</div>
+<div style="clear: both; border-bottom: 1px solid #666666;">&nbsp;</div>
+
+
+
+&nbsp;<p>
+<h2>Odběratelé</h2> <br>
+<div style="padding-bottom: 12px;">Seřadit podle: 
+  <a href="index.php?m=velkoobchod&orderBy=z.id" {php: Echo $_GET["orderBy"]=='z.id'? 'style="font-weight: bold;"': '';}>Pořadí registrace</a> |
+  <a href="index.php?m=velkoobchod&orderBy=z.jmeno" {php: Echo $_GET["orderBy"]=='z.jmeno'? 'style="font-weight: bold;"': '';}>Jméno</a> |
+  <a href="index.php?m=velkoobchod&orderBy=z.prijmeni" {php: Echo $_GET["orderBy"]=='z.prijmeni'? 'style="font-weight: bold;"': '';}>Příjmení</a> |
+  <a href="index.php?m=velkoobchod&orderBy=z.email" {php: Echo $_GET["orderBy"]=='z.email'? 'style="font-weight: bold;"': '';}>E-mail</a> |
+  <a href="index.php?m=velkoobchod&orderBy=v.nazev" {php: Echo ($_GET["orderBy"]=='v.nazev' OR !$_GET["orderBy"])? 'style="font-weight: bold;"': '';}>Zařazení do velkoobchodu</a> 
+</div>
+{zakaznik/}
+<div style="margin: 6px 0px 0px 0px; padding: 2px 4px 2px 4px;">
+<form method="post" action="" id="formZakaznik{id}" style="margin: 0px; padding: 0px;">  
+  <input type="hidden" name="akce" value="zakaznikEdit">
+  <input type="hidden" name="zakaznikId" value="{id}">
+  <select name="velkoobchodId" onChange="document.getElementById('formZakaznik{id}').submit();" style="float: right;">
+    <option value="">- nezařazen -</option>
+    {velkoobchod/}<option value="{id}" {php: Echo '{id}'=='{zakaznikVelkoobchodId}'? 'selected': '';}>{nazev}</option>{/velkoobchod}
+  </select>
+  <b>{jmeno} {prijmeni}</b>, {email}
+  <div style="clear: both;"></div>    
+</form>
+</div>
+{/zakaznik} 

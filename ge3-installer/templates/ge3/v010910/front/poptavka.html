@@ -1,0 +1,50 @@
+{poptavkaAdminPrehled/}
+<div style="border: 1px solid #000080; background-color: #EEEEFF; margin-bottom: 12px; position: relative;">
+  <table width="100%" border="0">
+    <tr>
+      <td width="100" align="left"><b>{php: Echo date("j.n.Y G:i", '{datum}');}</td>
+      <td width="*" align="left">E-mail: {email}</td>
+      <td width="80" align="right">
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div style="position: relative; border-top: 1px solid #A0A0F0;">
+          <div id="divPodrobnosti{id}" style="display: none; padding-top: 6px;">
+            {obsah}
+          </div>
+        </div>
+        &nbsp;
+      </td>
+    </tr>
+  </table>
+  <span onClick="if(confirm('Opravdu chcete tuto poptávku smazat?')){document.location.href='index.php?m=poptavka&smaz_poptavku={id}';}" style="cursor: pointer; position: absolute; top: 0px; right: -24px;">
+    <img src="adm_images/delete.png" border="0">
+  </span>
+  <span onClick="ukazSkryjOne('divPodrobnosti{id}');" style="cursor: pointer; position: absolute; top: 20px; right: -24px;">
+    <img src="adm_images/preview.png" width="16" height="16" border="0" title="Zobrazit podrobnosti">
+  </span>
+</div>
+{/poptavkaAdminPrehled}
+
+
+
+<script type="text/javascript">
+ukazSkryj_tmp = null;
+function ukazSkryjOne(element) {
+   var srcElement = document.getElementById(element);
+
+   if(srcElement != null) {
+      if(srcElement.style.display == "block") {
+         srcElement.style.display= 'none';
+      }
+      else {
+             if(ukazSkryj_tmp != null){
+                ukazSkryj_tmp.style.display = 'none';
+             }
+             srcElement.style.display='block';
+             ukazSkryj_tmp = srcElement;
+      }
+      return false;
+   }
+}
+</script>

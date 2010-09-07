@@ -1,0 +1,13 @@
+<img src="images/side_anketa.png" alt="side_anketa.png, 5,0kB" title="Side anketa" border="0" height="52" width="193" />
+{anketa/}
+  {php: Echo '{hlaska}'? '<p style="color: #A72964;">{hlaska}</p><br>': '';}
+  <p class="bold">{otazka}</p>
+  <table id="anketa" cellspacing="2" cellpadding="0">
+    {odpoved/}
+    <tr><td colspan="2" class="option"><a href="{url}">{text}</a></td></tr>
+    <tr><td class="graf"><!-- {pocetHlasu}/{celkemHlasu}*147 --><img src="images/anketa_hlasy.png" alt="" border="0" height="10" width="{php: Echo '{celkemHlasu}'? round(('{pocetHlasu}')/('{celkemHlasu}')*147): '0';}" /></td><td class="procenta">{procentHlasu}%</td></tr>
+    {/odpoved}
+    <tr><td colspan="2" id="hlasy">celkem hlasovalo <strong>{celkemHlasu}</strong> lidí</td></tr>
+  </table>
+  <br>&nbsp;
+{/anketa}
