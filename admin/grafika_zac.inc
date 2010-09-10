@@ -22,6 +22,9 @@ $pozadi=$skin?$skiny[$skin].".jpg":'';
   <script type="text/javascript" src="fckeditor/fckeditor.js"></script>
   <script type="text/javascript" src="../javascripty.js/GlassScripts/GlassScripts.js"></script>
   <link rel="stylesheet" type="text/css" media="screen" href="../javascripty.js/GlassScripts/css_default/glass_scripts.css" />
+
+  <script type="text/javascript" src="../javascripty.js/jquery.js"></script>
+
   <style>
   body,td{
     font-family: Arial;

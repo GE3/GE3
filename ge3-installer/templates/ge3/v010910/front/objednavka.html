@@ -1,5 +1,6 @@
 {objednavkaAdmin/}
-<div style="border: 1px solid #000080; background-color: #EEEEFF; margin-bottom: 12px; position: relative;">
+<form action="" method="post">
+<div style="border: 1px solid #000080; background-color: #EEEEFF; margin-bottom: 24px; position: relative;">
   <table width="100%" border="0">
     <tr>
       <td width="100" align="left"><b>{datum}</td>
@@ -32,11 +33,21 @@
               {produkt/}
               <tr>
                 <td>{nazev} {php: echo ('{varianta}')? '- {varianta}': '';}</td>
-                <td>{mnozstvi}</td>
+                <td>
+                  <span class="show{id_objednavky}">{mnozstvi}</span>
+                  <input type="text" name="mnozstvi[{i}]" value="{mnozstvi}" class="edit{id_objednavky}" style="width: 24px; display: none; font-size: 8pt;">                
+                </td>
                 <td>{php: Echo _hezkaCena('{cenaSDph}');}</td>
                 <td>{php: Echo _hezkaCena('{celkemSDph}');}</td>
               </tr>
               {/produkt}
+              
+              <tr class="edit{id}" style="display: none;">
+                <td colspan="5" style="text-align: right;">
+                  <input type="hidden" name="objednavka" value="{id}">
+                  <input type="submit" name="odeslat" value="Odeslat">
+                </td>
+              </tr>              
 
             </table>
             <br>
@@ -78,7 +89,11 @@
   <span onClick="ukazSkryjOne('divPodrobnosti{id}');" style="cursor: pointer; position: absolute; top: 20px; right: -24px;">
     <img src="adm_images/preview.png" width="16" height="16" border="0" title="Zobrazit podrobnosti">
   </span>
-</div>       
+  <span onClick="$('#divPodrobnosti{id}').show(); $('.edit{id}').toggle(); $('.show{id}').toggle();" style="cursor: pointer; position: absolute; top: 40px; right: -24px;">
+    <img src="adm_images/edit16.png" width="16" height="16" border="0" title="Editovat">
+  </span>  
+</div>   
+</form>    
 {/objednavkaAdmin}
 
 

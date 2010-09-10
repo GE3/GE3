@@ -69,6 +69,18 @@ If( $_POST["zmena_emailu"] AND $_POST["email"] ){
 
 
 
+<?php /* Změna množství produktů */
+if( is_array($_POST["mnozstvi"]) and $_POST["objednavka"] ){
+    $objednavka_edit = new Objednavka($_POST["objednavka"]);
+    foreach($_POST["mnozstvi"] as $zbozi_i=>$mnozstvi){
+            $objednavka_edit->upravZbozi($zbozi_i, $mnozstvi);
+    }
+    $objednavka_edit->upravVDatabazi();
+}
+?>
+
+
+
 <form method="post" action="">
 <!--Vyhledat objednávku: <input type="text" name="vyhledavani" value="<?php Echo $_POST["vyhledavani"]; ?>" style="font-size: 80%;"> <input type="submit" name="odeslat" value="Vyhledat" style="font-size: 80%;">-->
 <p>

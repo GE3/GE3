@@ -196,6 +196,35 @@ class Objednavka{
                   }
               }Else Return False;
       }
+      
+      function upravVDatabazi(){
+              $CONF = &$GLOBALS["config"];
+
+              If( $this->kontrola() and $this->mysqlId ){
+                  $sql_set = '';
+
+                  // Zboží
+                  unset($this->cisla[0], $this->zbozi[0], $this->varianty[0], $this->mnozstvi[0], $this->cenySDph[0], $this->cenyBezDph[0], $this->dph[0]);
+                  $sql_set.= "cisla='".implode(';', $this->cisla)."',";
+                  $sql_set.= "zbozi='".implode(';', $this->zbozi)."',";
+                  $sql_set.= "varianty='".implode(';', $this->varianty)."',";
+                  $sql_set.= "mnozstvi='".implode(';', $this->mnozstvi)."',";
+                  $sql_set.= "cenySDph='".implode(';', $this->cenySDph)."',";
+                  $sql_set.= "cenyBezDph='".implode(';', $this->cenyBezDph)."',";
+                  $sql_set.= "dph='".implode(';', $this->dph)."',";
+
+                  // MySQL dotaz
+                  $sql_set = ereg_replace(",$", "", $sql_set);
+                  $dotaz = "UPDATE $CONF[sqlPrefix]objednavky SET $sql_set WHERE id=$this->mysqlId";
+                  echo "\n------\n$dotaz\n------\n";
+                  If( Mysql_query($dotaz) ){
+                      Return True;
+                    }Else{
+                      $this->errors.= 'Chyba v editaci objednávky v databázi: '.mysql_error().'; ';
+                      Return False;
+                  }
+              }Else Return False;      
+      }
 
       Function smazZDatabaze($id=''){
               /**
@@ -288,6 +317,10 @@ class Objednavka{
               Return True;
       }
 
+      function upravZbozi($i, $mnozstvi){
+              $this->mnozstvi[$i] = $mnozstvi;
+      }
+      
       Function pridejZbozi($zbozi,$varianta,$mnozstvi,$cenaSDph=0,$cenaBezDph=0,$dph=0, $cislo=0){
               //dopočítání cen
               $cenaSDph = $cenaSDph? $cenaSDph: round($cenaBezDph*(1+$dph/100),2);
@@ -393,6 +426,8 @@ class Objednavka{
               Foreach($this->zbozi as $key=>$value){
                       If( $value ){
                           $tmplObjednavka->newBlok("$blok.produkt");
+                          $tmplObjednavka->prirad("$blok.produkt.id_objednavky", $this->mysqlId);
+                          $tmplObjednavka->prirad("$blok.produkt.i", $key);
                           $tmplObjednavka->prirad("$blok.produkt.cislo", $this->cisla[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.nazev", $this->zbozi[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.varianta", $this->varianty[$key]);
