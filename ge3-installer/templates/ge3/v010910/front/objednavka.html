@@ -32,7 +32,11 @@
 
               {produkt/}
               <tr>
-                <td>{nazev} {php: echo ('{varianta}')? '- {varianta}': '';}</td>
+                <td>
+                  {php: echo '{url}'? '<a href="{url}" target="_blank">': '';}
+                  {nazev} {php: echo '{varianta}'? '- {varianta}': '';}
+                  {php: echo '{url}'? '</a>': '';}                
+                </td>
                 <td>
                   <span class="show{id_objednavky}">{mnozstvi}</span>
                   <input type="text" name="mnozstvi[{i}]" value="{mnozstvi}" class="edit{id_objednavky}" style="width: 24px; display: none; font-size: 8pt;">                

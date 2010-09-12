@@ -42,6 +42,7 @@ class Objednavka{
       var $doprava,$zpusobPlatby;
       //Objednané zboží (formát kompatibilní s DB)
       var $zId = 0;  //key posledního přidaného zboží (v poli $zbozi, $mnozstvi atd.)
+      var $ids = array();
       var $cisla = array();
       var $zbozi = array();
       var $varianty = array();
@@ -140,6 +141,7 @@ class Objednavka{
               $this->doprava = $radek["doprava"];
               $this->zpusobPlatby = $radek["zpusobPlatby"];
               //zboží                                       //(chceme, aby se indexovalo od 1)
+              $this->ids = explode(";",$radek["ids"]);  array_unshift($this->ids, "");
               $this->cisla = explode(";",$radek["cisla"]);  array_unshift($this->cisla, "");
               $this->zbozi = explode(";",$radek["zbozi"]);  array_unshift($this->zbozi, "");
               $this->varianty = explode(";",$radek["varianty"]);  array_unshift($this->varianty, "");
@@ -176,6 +178,7 @@ class Objednavka{
                   $sqlKeys.= 'doprava,';  $sqlValues.= "'".$this->doprava."',";
                   $sqlKeys.= 'zpusobPlatby,';  $sqlValues.= "'".$this->zpusobPlatby."',";
                   // Zboží
+                  $sqlKeys.= 'ids,';  $sqlValues.= "'".implode(';', $this->ids)."',";
                   $sqlKeys.= 'cisla,';  $sqlValues.= "'".implode(';', $this->cisla)."',";
                   $sqlKeys.= 'zbozi,';  $sqlValues.= "'".implode(';', $this->zbozi)."',";
                   $sqlKeys.= 'varianty,';  $sqlValues.= "'".implode(';', $this->varianty)."',";
@@ -205,6 +208,7 @@ class Objednavka{
 
                   // Zboží
                   unset($this->cisla[0], $this->zbozi[0], $this->varianty[0], $this->mnozstvi[0], $this->cenySDph[0], $this->cenyBezDph[0], $this->dph[0]);
+                  $sql_set.= "ids='".implode(';', $this->ids)."',";
                   $sql_set.= "cisla='".implode(';', $this->cisla)."',";
                   $sql_set.= "zbozi='".implode(';', $this->zbozi)."',";
                   $sql_set.= "varianty='".implode(';', $this->varianty)."',";
@@ -321,7 +325,7 @@ class Objednavka{
               $this->mnozstvi[$i] = $mnozstvi;
       }
       
-      Function pridejZbozi($zbozi,$varianta,$mnozstvi,$cenaSDph=0,$cenaBezDph=0,$dph=0, $cislo=0){
+      Function pridejZbozi($id,$zbozi,$varianta,$mnozstvi,$cenaSDph=0,$cenaBezDph=0,$dph=0, $cislo=0){
               //dopočítání cen
               $cenaSDph = $cenaSDph? $cenaSDph: round($cenaBezDph*(1+$dph/100),2);
               $cenaBezDph = $cenaBezDph? $cenaBezDph: round($cenaSDph/(1+$dph/100),2);
@@ -329,6 +333,7 @@ class Objednavka{
 
               //přidání zboží
               $this->zId++;
+              $this->ids[($this->zId)] = $id;
               $this->cisla[($this->zId)] = $cislo;
               $this->zbozi[($this->zId)] = $zbozi;
               $this->varianty[($this->zId)] = $varianta;
@@ -343,7 +348,7 @@ class Objednavka{
       Function nactiZboziZKosiku(){
               Foreach($_SESSION["kosikProdukty"] as $key=>$value){
                       If( $value["nazev"] AND $value["mnozstvi"] ){
-                          $this->pridejZbozi($value["nazev"], $value["varianta"], $value["mnozstvi"], $value["cenaSDph"], $value["cenaBezDph"], $value["dph"], $value["cislo"]);
+                          $this->pridejZbozi($value["id"], $value["nazev"], $value["varianta"], $value["mnozstvi"], $value["cenaSDph"], $value["cenaBezDph"], $value["dph"], $value["cislo"]);
                       }
               }
 
@@ -428,6 +433,7 @@ class Objednavka{
                           $tmplObjednavka->newBlok("$blok.produkt");
                           $tmplObjednavka->prirad("$blok.produkt.id_objednavky", $this->mysqlId);
                           $tmplObjednavka->prirad("$blok.produkt.i", $key);
+                          $tmplObjednavka->prirad("$blok.produkt.id", $this->ids[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.cislo", $this->cisla[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.nazev", $this->zbozi[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.varianta", $this->varianty[$key]);
@@ -436,6 +442,13 @@ class Objednavka{
                           $tmplObjednavka->prirad("$blok.produkt.cenaBezDph", $this->cenyBezDph[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.celkemSDph", $this->cenySDph[$key]*$this->mnozstvi[$key]);
                           $tmplObjednavka->prirad("$blok.produkt.celkemBezDph", $this->cenyBezDph[$key]*$this->mnozstvi[$key]);
+                          
+                          $radek_produkt = mysql_fetch_assoc( mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE id=".$this->ids[$key]."") );
+                          $kategorie_produkt = mysql_fetch_assoc( mysql_query("SELECT MIN(z1.id) as id,z1.kategorie 
+                                                                               FROM $CONF[sqlPrefix]zbozi z1, $CONF[sqlPrefix]zbozi z2 
+                                                                               WHERE z1.kategorie=z2.kategorie AND z2.id=".$this->ids[$key]."
+                                                                               GROUP BY z1.kategorie") );
+                          $tmplObjednavka->prirad("$blok.produkt.url", str_replace('admin/','',$CONF["absDir"])."produkty/$kategorie_produkt[id]-".urlText($kategorie_produkt["kategorie"])."/$radek_produkt[id]-".urlText($radek_produkt["produkt"]).".html");
                       }
               }
               //doprava

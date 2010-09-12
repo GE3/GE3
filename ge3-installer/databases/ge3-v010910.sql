@@ -7,7 +7,7 @@
 -- Verze MySQL: 5.0.32
 -- Verze PHP: 5.2.6
 -- 
--- Databáze: `suuntostor`
+-- Databáze: `ge3`
 -- 
 
 -- --------------------------------------------------------
@@ -345,6 +345,7 @@ CREATE TABLE `{sqlPrefix}objednavky` (
   `stav` varchar(255) collate cp1250_czech_cs NOT NULL,
   `doprava` varchar(60) collate cp1250_czech_cs NOT NULL,
   `zpusobPlatby` varchar(60) collate cp1250_czech_cs NOT NULL,
+  `ids` text character set utf8 collate utf8_czech_ci NOT NULL,
   `cisla` text character set utf8 collate utf8_czech_ci NOT NULL,
   `zbozi` text collate cp1250_czech_cs NOT NULL,
   `varianty` text collate cp1250_czech_cs NOT NULL,

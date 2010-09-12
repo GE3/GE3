@@ -8,7 +8,7 @@ If( $kosik->getPocetPolozek()>0 ){
     $objednavka = new Objednavka();
     $objednavka->nactiZboziZKosiku();
     $cenaDopravneho = zjisti_z("$CONF[sqlPrefix]doprava", "cena", "firma='".$_POST["dopravaFirma"]."' AND zpusob_platby='".$_POST["zpusobPlatby"]."' ");
-    $objednavka->pridejZbozi($_POST["dopravaFirma"], $_POST["zpusobPlatby"], 1, $cenaDopravneho, 0, 19);
+    $objednavka->pridejZbozi(0, $_POST["dopravaFirma"], $_POST["zpusobPlatby"], 1, $cenaDopravneho, 0, 19);
 
     // Odeslání objednávky
     If( $objednavka->ulozDoDatabaze() ){
