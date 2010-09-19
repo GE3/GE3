@@ -17,7 +17,8 @@ If( $kosik->getPocetPolozek()>0 ){
         $obsahMailu = $objednavka->priradDoTmpl($tmplEmail, "email", "templates/$CONF[vzhled]/objednavka.html");
 
         $odesilatel = $CONF["mailer"];
-        $prijemce = zjisti_z("$CONF[sqlPrefix]nastaveni", "emailAdmin", "id=1 LIMIT 1").", ".$objednavka->uzivatel->getData("email");
+        $prijemce = zjisti_z("$CONF[sqlPrefix]nastaveni", "emailAdmin", "id=1 LIMIT 1").", ";
+        if(zjisti_z("$CONF[sqlPrefix]nastaveni", "objednavky_autosender", "id=1")) $prijemce.= $objednavka->uzivatel->getData("email").", ";
         easyMail($odesilatel, $prijemce, "Potvrzení objednávky", $obsahMailu);
 
         //hláška

@@ -175,6 +175,10 @@ if( $_POST["mod"] ){
       <td><input type="checkbox" name="adminExportProduktu" value="1" <?= getValue("adminExportProduktu")? 'checked': ''; ?>></td>
     </tr>
     <tr>
+      <td>Modul Nastavení: </td>
+      <td><input type="checkbox" name="adminNastaveni" value="1" <?= getValue("adminNastaveni")? 'checked': ''; ?>></td>
+    </tr>
+    <tr>
       <td colspan="2">&nbsp;</td>
     </tr>
     

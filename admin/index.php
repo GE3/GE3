@@ -142,6 +142,9 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
 
         If($CONF["adminMakler"]==1) $tmpl->prirad("makler.zobraz", true);
         Elseif($CONF["adminMakler"]==0) $tmpl->prirad("maklerGrey.zobraz", true);
+
+        If($CONF["adminNastaveni"]==1) $tmpl->prirad("nastaveni.zobraz", true);
+        Elseif($CONF["adminNastaveni"]==0) $tmpl->prirad("nastaveniGrey.zobraz", true);
         
         Echo $tmpl->getHtml();
     }
@@ -220,10 +223,6 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
     if($_GET["m"]=="fotogalerie"){
        include 'galerie.php';
        }             
-
-    if($_GET["m"]=="nastaveni"){
-       include 'nastaveni.php';
-       }
        
     if($_GET["m"]=="poptavka"){
        include 'poptavka.php';
@@ -243,7 +242,11 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
        
     if($_GET["m"]=="makler"){
        include 'makler.php';
-       }           
+       }
+       
+    if($_GET["m"]=="nastaveni"){
+       include 'nastaveni.php';
+       }
        
     //nové moduly se samostatným řízením
     Include 'ankety.php';           

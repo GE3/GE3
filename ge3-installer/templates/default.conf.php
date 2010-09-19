@@ -50,6 +50,7 @@ $GLOBALS["config"]["adminSoubory"] = {adminSoubory};
 $GLOBALS["config"]["adminFaktury"] = {adminFaktury}; 
 $GLOBALS["config"]["adminZakaznici"] = {adminZakaznici};
 $GLOBALS["config"]["adminExportProduktu"] = {adminExportProduktu};
+$GLOBALS["config"]["adminNastaveni"] = {adminNastaveni};
 
 $GLOBALS["config"]["adminKalendar"] = 0;
 $GLOBALS["config"]["adminWebmail"] = -1; 

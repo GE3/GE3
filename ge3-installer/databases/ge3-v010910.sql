@@ -287,6 +287,8 @@ CREATE TABLE `{sqlPrefix}nastaveni` (
   `adminZobrazFunkce` varchar(60) collate cp1250_czech_cs NOT NULL,
   `zbozi_puvodni_cena_active` tinyint(1) NOT NULL,
   `zbozi_usetrite_jednotky` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,  
+  `title` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,
+  `objednavky_autosender` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=cp1250 COLLATE=cp1250_czech_cs AUTO_INCREMENT=2 ;
 
@@ -294,7 +296,7 @@ CREATE TABLE `{sqlPrefix}nastaveni` (
 -- Vypisuji data pro tabulku `{sqlPrefix}nastaveni`
 -- 
 
-INSERT INTO `{sqlPrefix}nastaveni` (`id`, `emailAdmin`, `adminZobrazFunkce`, `zbozi_puvodni_cena_active`, `zbozi_usetrite_jednotky`) VALUES (1, '{emailAdmin}', 'vse', 0, 'Kč');
+INSERT INTO `{sqlPrefix}nastaveni` (`id`, `emailAdmin`, `adminZobrazFunkce`, `zbozi_puvodni_cena_active`, `zbozi_usetrite_jednotky`, `title`, `objednavky_autosender`) VALUES (1, '{emailAdmin}', 'vse', 0, 'Kč',	'{title}',	1);
 
 -- --------------------------------------------------------
 

@@ -322,6 +322,25 @@
             </div>
             {/souboryGrey}{php: } ;}
             
+            {nastaveni/}
+            <div class="box" style="width: px;">
+              <a href="?m=nastaveni">
+                <img src="images/nastaveni.png"></a>
+              <a href="?m=nastaveni">Nastavení</a>
+              <p>Umožňuje spravovat základní nastavení vašich stránek. 
+              </p>
+            </div>
+            {/nastaveni}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{nastaveniGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Nastavení">
+                <img src="images/nastaveni-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Nastavení" class="seda">Nastavení</a>
+              <p class="seda">Umožňuje spravovat základní nastavení vašich stránek. 
+              </p>
+            </div>
+            {/nastaveniGrey}{php: } ;}   
+            
                       
             <table border="0" width="635" cellspacing="0" cellpadding="0" style="margin-top: 10px;">            
               <tr>              

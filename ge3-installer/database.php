@@ -33,6 +33,7 @@ if( $_POST["file"] ){
               $sql = str_replace('{jmeno}', $_POST["jmeno"], $sql);
               $sql = str_replace('{heslo}', $_POST["heslo"], $sql);
               $sql = str_replace('{emailAdmin}', $_POST["emailAdmin"], $sql);
+              $sql = str_replace('{title}', $_POST["title"], $sql);
           
               mysql_query($sql) or die("MySQL error: <br>".mysql_error()." <p>in query: <br>$sql <p>");
               $sql = '';
@@ -63,6 +64,10 @@ else{
   <table border="0">
     <tr>
       <td colspan="2"><h3>Vytvořit novou</h3></td>
+    </tr>
+    <tr>
+      <td>Title webu: </td>
+      <td><input type="text" name="title" value="<?= getValue("title"); ?>"></td>
     </tr>
     <tr>
       <td>Administrátor: </td>
