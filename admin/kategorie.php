@@ -175,6 +175,14 @@ If( $_POST["zmenitPoradi"] ){
                 }
             }
     }
+    foreach($_POST["vaha_podkat1"] as $key=>$value){
+            if( $key ){
+                $value = $value? $value: '0';
+                If( Mysql_query("UPDATE $CONF[sqlPrefix]zbozi x, $CONF[sqlPrefix]zbozi y SET x.vaha_podkat1=$value WHERE x.kategorie=y.kategorie AND x.podkat1=y.podkat1 AND y.id=$key") ){
+                    $i++;
+                }
+            }            
+    }    
     Echo '<div style="border: 2px solid #008000; background-color: #EEFFEE; text-align: center; margin: 4px 6px 4px 6px; padding: 2px 4px 2px 4px; ">
           <b>Kategorie úspěšně upraveny.</b>
           </div>
@@ -237,7 +245,7 @@ While($radekKategorie = mysql_fetch_array($dotazKategorie)){
 
       // Zobrazení podkategorií
       If( zjisti_z("$CONF[sqlPrefix]zbozi", "podkat1", "kategorie='".$radekKategorie["kategorie"]."' ORDER BY podkat1 DESC") ){
-          $dotazPodkat1 = Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE kategorie='".$radekKategorie["kategorie"]."' AND podkat1!='' GROUP BY podkat1 ORDER BY podkat1 ");
+          $dotazPodkat1 = Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE kategorie='".$radekKategorie["kategorie"]."' AND podkat1!='' GROUP BY podkat1 ORDER BY vaha_podkat1 DESC, podkat1 ASC");
           Echo '<div id="divPodkat1_'.$radekKategorie["id"].'" style="font-size: 8pt; margin-left: 16px; display: none;">';
           While($radekPodkat1 = Mysql_fetch_array($dotazPodkat1)){
                 If( zjisti_z("$CONF[sqlPrefix]zbozi", "podkat2", "kategorie='".$radekKategorie["kategorie"]."' AND podkat1='".$radekPodkat1["podkat1"]."' ORDER BY podkat2 DESC") ){  //Příprava vzhledu a JS funkcí
@@ -253,6 +261,7 @@ While($radekKategorie = mysql_fetch_array($dotazKategorie)){
                           ';
                 Echo '<span '.$onClick.' '.$style.'>
                         '.$obrazek.' 
+                        <input type="text" name="vaha_podkat1['.$radekPodkat1["id"].']" value="'.$radekPodkat1["vaha_podkat1"].'" style="font-size: 50%; color: #666666;" size="1">
                         '.$radekPodkat1["podkat1"].'
                       </span> &nbsp; '.$ikony.'<br>';  //Zobrazení názvu s odkazy pro změnu atd.
 

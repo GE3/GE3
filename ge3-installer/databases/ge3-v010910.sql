@@ -599,6 +599,7 @@ CREATE TABLE `{sqlPrefix}zbozi` (
   `podkat1` varchar(60) collate cp1250_czech_cs NOT NULL,
   `obrazekPodkat1` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,
   `podkat1Aktivni` enum('ano','ne') character set utf8 collate utf8_czech_ci NOT NULL default 'ano',
+  `vaha_podkat1` int(3) NOT NULL,
   `podkat2` varchar(60) collate cp1250_czech_cs NOT NULL,
   `obrazekPodkat2` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,
   `podkat3` varchar(60) collate cp1250_czech_cs NOT NULL,

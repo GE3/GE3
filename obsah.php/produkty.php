@@ -66,7 +66,8 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
                 $podminka="kategorie='".zjisti_z("$CONF[sqlPrefix]zbozi","kategorie","id=$kategorie")."' ";
                 $podminka.=$podkat1?"AND podkat1='".zjisti_z("$CONF[sqlPrefix]zbozi","podkat1","id=$podkat1")."' ":"";
                 $podminka.=$podkat2?"AND podkat2='".zjisti_z("$CONF[sqlPrefix]zbozi","podkat2","id=$podkat2")."' ":"";
-                $dotaz=Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE $podminka GROUP BY podkat$i ORDER BY podkat$i ASC");
+                $order_by = ($i==1)? 'vaha_podkat1 DESC, podkat1 ASC': "podkat$i ASC";
+                $dotaz=Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE $podminka GROUP BY podkat$i ORDER BY $order_by") or die(mysql_error());
                 //vytvoření odkazů
                 $nalezeno=FALSE;
                 While($radek=Mysql_fetch_array($dotaz)){
@@ -174,7 +175,8 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
         while($podkat=mysql_fetch_assoc($dotaz)){
               $i++;
 
-              $prvni_podkat = mysql_fetch_assoc( mysql_query("SELECT x.id FROM $CONF[sqlPrefix]zbozi x, $CONF[sqlPrefix]zbozi y WHERE x.kategorie=y.kategorie AND x.podkat1=y.podkat1 AND y.id=$podkat[id] ORDER BY x.podkat1 ASC") );
+              $prvni_podkat = mysql_fetch_assoc( mysql_query("SELECT x.id FROM $CONF[sqlPrefix]zbozi x, $CONF[sqlPrefix]zbozi y WHERE x.kategorie=y.kategorie AND x.podkat1=y.podkat1 AND y.id=$podkat[id] ORDER BY x.vaha_podkat1 DESC, x.podkat1 ASC") );
+              if(mysql_error()) die(mysql_error());
               $id = $prvni_podkat["id"];
               $tmplProdukty->newBlok("vypis_kategorii.kategorie");
               $tmplProdukty->prirad("vypis_kategorii.kategorie.i", $i);
@@ -227,7 +229,7 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
     $podminka.= "AND produkt IS NOT NULL ";
     $podminka = eregi_replace("^AND ", "", $podminka);
     $dotaz = "SELECT *,MIN(id) FROM $CONF[sqlPrefix]zbozi WHERE $podminka GROUP BY kategorie,produkt ORDER BY $seradit_podle LIMIT $limit";
-    $dotaz = Mysql_query($dotaz);
+    $dotaz = Mysql_query($dotaz) or die(mysql_error());
 
 
     /* -- Zobrazení zboží -- */
