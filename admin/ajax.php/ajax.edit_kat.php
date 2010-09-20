@@ -51,7 +51,7 @@ else $obrazek=zjisti_z($tabulka,"obrazekKategorie","id='$kategorie'");
 Echo '<input type="submit" name="zmenit_kat" value="Změnit"> <br>
       '.( $obrazek? '<div id="divImg">Obrázek: <img src="../zbozi/obrazky/'.$obrazek.'" height="24"> &nbsp; <a href="javascript: void(0);" onClick="document.getElementById(\'divImgEdit\').style.display=\'block\';document.getElementById(\'divImg\').style.display=\'none\';">Změnit</a></div>': '' ).' 
       <div id="divImgEdit" style="display: '.( $obrazek? 'none': 'block' ).';">Nový obrázek: <br><input type="file" name="obrazek"> </div>
-      '.( !$kategorie? 'Popis: <br>
+      '.( !$podkat1? 'Popis: <br>
       <textarea name="popisKategorie" style="width: 256px; height: 64px;">'.zjisti_z($tabulka,"popisKategorie","id='$kategorie'").'</textarea>': '' ).'
       ';
 ?>
