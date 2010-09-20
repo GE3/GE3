@@ -52,14 +52,13 @@ Function priradOdkazyPodkat(&$tmpl,$kategorieScript,$podkat1Script='',$podkat2Sc
                     }
                 }
         }
-        Elseif( $kategorieScript or true ){
+        Elseif( $kategorieScript ){
                 //Zjištění id aktuální kategorie
                 $getKategorieId = preg_replace("|^([0-9]*)-.*$|","$1",$_GET["kategorie"]);
 
                 //Pokud je tato kategorie aktuálnní
-                If( $getKategorieId==$kategorieScript or true ){
-                    if($getKategorieId)  $dotaz=Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE kategorie='".zjisti_z("$CONF[sqlPrefix]zbozi","kategorie","id='$kategorieScript'")."' GROUP BY podkat1 ORDER BY vaha_podkat1 DESC, podkat1 ASC");
-                    if(!$getKategorieId) $dotaz=Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi GROUP BY podkat1 ORDER BY vaha_podkat1 DESC, podkat1 ASC");
+                If( $getKategorieId==$kategorieScript ){
+                    $dotaz=Mysql_query("SELECT * FROM $CONF[sqlPrefix]zbozi WHERE kategorie='".zjisti_z("$CONF[sqlPrefix]zbozi","kategorie","id='$kategorieScript'")."' GROUP BY podkat1 ORDER BY vaha_podkat1 DESC, podkat1 ASC");
                     While($radek=mysql_fetch_array($dotaz)){
                           If( $radek["podkat1"] and $radek["podkat1Aktivni"]!='ne' ){
                               // Seo url?
