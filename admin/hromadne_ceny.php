@@ -35,6 +35,7 @@ $html_nadpis='
 
 
 
+<h3 style="padding-top: 0px; margin-top: 0px;">Slevy a zdražení</h3>
 <?php /* Změna cen */
 If( $_POST["cena_do"] AND $_POST["zmena_na"]>0 ){
     $cena_od=$_POST["cena_od"];
@@ -172,6 +173,8 @@ Echo '</script>';
 
 
 <br>&nbsp;
+<hr size="1">
+<h3>Zobrazovač původní ceny</h3>
 <?php
 if( $_POST["akce"]=='puvodni-ceny' ){
     Mysql_query("UPDATE $CONF[sqlPrefix]nastaveni SET zbozi_puvodni_cena_active='$_POST[zbozi_puvodni_cena_active]', zbozi_usetrite_jednotky='$_POST[zbozi_usetrite_jednotky]' WHERE id=1");
