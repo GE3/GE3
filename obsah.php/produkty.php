@@ -251,7 +251,7 @@ If( $_GET["a"]=='produkty' AND !$_GET["produkt"] ){
           $tmplProdukty->prirad("produkt.popisUvod", ereg_replace( " [^ ]*$", "", substr(strip_tags($radek["popis"]),0,180)) );
           // Ceny
           //dopočítání nezadaných cen
-          $cenaSDph = $radek["cenaSDph"]?$radek["cenaSDph)"]:($radek["cenaBezDph"]*(1+$radek["dph"]/100));
+          $cenaSDph = $radek["cenaSDph"]?$radek["cenaSDph"]:($radek["cenaBezDph"]*(1+$radek["dph"]/100));
           $cenaBezDph = $radek["cenaBezDph"]?$radek["cenaBezDph"]:($radek["cenaSDph"]/(1+$radek["dph"]/100));
           @$dph = $radek["dph"]?$radek["dph"]:($radek["cenaSDph"]/$radek["cenaBezDph"]*100-100);
           //zobrazení
