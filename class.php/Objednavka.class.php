@@ -220,7 +220,6 @@ class Objednavka{
                   // MySQL dotaz
                   $sql_set = ereg_replace(",$", "", $sql_set);
                   $dotaz = "UPDATE $CONF[sqlPrefix]objednavky SET $sql_set WHERE id=$this->mysqlId";
-                  echo "\n------\n$dotaz\n------\n";
                   If( Mysql_query($dotaz) ){
                       Return True;
                     }Else{
