@@ -103,7 +103,7 @@ If( $_GET["a"]=='homepage' OR !$_GET["a"] ){
           // Dostupnost
           $tmplProdukty->prirad("produkt.dostupnost", $radek2["dostupnost"]);
           // Akční nabídka
-          If($radek2["akce"]) $tmpl->prirad("produkt.akce", "ano");
+          If($radek2["akce"]) $tmplProdukty->prirad("produkt.akce", "ano");
           // Url
           If( $CONF["mod_rewrite"] ){
               //(informace pro nové url se berou ze stávající url. Pokud zde nejsou, zkusí se získat z db.)
