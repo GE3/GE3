@@ -207,7 +207,7 @@ class Objednavka{
                   $sql_set = '';
 
                   // Zboží
-                  unset($this->cisla[0], $this->zbozi[0], $this->varianty[0], $this->mnozstvi[0], $this->cenySDph[0], $this->cenyBezDph[0], $this->dph[0]);
+                  unset($this->ids[0], $this->cisla[0], $this->zbozi[0], $this->varianty[0], $this->mnozstvi[0], $this->cenySDph[0], $this->cenyBezDph[0], $this->dph[0]);
                   $sql_set.= "ids='".implode(';', $this->ids)."',";
                   $sql_set.= "cisla='".implode(';', $this->cisla)."',";
                   $sql_set.= "zbozi='".implode(';', $this->zbozi)."',";
