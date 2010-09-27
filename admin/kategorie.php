@@ -237,7 +237,7 @@ While($radekKategorie = mysql_fetch_array($dotazKategorie)){
       Echo '<div style="margin-top: 4px;">
               <span '.$onClick.' '.$style.'>
                 '.$obrazek.' 
-                <input type="text" name="vaha['.$radekKategorie["id"].']" value="'.$radekKategorie["vaha"].'" style="font-size: 60%; color: #666666;" size="1">
+                <input type="text" name="vaha['.$radekKategorie["id"].']" value="'.$radekKategorie["vaha"].'" style="font-size: 8pt; color: #666666;" size="2">
                 '.$radekKategorie["kategorie"].'
               </span> &nbsp; 
               '.$ikony.'
@@ -261,7 +261,7 @@ While($radekKategorie = mysql_fetch_array($dotazKategorie)){
                           ';
                 Echo '<span '.$onClick.' '.$style.'>
                         '.$obrazek.' 
-                        <input type="text" name="vaha_podkat1['.$radekPodkat1["id"].']" value="'.$radekPodkat1["vaha_podkat1"].'" style="font-size: 50%; color: #666666;" size="1">
+                        <input type="text" name="vaha_podkat1['.$radekPodkat1["id"].']" value="'.$radekPodkat1["vaha_podkat1"].'" style="font-size: 8pt; color: #666666;" size="2">
                         '.$radekPodkat1["podkat1"].'
                       </span> &nbsp; '.$ikony.'<br>';  //Zobrazení názvu s odkazy pro změnu atd.
 

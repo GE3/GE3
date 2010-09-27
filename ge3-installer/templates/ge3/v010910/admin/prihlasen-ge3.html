@@ -248,9 +248,9 @@
             
             {fora/}
             <div class="box" style="width: px;">
-              <a href="?m=forum">
+              <a href="?m=forums">
                 <img src="images/fora.png"></a>
-              <a href="?m=forum">Diskusní fórum</a>
+              <a href="?m=forums">Diskusní fórum</a>
               <p>Zde můžete založit diskusní fórum, aby Vaši klienti mohli přímo na stránkách diskutovat a vy s nimi. 
               </p>
             </div>
@@ -264,6 +264,25 @@
               </p>
             </div>
             {/foraGrey}{php: } ;}
+            
+            {formulare/}
+            <div class="box" style="width: px;">
+              <a href="?m=mailforms">
+                <img src="images/formular_icon.png"></a>
+              <a href="?m=mailforms">Formuláře</a>
+              <p>Zde můžete založit diskusní fórum, aby Vaši klienti mohli přímo na stránkách diskutovat a vy s nimi. 
+              </p>
+            </div>
+            {/formulare}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{formulareGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Formuláře">
+                <img src="images/formular_icon-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Formuláře" class="seda">Formuláře</a>
+              <p class="seda">Tento modul slouží k vytváření formulářů, které jsou po vyplnění Vašimi klienty odesílány na Vámi zvolený e-mail. 
+              </p>
+            </div>
+            {/formulareGrey}{php: } ;}
             
             {facebook/}
             <div class="box" style="width: px;">

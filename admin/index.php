@@ -97,9 +97,6 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
         // Zobrazování modulů
         If($CONF["adminAnkety"]==1) $tmpl->prirad("ankety.zobraz", true);
         Elseif($CONF["adminAnkety"]==0) $tmpl->prirad("anketyGrey.zobraz", true);
-         
-        If($CONF["adminFora"]==1) $tmpl->prirad("fora.zobraz", true);
-        Elseif($CONF["adminFora"]==0) $tmpl->prirad("foraGrey.zobraz", true);
         
         If($CONF["adminFotogalerie"]==1) $tmpl->prirad("fotogalerie.zobraz", true);
         Elseif($CONF["adminFotogalerie"]==0) $tmpl->prirad("fotogalerieGrey.zobraz", true);
@@ -145,6 +142,12 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
 
         If($CONF["adminNastaveni"]==1) $tmpl->prirad("nastaveni.zobraz", true);
         Elseif($CONF["adminNastaveni"]==0) $tmpl->prirad("nastaveniGrey.zobraz", true);
+
+        If($CONF["adminForums"]==1) $tmpl->prirad("fora.zobraz", true);
+        Elseif($CONF["adminForums"]==0) $tmpl->prirad("foraGrey.zobraz", true);
+
+        If($CONF["adminFormulare"]==1) $tmpl->prirad("formulare.zobraz", true);
+        Elseif($CONF["adminFormulare"]==0) $tmpl->prirad("formulareGrey.zobraz", true);
         
         Echo $tmpl->getHtml();
     }
@@ -247,6 +250,14 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
     if($_GET["m"]=="nastaveni"){
        include 'nastaveni.php';
        }
+       
+    if($_GET["m"]=="forums"){
+       include 'forums.php';
+       }
+       
+    if($_GET["m"]=="mailforms"){
+       include 'mailforms.php';
+       }              
        
     //nové moduly se samostatným řízením
     Include 'ankety.php';           

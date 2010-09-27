@@ -1,38 +1,32 @@
-<div style="padding-left: 12px; padding-right: 12px;">
+{hlaska}
+<table style="margin: auto;" border="0">
+      <form method="post" action="">
+         <input type="hidden" name="odpoved" value="{php: Echo $_GET["id_odpovedi"];}" />
+         <tr><td style="text-align: right;"><b>Jméno:</b></td><td><input type="text" name="jmeno" style="width: 175px;"/></td></tr>
+         <!--{php: Echo ($_GET["id_odpovedi"]!='')? '<tr><td><b>Heslo:</b></td><td><input type="password" name="heslo" /></td></tr>': '';}-->
+         <tr><td style="text-align: right;">E-mail: </td><td><input type="text" name="email" style="width: 175px;" /></td></tr>
+         <tr><td valign="top" style="text-align: right;"><b>Zpráva:</b></td><td><textarea name="zprava"></textarea></td></tr>
+         {php: Echo ($_GET["id_odpovedi"]!='')? '<tr><td colspan="2" align="right"><font class="mensi">...odpovídáte na příspěvek č. '.$_GET[id_odpovedi].'.</font></td></tr>': '';}
+         <tr><td colspan="2" style="text-align: center; height: 45px;"><input type="submit" name="odeslat" value="odeslat"></td></tr>
+      </form>
+</table>
+<p style="text-align: center; font-size: 18px;"><b>{nadpis}</b></p>
+<table border="0" style="margin: auto; width: 100%;">
 
-  {hlaska}
 
-  <h1>Diskusní fórum</h1>
-  <table align="center" border="0" class="diskuse">
-        <form method="post" action="">
-           <input type="hidden" name="odpoved" value="{php: Echo $_GET["id_odpovedi"];}" />
-           <tr><td align="right"><b>Jméno:</b></td><td><input type="text" name="jmeno" /></td></tr>
-           <!--{php: Echo ($_GET["id_odpovedi"]!='')? '<tr><td><b>Heslo:</b></td><td><input type="password" name="heslo" /></td></tr>': '';}-->
-           <tr><td align="right">E-mail: </td><td><input type="text" name="email" /></td></tr>
-           <tr><td align="right" valign="top"><b>Zpráva:</b></td><td><textarea name="zprava"></textarea></td></tr>
-           {php: Echo ($_GET["id_odpovedi"]!='')? '<tr><td colspan="2" align="right"><font class="mensi">...odpovídáte na příspěvek č. '.$_GET[id_odpovedi].'.</font></td></tr>': '';}
-           <tr><td></td><td align="right"><input type="submit" name="odeslat" value="odeslat"></td></tr>
-        </form>
-  </table>
-  <table border="0" align="center" class="diskuse">
-  
-  
-  
-  {prizpevek/}
-  <tr><td colspan="2"><hr></td></tr>
-  <tr><td>{id}. <b>{jmeno}</b>{email}</td><td align="right"><span class="mensi">{datum}</span>&nbsp;&nbsp;&nbsp;<!--<a href="?x=forum&amp;id_odpovedi={id}">odpovědět</a>&nbsp;&nbsp;&nbsp;--></td></tr>
-  <tr><td colspan="2"><p align="left">{obsah}</p></td></tr>
-    {odpoved/}
-    <!--<a href="mailto: {email}" class="mensi">[email]</a>--> 
-    <tr><td colspan="2">
-      <table>
-        <tr><td width="20">&nbsp;</td><td><b>{jmeno}</b>{email}</td><td align="right"><span class="mensi">{datum}</span>&nbsp;&nbsp;&nbsp;</td></tr>
-        <tr><td width="20">&nbsp;</td><td colspan="2"><p align="left">{obsah}</p></td></tr>
-      </table>
-    </td></tr>
-    {/odpoved}
-  {/prizpevek}
-  
-  </table>
 
-</div>
+{prizpevek/}
+<tr><td colspan="2"><hr></td></tr>
+<tr><td style="text-align: left;"><b>{jmeno}</b>{email}</td><td align="right"><span class="mensi">{datum}</span>&nbsp;&nbsp;&nbsp;<!--<a href="?x=forum&amp;id_odpovedi={id}">odpovědět</a>&nbsp;&nbsp;&nbsp;--></td></tr>
+<tr><td colspan="2"><p align="left">{obsah}</p></td></tr>
+  {odpoved/}
+  <tr><td colspan="2"><table>
+  <tr><td width="20">&nbsp;</td><td><b>{jmeno}</b>{email}</td><td align="right"><span class="mensi">{datum}</span>&nbsp;&nbsp;&nbsp;</td></tr>
+  <tr><td width="20">&nbsp;</td><td colspan="2"><p align="left">{obsah}</p></td></tr>
+  </table></td></tr>
+  {/odpoved}
+{/prizpevek}
+
+
+
+</table>

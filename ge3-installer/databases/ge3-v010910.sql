@@ -200,6 +200,7 @@ CREATE TABLE `{sqlPrefix}faktury` (
 CREATE TABLE `{sqlPrefix}forum` (
   `id` int(5) unsigned NOT NULL auto_increment,
   `id_odpovedi` int(5) unsigned default NULL,
+  `forum` varchar(8) character set utf8 collate utf8_czech_ci NOT NULL,  
   `datum` int(10) unsigned NOT NULL,
   `jmeno` varchar(40) character set utf8 collate utf8_czech_ci NOT NULL,
   `email` varchar(60) character set utf8 collate utf8_czech_ci NOT NULL,
@@ -209,6 +210,86 @@ CREATE TABLE `{sqlPrefix}forum` (
 
 -- 
 -- Vypisuji data pro tabulku `{sqlPrefix}forum`
+--
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Struktura tabulky `{sqlPrefix}forums`
+-- 
+
+CREATE TABLE `{sqlPrefix}forums` (
+  `id` int(8) NOT NULL auto_increment,
+  `clanek` int(8) NOT NULL,
+  `tema` text NOT NULL,
+  `globals` int(1) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+
+-- 
+-- Vypisuji data pro tabulku `{sqlPrefix}forums`
+--  
+
+
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Struktura tabulky `{sqlPrefix}mailforms`
+-- 
+
+CREATE TABLE `{sqlPrefix}mailforms` (
+  `id` int(8) NOT NULL auto_increment,
+  `nazev` varchar(60) NOT NULL,
+  `popis` text NOT NULL,
+  `od` varchar(80) NOT NULL,
+  `komu` varchar(80) NOT NULL,
+  `predmet` varchar(80) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+-- 
+-- Vypisuji data pro tabulku `{sqlPrefix}mailforms`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Struktura tabulky `{sqlPrefix}mailforms_items`
+-- 
+
+CREATE TABLE `{sqlPrefix}mailforms_items` (
+  `id` int(8) NOT NULL auto_increment,
+  `mailform` int(8) NOT NULL,
+  `typ` text NOT NULL,
+  `obsah` text NOT NULL,
+  `nazev` text NOT NULL,
+  `polozka` int(8) NOT NULL,
+  `poradi` int(8) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 AUTO_INCREMENT=112 ;
+
+-- 
+-- Vypisuji data pro tabulku `{sqlPrefix}mailforms_items`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Struktura tabulky `{sqlPrefix}mailforms_rozdeleni`
+-- 
+
+CREATE TABLE `{sqlPrefix}mailforms_rozdeleni` (
+  `clanek` int(8) NOT NULL,
+  `mailform` int(8) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Vypisuji data pro tabulku `{sqlPrefix}mailforms_rozdeleni`
 -- 
 
 
