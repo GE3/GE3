@@ -341,6 +341,25 @@
             </div>
             {/souboryGrey}{php: } ;}
             
+            {podobneProdukty/}
+            <div class="box" style="width: px;">
+              <a href="?m=podobne_produkty">
+                <img src="images/podobne_produkty.png"></a>
+              <a href="?m=podobne_produkty">Podobné produkty</a>
+              <p>Modul, který umožní přidávat k produktům podobné produkty. 
+              </p>
+            </div>
+            {/podobneProdukty}
+            {php: If('{zobrazFunkce}'=='vse'){ ;}{podobneProduktyGrey/}
+            <div class="box" style="width: px;">
+              <a href="?m=pridat-funkci&funkce=Podobné produkty">
+                <img src="images/podobne_produkty-seda.png"></a>
+              <a href="?m=pridat-funkci&funkce=Podobné produkty" class="seda">Podobné produkty</a>
+              <p class="seda">Modul, který umožní přidávat k produktům podobné produkty.  
+              </p>
+            </div>
+            {/podobneProduktyGrey}{php: } ;}             
+            
             {nastaveni/}
             <div class="box" style="width: px;">
               <a href="?m=nastaveni">

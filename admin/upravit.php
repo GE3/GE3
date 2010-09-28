@@ -171,6 +171,20 @@ If( $_GET["zbozi_smaz"] ){
 
 
 
+<?php 
+/* Přidání podobného produktu */
+if( $_GET["pridat_podobne"] and $_GET["produkt"] ){
+    mysql_query("INSERT INTO $CONF[sqlPrefix]zbozi_podobne(zbozi, podobne) VALUES ($_GET[produkt], $_GET[pridat_podobne])");
+}
+
+/* Odebrání podobného produktu */
+if( $_GET["smazat_podobne"] and $_GET["produkt"] ){
+    mysql_query("DELETE FROM $CONF[sqlPrefix]zbozi_podobne WHERE zbozi=$_GET[produkt] AND podobne=$_GET[smazat_podobne]") or die(mysql_error());
+}
+?>
+
+
+
 <?php /* Změna základních údajů */
 
 //kontrola
@@ -496,6 +510,20 @@ echo '
         oFCKeditor.Create();
         </script>
         <noscript><textarea cols="60" rows="6" name="popis">'.$radek["popis"].'</textarea></noscript>
+        ';
+        
+if( zjisti_z("$CONF[sqlPrefix]nastaveni", "podobne_produkty_active", "id=1") ){
+    echo '<br>&nbsp;<br><strong>Podobné produkty </strong> [<span style="cursor: pointer; color: #000080;" onClick="easyAjaxPopup(\'Podobné produkty\', \'upravit.ajax.podobne.php\', \'kategorie='.$_GET["kategorie"].'&podkat1='.$_GET["podkat1"].'&podkat2='.$_GET["podkat2"].'&produkt='.$_GET["produkt"].'\');">Přidat</span>]<br>';
+       $dotaz_podobne = mysql_query("SELECT a.* 
+                             FROM $CONF[sqlPrefix]zbozi a LEFT JOIN ($CONF[sqlPrefix]zbozi_podobne p, $CONF[sqlPrefix]zbozi b) 
+                               ON (a.id=p.podobne AND b.id=p.zbozi)
+                             WHERE b.id=$radek[id]");
+       while($radek_podobne=mysql_fetch_assoc($dotaz_podobne)){
+             echo '[<a href="?m=editace_zbozi&n=zmena_zakladnich_udaju&kategorie='.$_GET["kategorie"].'&podkat1='.$_GET["podkat1"].'&podkat2='.$_GET["podkat2"].'&produkt='.$_GET["produkt"].'&smazat_podobne='.$radek_podobne["id"].'">odebrat</a>] 
+                  '.$radek_podobne['produkt'].' <br>'; 
+       }
+}
+   echo '
 
       <p><input type="submit" name="tlacitko" value="Odeslat">
 

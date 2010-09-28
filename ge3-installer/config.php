@@ -151,7 +151,7 @@ if( $_POST["mod"] ){
       <td><input type="checkbox" name="adminAnkety" value="1" <?= getValue("adminAnkety")? 'checked': ''; ?>></td>
     </tr>    
     <tr>
-      <td>Modul Diskusní fórum: </td>
+      <td>Modul Diskusní fórum (zastaralé): </td>
       <td><input type="checkbox" name="adminFora" value="1" <?= getValue("adminFora")? 'checked': ''; ?>></td>
     </tr>
     <tr>
@@ -186,6 +186,10 @@ if( $_POST["mod"] ){
       <td>Modul Formuláře: </td>
       <td><input type="checkbox" name="adminFormulare" value="1" <?= getValue("adminFormulare")? 'checked': ''; ?>></td>
     </tr>
+    <tr>
+      <td>Modul Podobné produkty: </td>
+      <td><input type="checkbox" name="adminPodobneProdukty" value="1" <?= getValue("adminPodobneProdukty")? 'checked': ''; ?>></td>
+    </tr>    
     <tr>
       <td colspan="2">&nbsp;</td>
     </tr>

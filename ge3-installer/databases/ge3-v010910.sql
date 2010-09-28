@@ -370,6 +370,7 @@ CREATE TABLE `{sqlPrefix}nastaveni` (
   `zbozi_usetrite_jednotky` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,  
   `title` varchar(255) character set utf8 collate utf8_czech_ci NOT NULL,
   `objednavky_autosender` tinyint(1) NOT NULL,
+  `podobne_produkty_active` tinyint(1) NOT NULL,  
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=cp1250 COLLATE=cp1250_czech_cs AUTO_INCREMENT=2 ;
 
@@ -377,7 +378,7 @@ CREATE TABLE `{sqlPrefix}nastaveni` (
 -- Vypisuji data pro tabulku `{sqlPrefix}nastaveni`
 -- 
 
-INSERT INTO `{sqlPrefix}nastaveni` (`id`, `emailAdmin`, `adminZobrazFunkce`, `zbozi_puvodni_cena_active`, `zbozi_usetrite_jednotky`, `title`, `objednavky_autosender`) VALUES (1, '{emailAdmin}', 'vse', 0, 'Kč',	'{title}',	1);
+INSERT INTO `{sqlPrefix}nastaveni` (`id`, `emailAdmin`, `adminZobrazFunkce`, `zbozi_puvodni_cena_active`, `zbozi_usetrite_jednotky`, `title`, `objednavky_autosender`, `podobne_produkty_active`) VALUES (1, '{emailAdmin}', 'vse', 0, 'Kč',	'{title}',	1, 0);
 
 -- --------------------------------------------------------
 
@@ -708,3 +709,16 @@ CREATE TABLE `{sqlPrefix}zbozi` (
 -- Vypisuji data pro tabulku `{sqlPrefix}zbozi`
 -- 
 
+
+-- --------------------------------------------------------
+
+-- 
+-- Struktura tabulky `{sqlPrefix}zbozi_podobne`
+-- 
+
+CREATE TABLE `{sqlPrefix}zbozi_podobne` (
+  `id` int(5) NOT NULL auto_increment,
+  `zbozi` int(5) NOT NULL,
+  `podobne` int(5) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;

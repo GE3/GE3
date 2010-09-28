@@ -53,6 +53,7 @@ $GLOBALS["config"]["adminExportProduktu"] = {adminExportProduktu};
 $GLOBALS["config"]["adminNastaveni"] = {adminNastaveni};
 $GLOBALS["config"]["adminForums"] = {adminForums};
 $GLOBALS["config"]["adminFormulare"] = {adminFormulare};
+$GLOBALS["config"]["adminPodobneProdukty"] = {adminPodobneProdukty};
 
 $GLOBALS["config"]["adminKalendar"] = 0;
 $GLOBALS["config"]["adminWebmail"] = -1; 

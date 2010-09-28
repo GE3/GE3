@@ -148,6 +148,9 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
 
         If($CONF["adminFormulare"]==1) $tmpl->prirad("formulare.zobraz", true);
         Elseif($CONF["adminFormulare"]==0) $tmpl->prirad("formulareGrey.zobraz", true);
+
+        If($CONF["adminPodobneProdukty"]==1) $tmpl->prirad("podobneProdukty.zobraz", true);
+        Elseif($CONF["adminPodobneProdukty"]==0) $tmpl->prirad("podobneProduktyGrey.zobraz", true);
         
         Echo $tmpl->getHtml();
     }
@@ -257,7 +260,11 @@ if( $_SESSION["heslo"] AND $_GET["m"]!="odhlasit_se" ){
        
     if($_GET["m"]=="mailforms"){
        include 'mailforms.php';
-       }              
+       }
+       
+    if($_GET["m"]=="podobne_produkty"){
+       include 'podobne_produkty.php';
+       }                          
        
     //nové moduly se samostatným řízením
     Include 'ankety.php';           

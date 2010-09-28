@@ -156,6 +156,17 @@ If( $_POST["produkt"] ){
                 <b>Při přidávání produktu nastaly tyto chyby:</b> <br>'.getChyby().'
               </div><br>&nbsp;';
     }
+    
+    
+    // Podobné
+    foreach($_POST["podobne"] as $key=>$value){
+        if( $value ){
+            $id = zjisti_z("$CONF[sqlPrefix]zbozi", "id", "produkt='$value'");
+            $produkt_id = mysql_insert_id();
+            $dotaz = "INSERT INTO $CONF[sqlPrefix]zbozi_podobne(zbozi, podobne) VALUES ('$produkt_id', '$id') ";
+            mysql_query($dotaz) or die(mysql_error(). "<br>$dotaz");
+        }
+    }
 
 }
 
@@ -210,6 +221,24 @@ Function inputyProPrilohy($max=10){
 
               $inputy.= '
                         <span id="spanPriloha'.$i.'" style="display: '.$cssDisplay.';"><input type="file" name="prilohy['.$i.']" onChange="if(this.value){document.getElementById(\'spanPriloha'.($i+2).'\').style.display=\'inline\';}else{document.getElementById(\'spanPriloha'.($i+2).'\').style.display=\'none\';}"><br></span>
+                        ';
+              $i++;
+        }
+
+        Return $inputy;
+}
+
+Function inputyProPodobne($max=10){
+        $inputy = '';
+        $i = 1;
+        While($i<=$max){
+              $cssDisplay = ($i<=2)?'inline':'none';
+
+              $inputy.= '
+                        <span id="spanPodobne'.$i.'" style="display: '.$cssDisplay.';"><input id="inputPodobne'.$i.'" type="text" name="podobne['.$i.']" onChange="if(this.value){document.getElementById(\'spanPodobne'.($i+2).'\').style.display=\'inline\';}else{document.getElementById(\'spanPodobne'.($i+2).'\').style.display=\'none\';}" readonly> 
+                          [<a href="javascript: void(0);" onClick="easyAjaxPopup(\'Podobné produkty\', \'pridat.ajax.podobne.php\', \'kategorie='.$_GET["kategorie"].'&podkat1='.$_GET["podkat1"].'&podkat2='.$_GET["podkat2"].'&produkt='.$_GET["produkt"].'&input_id='.$i.'\');">přidat</a>] 
+                          [<a href="javascript: void(0);" onClick="document.getElementById(\'inputPodobne'.$i.'\').value=\'\'; checkPodobne();">odebrat</a>]
+                        <br></span>
                         ';
               $i++;
         }
@@ -388,6 +417,33 @@ function ukazSkryj(element) {
       </script>
       <noscript><textarea name="popis" rows="12" cols="65"></textarea></noscript>
   </td></tr>
+  <tr><td valign="top" style="padding-top: 5px;">
+  <nobr>Podobné produkty:</nobr></td><td>
+  ';
+
+if( zjisti_z("$CONF[sqlPrefix]nastaveni", "podobne_produkty_active", "id=1") ){
+    echo inputyProPodobne();
+}
+
+echo '
+  <script type="text/javascript">
+  function checkPodobne(){
+      i = 1;
+      while(i<=10){
+          thisPom = document.getElementById(\'inputPodobne\'+i);
+          i2 = i+2;
+          try{
+            if(thisPom.value){
+                document.getElementById(\'spanPodobne\'+i2).style.display=\'inline\';
+            }else{
+                document.getElementById(\'spanPodobne\'+i2).style.display=\'none\';
+            }
+          }catch(e){}
+          i++; 
+      }
+  }
+  </script>
+  </td></tr>  
   <tr><td colspan="2">&nbsp;</td></tr>
   <tr><td valign="top" style="padding-top: 5px;">
   <nobr>Připojit přílohu:</nobr></td><td>

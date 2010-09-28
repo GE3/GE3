@@ -1,0 +1,15 @@
+<form action="" method="post">
+  <h2>Podobné produkty</h2>
+  <table border="0">
+    <tr>
+      <td>Aktivovat podobné produkty: </td>
+      <td><input type="checkbox" name="podobne_produkty_active" value="1" {php: echo ('{podobne_produkty_active}')>0? 'checked': '';}></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="hidden" name="akce" value="podobne-produkty">
+        <input type="submit" name="odeslat" value="Odeslat">
+      </td>
+    </tr>    
+  </table>
+</form>
