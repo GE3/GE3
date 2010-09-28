@@ -618,5 +618,29 @@
        </td>
     </tr>
   </table>
+
+    {podobne/}
+      <br>&nbsp;
+      <hr>
+      <b>Podobné produkty: </b> <br>
+      {produkt/}
+        <div class="produkt_podobne">
+          <a href="{url}" style="display: block; float: left; height: 84px; width: 106px; text-align: center;">
+            <img src="{obrazek}" border="0" style="margin: auto;">
+          </a> 
+          <strong>{nazev}</strong>
+          <div style="padding: 6px 0px 6px 0px; font-size: 7pt; color: #808080;">č. {cislo}</div>
+          
+          <div style="clear: both;"></div>
+          <div style="float: left; width: 106px; padding-top: 2px; text-align: center; font-weight: bold;">{php: echo _hezkaCena('{cenaSDph}');} Kč</div>
+          <div style="position: relative; top: -10px;">
+            <a href="{url}"><img src="{_absDir}templates/{php: echo $GLOBALS["config"]["vzhled"];}/pictures/produkt_podobne_info.png" border="0"></a>
+            &nbsp;
+            <a href="{urlDoKosiku}"><img src="{_absDir}templates/{php: echo $GLOBALS["config"]["vzhled"];}/pictures/produkt_podobne_kosik.png" border="0"></a>
+          </div> 
+        </div>
+      {/produkt} 
+    {/podobne}  
+  
 </div>
 {/detailProduktuTisk}
